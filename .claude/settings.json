@@ -41,7 +41,9 @@
       "WebFetch(domain:www.bafu.admin.ch)",
       "Bash(node -e \":*)",
       "Bash(node -e \"const fs=require\\(''fs''\\);const d=JSON.parse\\(fs.readFileSync\\(''data/models.json''\\)\\);console.log\\(''Current count:'',d.length\\)\")",
-      "Bash(node -e \"const fs=require\\(''fs''\\);const d=JSON.parse\\(fs.readFileSync\\(''data/models.json''\\)\\);const n=JSON.parse\\(fs.readFileSync\\(''data/new-models.json''\\)\\);d.push\\(...n\\);fs.writeFileSync\\(''data/models.json'',JSON.stringify\\(d,null,2\\)+''\\\\n''\\);console.log\\(''Done - total:'',d.length\\);fs.unlinkSync\\(''data/new-models.json''\\);\")"
+      "Bash(node -e \"const fs=require\\(''fs''\\);const d=JSON.parse\\(fs.readFileSync\\(''data/models.json''\\)\\);const n=JSON.parse\\(fs.readFileSync\\(''data/new-models.json''\\)\\);d.push\\(...n\\);fs.writeFileSync\\(''data/models.json'',JSON.stringify\\(d,null,2\\)+''\\\\n''\\);console.log\\(''Done - total:'',d.length\\);fs.unlinkSync\\(''data/new-models.json''\\);\")",
+      "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1468421870903-4df1664ac249?w=600&h=300&fit=crop\")",
+      "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=600&h=300&fit=crop\")"
     ]
   }
 }

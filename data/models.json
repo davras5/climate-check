@@ -24,7 +24,7 @@
       "commercial",
       "residential"
     ],
-    "author": "CRREM Foundation / Institut für Immobilienökonomie (IIO)",
+    "author": "CRREM Foundation / IIÖ Institut für Immobilienökonomie",
     "license": {
       "type": "free-non-commercial",
       "name": "Proprietary — free for non-commercial use",
@@ -402,7 +402,7 @@
       "commercial",
       "residential"
     ],
-    "author": "CRREM Foundation / Institut für Immobilienökonomie (IIO)",
+    "author": "CRREM Foundation / IIÖ Institut für Immobilienökonomie",
     "license": {
       "type": "free-non-commercial",
       "name": "Proprietary — free for non-commercial use",
@@ -435,11 +435,12 @@
         "IN",
         "JP",
         "MY",
+        "NZ",
         "PH",
         "SG",
         "KR"
       ],
-      "jurisdictionCount": 9,
+      "jurisdictionCount": 10,
       "propertyTypeList": [
         "Office",
         "Retail High Street",
@@ -543,7 +544,7 @@
   {
     "id": "sbti-crrem",
     "name": "SBTi for Buildings (via CRREM)",
-    "version": "1.2",
+    "version": "1.1",
     "status": "coming-soon",
     "image": "models/sbti-crrem/card.svg",
     "description": "Science-based target-setting for real estate using CRREM-aligned 1.5°C pathways. Covers in-use operational emissions and embodied carbon with a whole-building approach.",
@@ -572,7 +573,7 @@
       "name": "Proprietary — all rights reserved",
       "url": "https://sciencebasedtargets.org/about-us/website-terms-of-use"
     },
-    "lastUpdated": "2026-02-01",
+    "lastUpdated": "2025-06-01",
     "scenario": "1.5°C (Sectoral Decarbonization Approach via IEA NZE / IPCC AR6)",
     "scope": "Whole-building: Scope 1 + 2 + Scope 3 (tenant energy); in-use operational + embodied carbon (new developments)",
     "adoptedBy": [
@@ -910,8 +911,8 @@
     "scenario": "CMIP6 SSP1-2.6, SSP2-4.5, SSP5-8.5",
     "scope": "Physical climate hazards: flood, heat, wind, drought — economic damage estimation",
     "adoptedBy": [
-      "UNEP FI",
-      "NGFS"
+      "EIOPA (referenced)",
+      "UNEP FI (referenced)"
     ],
     "limitations": [
       "Python library requires backend service or JS port for web use",
@@ -932,7 +933,9 @@
     },
     "inputs": [],
     "outputs": [],
-    "lifecycleStages": [],
+    "lifecycleStages": [
+      "Operation"
+    ],
     "complexity": 8,
     "maturity": 4,
     "approach": "quantitative"
@@ -944,7 +947,7 @@
     "status": "coming-soon",
     "image": "models/ifc-bri/card.svg",
     "description": "Web-based tool that evaluates location-specific climate and disaster risks for buildings, assigning an A+/A/B/C/R resilience grade.",
-    "longDescription": "The IFC Building Resilience Index (BRI), developed by the International Finance Corporation (World Bank Group), is a web-based self-assessment tool that evaluates a building's exposure to climate hazards and natural disasters. It assigns a standardized letter grade (A through F) based on location-specific risk exposure and the adaptation measures implemented. The tool is designed for emerging markets and supports investors, developers, and building owners in understanding and communicating physical climate resilience.",
+    "longDescription": "The IFC Building Resilience Index (BRI), developed by the International Finance Corporation (World Bank Group), is a web-based self-assessment tool that evaluates a building's exposure to climate hazards and natural disasters. It assigns a standardized grade (A+/A/B/C/R) based on location-specific risk exposure and the adaptation measures implemented. The tool is designed for emerging markets and supports investors, developers, and building owners in understanding and communicating physical climate resilience.",
     "categories": [
       "physical-risk"
     ],
@@ -1000,7 +1003,7 @@
   {
     "id": "energy-star",
     "name": "ENERGY STAR Portfolio Manager",
-    "version": "2025",
+    "version": "26.0",
     "status": "coming-soon",
     "image": "models/energy-star/card.svg",
     "description": "US EPA tool that benchmarks building energy performance against national averages. Produces a 1–100 score where 50 is the median for similar buildings.",
@@ -1020,7 +1023,8 @@
       "CA"
     ],
     "sector": [
-      "commercial"
+      "commercial",
+      "residential"
     ],
     "author": "US Environmental Protection Agency (EPA)",
     "license": {
@@ -1028,7 +1032,7 @@
       "name": "Free — public API",
       "url": "https://www.energystar.gov/buildings/benchmark"
     },
-    "lastUpdated": "2025-01-01",
+    "lastUpdated": "2026-02-24",
     "scenario": "N/A (benchmarking against peer buildings)",
     "scope": "Operational energy and water consumption",
     "adoptedBy": [
@@ -1091,7 +1095,7 @@
     "status": "coming-soon",
     "image": "models/ngfs/card.svg",
     "description": "Comprehensive climate scenario data for transition and physical risks from the Network for Greening the Financial System. Used by central banks worldwide.",
-    "longDescription": "The NGFS Climate Scenarios, produced by the Network for Greening the Financial System (a consortium of 130+ central banks and supervisors), provide comprehensive scenario data for both transition and physical climate risks. Version 5.0 includes macroeconomic impact projections, carbon price trajectories, energy mix evolution, and subnational physical risk indicators via the Climate Impact Explorer. The scenarios span Orderly, Disorderly, and Hot House World narratives, enabling financial institutions to stress-test portfolios against different climate futures.",
+    "longDescription": "The NGFS Climate Scenarios, produced by the Network for Greening the Financial System (a consortium of 140+ central banks and supervisors), provide comprehensive scenario data for both transition and physical climate risks. Version 5.0 includes macroeconomic impact projections, carbon price trajectories, energy mix evolution, and subnational physical risk indicators via the Climate Impact Explorer. The scenarios span Orderly, Disorderly, and Hot House World narratives, enabling financial institutions to stress-test portfolios against different climate futures.",
     "categories": [
       "transition-risk",
       "physical-risk"
@@ -1169,9 +1173,10 @@
       "AU"
     ],
     "sector": [
-      "commercial"
+      "commercial",
+      "residential"
     ],
-    "author": "Australian Government (DCCEEW)",
+    "author": "NSW Government (DCCEEW) on behalf of Australian Government",
     "license": {
       "type": "free",
       "name": "Government program — public methodology",
@@ -1192,7 +1197,7 @@
     ],
     "citation": "Australian Government (2025). NABERS — National Australian Built Environment Rating System. https://www.nabers.gov.au/",
     "source": {
-      "name": "Australian Government / DCCEEW",
+      "name": "NSW Government / DCCEEW",
       "url": "https://www.nabers.gov.au/"
     },
     "coverage": {
@@ -1268,7 +1273,7 @@
       "Country-specific baselines may not reflect local market conditions",
       "Certification requires third-party audit (paid)"
     ],
-    "citation": "IFC (2025). EDGE — Excellence in Design for Greater Efficiencies, v3.0. https://edgebuildings.com/",
+    "citation": "IFC (2025). EDGE — Excellence in Design for Greater Efficiencies, v3.1. https://edgebuildings.com/",
     "source": {
       "name": "IFC / GBCI",
       "url": "https://edgebuildings.com/"
@@ -1293,8 +1298,8 @@
     "inputs": [],
     "outputs": [],
     "lifecycleStages": [
-      "Production",
-      "Operation"
+      "Planning",
+      "Production"
     ],
     "complexity": 4,
     "maturity": 7,
@@ -1327,7 +1332,7 @@
     "sector": [
       "residential"
     ],
-    "author": "Swiss Federal Office for the Environment (BAFU/FOEN), developed by FPRE / Wüest Partner",
+    "author": "Swiss Federal Office for the Environment (BAFU/FOEN), developed by Wüest Partner AG",
     "license": {
       "type": "open-source",
       "name": "Open source (R script, available on request)",
@@ -1408,12 +1413,11 @@
       "name": "GNU GPL v3",
       "url": "https://github.com/CLIMADA-project/climada_python/blob/main/LICENSE"
     },
-    "lastUpdated": "2025-06-01",
+    "lastUpdated": "2025-09-30",
     "scenario": "Current climate + CMIP6 projections (SSP scenarios)",
     "scope": "Economic damage from natural hazards: wind, flood, drought, heat, wildfire",
     "adoptedBy": [
-      "EIOPA",
-      "UNDRR"
+      "EIOPA"
     ],
     "limitations": [
       "Python library requires backend service for web use",
@@ -1440,7 +1444,7 @@
   {
     "id": "openquake",
     "name": "OpenQuake Engine",
-    "version": "3.19",
+    "version": "3.25",
     "status": "coming-soon",
     "image": "models/openquake/card.svg",
     "description": "Gold-standard open-source engine for probabilistic seismic hazard and risk assessment at building level.",
@@ -1468,7 +1472,7 @@
       "name": "AGPL-3.0",
       "url": "https://github.com/gem/oq-engine/blob/master/LICENSE"
     },
-    "lastUpdated": "2025-03-01",
+    "lastUpdated": "2026-03-10",
     "scenario": "Probabilistic seismic hazard (multiple return periods)",
     "scope": "Seismic hazard curves, building damage, economic loss, loss exceedance curves",
     "adoptedBy": [
@@ -1522,18 +1526,17 @@
     "sector": [
       "commercial"
     ],
-    "author": "Lawrence Berkeley National Laboratory (LBNL), US DOE",
+    "author": "Lawrence Berkeley National Laboratory (LBNL), Johnson Controls, ICF",
     "license": {
       "type": "open-source",
-      "name": "Open source (GitHub)",
-      "url": "https://github.com/LBNL-ETA/BETTER"
+      "name": "BSD-3-Clause-LBNL",
+      "url": "https://github.com/LBNL-JCI-ICF/better"
     },
     "lastUpdated": "2024-06-01",
     "scenario": "N/A (retrofit cost-benefit analysis)",
     "scope": "Operational energy savings potential, retrofit measure ranking",
     "adoptedBy": [
-      "US DOE",
-      "UNEP"
+      "US DOE"
     ],
     "limitations": [
       "US-focused cost defaults",
@@ -1651,7 +1654,7 @@
       "name": "GNU GPL v3",
       "url": "https://github.com/Deltares/SFINCS/blob/main/LICENSE"
     },
-    "lastUpdated": "2025-01-01",
+    "lastUpdated": "2025-11-19",
     "scenario": "User-defined (SLR, rainfall, surge)",
     "scope": "Flood inundation depth and extent from compound flooding",
     "adoptedBy": [
@@ -1722,7 +1725,7 @@
       "Sub-basin resolution, not property-level",
       "No building-level impact modeling"
     ],
-    "citation": "Hofste, R.W. et al. (2019). Aqueduct 3.0. WRI Technical Note.",
+    "citation": "Kuzma, S. et al. (2023). Aqueduct 4.0: Updated Decision-Relevant Global Water Risk Indicators. WRI Technical Note.",
     "source": {
       "name": "WRI",
       "url": "https://www.wri.org/aqueduct"
@@ -1742,7 +1745,7 @@
   {
     "id": "climate-bonds",
     "name": "Climate Bonds Buildings Criteria",
-    "version": "2023",
+    "version": "2.1",
     "status": "coming-soon",
     "image": "models/climate-bonds/card.svg",
     "description": "Green bond certification screening for buildings with free CO2 calculators. Top-15% carbon intensity targets per city.",
@@ -1793,7 +1796,8 @@
       "timeRange": "Current–2050"
     },
     "lifecycleStages": [
-      "Operation"
+      "Operation",
+      "Construction"
     ],
     "complexity": 3,
     "maturity": 7,
@@ -1804,7 +1808,7 @@
   {
     "id": "elca-oekobaudat",
     "name": "eLCA + ÖKOBAUDAT",
-    "version": "2025",
+    "version": "2024-I",
     "status": "coming-soon",
     "image": "models/elca-oekobaudat/card.svg",
     "description": "Free open-source building LCA tool using Germany’s standardized EPD database. Whole-lifecycle impacts per EN 15978.",
@@ -1830,10 +1834,10 @@
     "author": "BBSR (Germany)",
     "license": {
       "type": "open-source",
-      "name": "Free — public sector",
+      "name": "AGPL-3.0 (eLCA) / Free public data (ÖKOBAUDAT)",
       "url": "https://www.bauteileditor.de"
     },
-    "lastUpdated": "2025-01-01",
+    "lastUpdated": "2024-10-02",
     "scenario": "N/A (lifecycle assessment)",
     "scope": "Whole-lifecycle environmental impacts per EN 15978",
     "adoptedBy": [
@@ -1872,7 +1876,7 @@
   {
     "id": "sri",
     "name": "Smart Readiness Indicator (SRI)",
-    "version": "2024",
+    "version": "2025",
     "status": "coming-soon",
     "image": "models/sri/card.svg",
     "description": "Official EU metric rating building smart readiness across 9 technical domains for energy optimization and grid flexibility.",
@@ -1899,7 +1903,7 @@
       "name": "Free — EU regulation",
       "url": "https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/smart-readiness-indicator_en"
     },
-    "lastUpdated": "2024-01-01",
+    "lastUpdated": "2025-01-01",
     "scenario": "N/A (readiness assessment)",
     "scope": "Smart readiness scoring across 9 technical domains",
     "adoptedBy": [
@@ -1932,11 +1936,11 @@
   {
     "id": "dgnb",
     "name": "DGNB System",
-    "version": "2020",
+    "version": "2023",
     "status": "coming-soon",
     "image": "models/dgnb/card.svg",
-    "description": "German multi-criteria sustainability certification. 38 criteria, 6 quality areas, Bronze–Platinum ratings, full lifecycle.",
-    "longDescription": "DGNB System evaluates buildings across 38 criteria in 6 areas: environmental, economic, sociocultural, technical, process, and site quality. International version covers 30+ countries. Aligned with EU Taxonomy.",
+    "description": "German multi-criteria sustainability certification. 29 criteria, 6 quality areas, Bronze–Platinum ratings, full lifecycle.",
+    "longDescription": "DGNB System evaluates buildings across 29 criteria in 6 areas: environmental, economic, sociocultural, technical, process, and site quality. International version covers 30+ countries. Aligned with EU Taxonomy.",
     "categories": [
       "carbon-accounting",
       "energy-benchmarking",
@@ -1957,11 +1961,11 @@
     ],
     "author": "Deutsche Gesellschaft für Nachhaltiges Bauen (DGNB)",
     "license": {
-      "type": "free-open-access",
+      "type": "free-non-commercial",
       "name": "Proprietary certification — criteria public",
       "url": "https://www.dgnb.de/en/certification/buildings"
     },
-    "lastUpdated": "2020-01-01",
+    "lastUpdated": "2023-07-01",
     "scenario": "N/A (multi-criteria assessment)",
     "scope": "38 criteria across 6 quality areas",
     "adoptedBy": [
@@ -1973,7 +1977,7 @@
       "German-origin",
       "Full scoring needs DGNB tools"
     ],
-    "citation": "DGNB (2020). DGNB System International.",
+    "citation": "DGNB (2023). DGNB System New Construction, Version 2023.",
     "source": {
       "name": "DGNB",
       "url": "https://www.dgnb.de/en/certification/buildings"
@@ -2029,7 +2033,7 @@
       "name": "Proprietary — scheme docs available",
       "url": "https://breeam.com/"
     },
-    "lastUpdated": "2024-06-01",
+    "lastUpdated": "2025-07-16",
     "scenario": "N/A (multi-criteria assessment)",
     "scope": "10 categories including energy, materials, water, health, ecology",
     "adoptedBy": [
@@ -2042,7 +2046,7 @@
       "Scheme docs for purchase",
       "Different schemes per building stage"
     ],
-    "citation": "BRE (2024). BREEAM V7. https://breeam.com/",
+    "citation": "BRE (2025). BREEAM New Construction V7. https://breeam.com/",
     "source": {
       "name": "BRE Group",
       "url": "https://breeam.com/"
@@ -2066,7 +2070,7 @@
   {
     "id": "hazus-fast",
     "name": "FEMA HAZUS / FAST",
-    "version": "6.1",
+    "version": "7.1",
     "status": "coming-soon",
     "image": "models/hazus-fast/card.svg",
     "description": "US multi-hazard loss estimation. FAST is open-source Python for building-level flood damage at ~10,000 structures/second.",
@@ -2094,7 +2098,7 @@
       "name": "Public domain (FAST is open-source)",
       "url": "https://github.com/nhrap-hazus/FAST"
     },
-    "lastUpdated": "2025-01-01",
+    "lastUpdated": "2025-09-01",
     "scenario": "Scenario-based or probabilistic",
     "scope": "Building damage, economic loss from flood/hurricane/earthquake",
     "adoptedBy": [
@@ -2106,7 +2110,7 @@
       "Full HAZUS requires ArcGIS",
       "Default inventory is census-tract level"
     ],
-    "citation": "FEMA (2025). Hazus. https://www.fema.gov/flood-maps/products-tools/hazus",
+    "citation": "FEMA (2025). Hazus 7.1. https://www.fema.gov/flood-maps/products-tools/hazus",
     "source": {
       "name": "FEMA",
       "url": "https://www.fema.gov/flood-maps/products-tools/hazus",
@@ -2249,7 +2253,7 @@
   {
     "id": "oasis-lmf",
     "name": "Oasis Loss Modelling Framework",
-    "version": "2.5",
+    "version": "2.5.1",
     "status": "coming-soon",
     "image": "models/oasis-lmf/card.svg",
     "description": "Open-source cat modelling platform. 100+ models from 21+ providers. Industry standard for insurers and reinsurers.",
@@ -2277,7 +2281,7 @@
       "name": "BSD 3-Clause",
       "url": "https://github.com/OasisLMF/OasisLMF/blob/main/LICENSE"
     },
-    "lastUpdated": "2025-01-01",
+    "lastUpdated": "2026-02-27",
     "scenario": "Model-dependent (probabilistic event sets)",
     "scope": "Cat model execution: ground-up loss, insured loss, reinsurance loss",
     "adoptedBy": [
@@ -2288,7 +2292,7 @@
       "Insurance-focused data structures",
       "Complex setup"
     ],
-    "citation": "Oasis LMF (2025). https://oasislmf.org/",
+    "citation": "Oasis LMF (2026). https://oasislmf.org/",
     "source": {
       "name": "Oasis LMF",
       "url": "https://oasislmf.org/",
