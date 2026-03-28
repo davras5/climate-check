@@ -32,7 +32,7 @@ function strandTxt(r) { return r.strandingYear ? String(r.strandingYear) : 'Alig
 function statusDot(s) {
   return s==='live'
     ? '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live"><span aria-hidden="true">\u25cf</span> Live</span>'
-    : '<span class="IssueLabel tag-click" data-g="status" data-v="coming-soon"><span aria-hidden="true">\u25cb</span> Coming soon</span>';
+    : '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon"><span aria-hidden="true">\u25cb</span> Coming soon</span>';
 }
 
 // Search debounce
@@ -50,6 +50,7 @@ function filtersToParams() {
   if (filters.status.length) p.set('status', filters.status.join(','));
   if (filters.tags.length) p.set('tags', filters.tags.join(','));
   if (viewMode !== 'gallery') p.set('view', viewMode);
+  if (gallerySort !== 'name') p.set('sort', gallerySort);
   return p.toString();
 }
 
@@ -61,6 +62,7 @@ function filtersFromParams() {
   filters.status = p.get('status') ? p.get('status').split(',') : [];
   filters.tags = p.get('tags') ? p.get('tags').split(',') : [];
   viewMode = p.get('view') || 'gallery';
+  gallerySort = p.get('sort') || 'name';
 }
 
 function pushFilterUrl() {
@@ -87,7 +89,12 @@ async function route() {
 // BOOT
 // ============================================================
 document.addEventListener('DOMContentLoaded', async () => {
-  models = await fetch('data/models.json').then(r => r.json());
+  try {
+    models = await fetch('data/models.json').then(r => { if (!r.ok) throw new Error('Failed to load'); return r.json(); });
+  } catch(e) {
+    $('#app').innerHTML = '<div class="gallery-empty"><p class="f3">Failed to load models</p><p class="f6 fgColor-muted">Check your connection and reload the page.</p></div>';
+    return;
+  }
   window.addEventListener('hashchange', route);
   await route();
 });
@@ -111,6 +118,7 @@ const CARD_IMG = {
   'ngfs':        'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&h=300&fit=crop',
   'nabers':      'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&h=300&fit=crop',
   'ifc-edge':    'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=300&fit=crop',
+  'crrem-apac':  'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=300&fit=crop',
   'bafu-co2':    'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&h=300&fit=crop',
 };
 
@@ -155,10 +163,10 @@ function galleryCard(m) {
       <div class="mb-1">
         <span class="f4 text-bold fgColor-default">${m.name}</span>
       </div>
-      <p class="f6 fgColor-muted mb-2" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${m.description}</p>
+      <p class="f6 fgColor-muted mb-2 line-clamp-2">${m.description}</p>
       <div class="d-flex flex-wrap gap-1">
         ${statusDot(m.status)}
-        ${m.tags.slice(0,3).map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
+        ${m.tags.slice(0,2).map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
       </div>
     </div>
   </div>`;
@@ -166,14 +174,12 @@ function galleryCard(m) {
 
 // Render list row
 function listRow(m) {
-  return `<tr class="border-bottom">
-    <td class="py-2 px-3"><a href="#/models/${m.id}" class="text-bold no-underline fgColor-default">${m.name}</a></td>
+  return `<tr class="border-bottom list-row" data-href="#/models/${m.id}" tabindex="0">
+    <td class="py-2 px-3 text-bold">${m.name}</td>
     <td class="py-2 px-3">${statusDot(m.status)}</td>
+    <td class="py-2 px-3">${(m.categories||[]).map(c=>`<span class="IssueLabel tag-click" data-g="categories" data-v="${c}">${c.replace(/-/g,' ')}</span>`).join(' ')}</td>
     <td class="py-2 px-3">${m.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</td>
-    <td class="py-2 px-3 fgColor-muted" style="max-width:360px">${m.description}</td>
-    <td class="py-2 px-3">
-      ${m.tags.slice(0,2).map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join(' ')}
-    </td>
+    <td class="py-2 px-3 fgColor-muted line-clamp-2">${m.description}</td>
   </tr>`;
 }
 
@@ -224,12 +230,7 @@ function showGallery() {
     return `<label class="filter-cb"><input type="checkbox" data-g="${grp}" data-v="${val}"${checked}><span>${lab}</span><span class="filter-count">${count}</span></label>`;
   };
 
-  let h = `
-  <nav class="breadcrumb mb-3" aria-label="Breadcrumb">
-    <span class="fgColor-muted">Models</span>
-  </nav>
-
-  <div class="gallery-layout">
+  let h = `<div class="gallery-layout">
   <aside class="filter-panel" aria-label="Filter models">
     <div class="filter-panel-title">Filters</div>
     <div class="filter-group">
@@ -259,25 +260,27 @@ function showGallery() {
         <svg class="gallery-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input class="gallery-search" type="search" id="gsearch" placeholder="Search models\u2026" value="${filters.q}" aria-label="Search models">
       </div>
-      ${viewToggleHtml()}
-      <select class="gallery-sort" id="gallerySort" aria-label="Sort models">
-        <option value="name"${gallerySort==='name'?' selected':''}>A\u2013Z</option>
-        <option value="updated"${gallerySort==='updated'?' selected':''}>Recently updated</option>
-        <option value="status"${gallerySort==='status'?' selected':''}>Status</option>
-        <option value="region"${gallerySort==='region'?' selected':''}>Region</option>
-      </select>
+      <div class="search-bar-controls">
+        ${viewToggleHtml()}
+        <select class="gallery-sort" id="gallerySort" aria-label="Sort models">
+          <option value="name"${gallerySort==='name'?' selected':''}>A\u2013Z</option>
+          <option value="updated"${gallerySort==='updated'?' selected':''}>Recently updated</option>
+          <option value="status"${gallerySort==='status'?' selected':''}>Status</option>
+          <option value="region"${gallerySort==='region'?' selected':''}>Region</option>
+        </select>
+      </div>
     </div>
 
     ${hasFilters ? `<div class="filter-bar" aria-label="Active filters">
       ${activeFilters.map(f => `<span class="filter-chip" data-g="${f.grp}" data-v="${f.val}">${f.lab}<button class="filter-chip-x" data-g="${f.grp}" data-v="${f.val}" aria-label="Remove ${f.lab} filter">\u00d7</button></span>`).join('')}
-      <button class="filter-reset" id="resetFilters">Reset all</button>
+      <button class="filter-reset" id="resetFilters" aria-label="Reset all filters">Reset all</button>
     </div>` : ''}`;
 
   if (vis.length === 0) {
     h += `<div class="gallery-empty"><p class="f3">No models match your filters</p><p class="f6 fgColor-muted">Try removing some filters or clearing the search</p></div>`;
   } else if (viewMode === 'list') {
     h += `<div class="Box" style="overflow-x:auto"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Models list">
-      <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Name</th><th class="py-2 px-3 text-left label-xs">Status</th><th class="py-2 px-3 text-left label-xs">Region</th><th class="py-2 px-3 text-left label-xs">Description</th><th class="py-2 px-3 text-left label-xs">Tags</th></tr></thead>
+      <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Name</th><th class="py-2 px-3 text-left label-xs">Status</th><th class="py-2 px-3 text-left label-xs">Category</th><th class="py-2 px-3 text-left label-xs">Region</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead>
       <tbody>${vis.map(m => listRow(m)).join('')}</tbody>
     </table></div>`;
   } else if (viewMode === 'map') {
@@ -297,6 +300,9 @@ function showGallery() {
     renderGalleryMap();
   }
 
+  // Events — mobile filter panel toggle
+  const fp = $('.filter-panel-title');
+  if (fp) fp.addEventListener('click', () => fp.closest('.filter-panel').classList.toggle('filter-panel-open'));
   // Events — sort
   $('#gallerySort').addEventListener('change', e => { gallerySort = e.target.value; showGallery(); });
   // Events — search (debounced)
@@ -320,10 +326,11 @@ function showGallery() {
     else { filters[g] = filters[g].filter(x => x !== v); }
     showGallery();
   }));
-  // Events — whole card clickable
-  $$('.model-card[data-href]').forEach(card => card.addEventListener('click', () => {
-    location.hash = card.dataset.href;
-  }));
+  // Events — whole card / list row clickable
+  $$('[data-href]').forEach(el => {
+    el.addEventListener('click', () => { location.hash = el.dataset.href; });
+    el.addEventListener('keydown', e => { if (e.key==='Enter') { e.preventDefault(); location.hash = el.dataset.href; } });
+  });
   // Events — clickable IssueLabels add filter
   $$('.tag-click').forEach(el => el.addEventListener('click', e => {
     e.stopPropagation();
@@ -440,7 +447,6 @@ async function showModel(id) {
           <div>
             <div class="d-flex flex-items-center gap-2 mb-1 flex-wrap">
               <h1 class="f2">${model.name}</h1>
-              ${statusDot(model.status)}
               ${model.version?`<span class="f6 fgColor-muted">v${model.version}</span>`:''}
             </div>
             <p class="fgColor-muted mb-2">${model.description}</p>
@@ -448,8 +454,9 @@ async function showModel(id) {
           <a href="${galleryHref()}" class="btn btn-sm flex-shrink-0" aria-label="Back to models">${ICON.back} Back</a>
         </div>
         <div class="d-flex flex-wrap gap-1 mb-2">
-          ${model.tags.map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
-          ${model.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}
+          ${statusDot(model.status)}
+          ${model.tags.map(t=>`<span class="IssueLabel tag-click tag-nav" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
+          ${model.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click tag-nav" data-g="region" data-v="${r}">${r}</span>`).join('')}
         </div>
       </div>
     </div>
@@ -467,6 +474,7 @@ async function showModel(id) {
 
   // Model details section
   const detailRows = [];
+  if (model.version) detailRows.push(['Version', model.version]);
   if (model.source && model.source.url) detailRows.push(['Project', `<a href="${model.source.url}" target="_blank" rel="noopener">${model.source.url.replace(/^https?:\/\/(www\.)?/,'')}</a>`]);
   if (model.source && model.source.methodology) detailRows.push(['Methodology', `<a href="${model.source.methodology}" target="_blank" rel="noopener">Documentation \u2197</a>`]);
   if (model.author) detailRows.push(['Author', model.author]);

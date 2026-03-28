@@ -135,14 +135,16 @@ input:focus-visible,
 /* ---- Width ---- */
 .width-full { width: 100%; }
 
+/* ---- Text clamp ---- */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* ---- Links ---- */
 .no-underline { text-decoration: none !important; }
-
-/* ---- Responsive ---- */
-@media (min-width: 768px) {
-  .d-md-block  { display: block; }
-  .d-md-inline { display: inline; }
-}
 
 /* ============================================================
    COMPONENTS
@@ -188,18 +190,6 @@ input:focus-visible,
   text-decoration: none;
 }
 .btn-sm { padding: 3px 10px; font-size: 12px; }
-.btn-primary {
-  color: #fff;
-  background: var(--accent-emphasis);
-  border-color: var(--accent-emphasis);
-}
-.btn-primary:hover {
-  background: #0860ca;
-  border-color: #0860ca;
-}
-@media (prefers-color-scheme: dark) {
-  .btn-primary:hover { background: #1a6fdb; border-color: #1a6fdb; }
-}
 .btn-link {
   padding: 0;
   color: var(--accent-fg);
@@ -223,24 +213,6 @@ input:focus-visible,
 }
 .btn-octicon:hover { background: var(--bg-muted); color: var(--fg); }
 
-/* ---- Form controls ---- */
-.form-control {
-  padding: 7px 12px;
-  font-size: 14px;
-  font-family: inherit;
-  color: var(--fg);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-.form-control:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-muted);
-}
-.form-control::placeholder { color: var(--fg-faint); }
-
 /* ---- Labels / Badges ---- */
 .IssueLabel {
   display: inline-block;
@@ -262,6 +234,15 @@ input:focus-visible,
   background: var(--accent-muted);
   color: var(--accent-fg);
   border-color: var(--accent);
+}
+.IssueLabel.tag-nav::after {
+  content: ' \2197';
+  font-size: 9px;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.IssueLabel.tag-nav:hover::after {
+  opacity: 0.6;
 }
 .Counter {
   display: inline-block;
@@ -518,7 +499,14 @@ input:focus-visible,
 .search-bar {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.search-bar-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* ---- View toggle ---- */
@@ -626,8 +614,8 @@ input:focus-visible,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   font-size: 14px;
   line-height: 1;
@@ -659,6 +647,8 @@ input:focus-visible,
 /* ---- Gallery map view ---- */
 .gallery-map-view {
   min-height: 300px;
+  max-height: 500px;
+  overflow: hidden;
 }
 
 /* ---- Gallery count ---- */
@@ -754,27 +744,13 @@ input:focus-visible,
   background: var(--accent-emphasis);
 }
 
-/* ---- Filter pills (kept for potential reuse) ---- */
-.pill {
-  padding: 4px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--fg-muted);
-  background: none;
+/* ---- List view rows ---- */
+.list-row {
   cursor: pointer;
-  text-transform: capitalize;
-  transition: all 0.1s;
+  transition: background 0.08s;
 }
-.pill:hover {
-  border-color: var(--accent);
-  color: var(--fg);
-}
-.pill-on {
-  background: var(--accent-emphasis);
-  color: #fff;
-  border-color: var(--accent-emphasis);
+.list-row:hover {
+  background: var(--accent-muted) !important;
 }
 
 /* ---- Collapsible sections ---- */
@@ -900,7 +876,11 @@ tr.xr { background: var(--danger-muted) !important; }
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .gallery-layout { grid-template-columns: 1fr; gap: var(--space-3); }
-  .filter-panel { position: static; }
+  .filter-panel { position: static; max-height: 48px; overflow: hidden; transition: max-height 0.2s ease; }
+  .filter-panel.filter-panel-open { max-height: 2000px; }
+  .filter-panel-title { cursor: pointer; }
+  .filter-panel-title::after { content: ' \25BE'; font-size: 10px; }
+  .filter-panel-open .filter-panel-title::after { content: ' \25B4'; }
   .g2, .g3 { grid-template-columns: 1fr; }
   .gk { grid-template-columns: 1fr 1fr; }
   .model-grid { grid-template-columns: 1fr; }

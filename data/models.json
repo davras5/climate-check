@@ -121,6 +121,50 @@
     "outputs": []
   },
   {
+    "id": "crrem-apac",
+    "name": "CRREM Asia-Pacific",
+    "version": "2.07",
+    "status": "coming-soon",
+    "image": "models/crrem-apac/card.svg",
+    "description": "Stranding assessment for buildings across 9 Asia-Pacific jurisdictions including Australia, China, Hong Kong, India, Japan, Malaysia, Philippines, Singapore, and South Korea.",
+    "longDescription": "The Asia-Pacific edition of CRREM applies the science-based 1.5\u00b0C decarbonization framework to 9 major APAC markets. Like the EU and NA editions, it calculates property-level carbon intensity and EUI pathways from 2020 to 2050, using jurisdiction-specific grid emission factors, district heating factors, and climate projections (HDD/CDD). The APAC pathways account for the region's diverse energy mixes and rapid urbanization, with country-specific baseline EUIs and grid decarbonization trajectories.",
+    "categories": ["transition-risk"],
+    "tags": ["stranding", "carbon-intensity", "financial-risk", "energy"],
+    "region": ["APAC"],
+    "sector": ["commercial", "residential"],
+    "author": "CRREM Foundation / Institut f\u00fcr Immobilien\u00f6konomie (IIO)",
+    "license": {
+      "name": "Proprietary \u2014 free for non-commercial use",
+      "url": "https://www.crrem.eu/frequently-asked-questions/"
+    },
+    "lastUpdated": "2025-07-11",
+    "scenario": "1.5\u00b0C (IEA NZE 2050); 2\u00b0C alternative; RCP 4.5 / 8.5 for climate projections",
+    "scope": "Whole-building operational GHG (Scope 1 + 2 + downstream tenant energy); CO2e including F-gases; embodied carbon excluded",
+    "adoptedBy": ["GRESB", "SBTi"],
+    "limitations": [
+      "Grid emission factor data quality varies across APAC jurisdictions",
+      "Fewer country-specific validation studies than EU edition",
+      "Embodied carbon excluded from pathways",
+      "Building-level renewable energy procurement does not alter pathway performance"
+    ],
+    "citation": "CRREM Foundation / IIO (2025). CRREM Risk Assessment Tool \u2014 Asia-Pacific, V2.07. https://crrem.org",
+    "source": {
+      "name": "CRREM Foundation / IIO",
+      "url": "https://www.crrem.eu",
+      "methodology": "https://crrem.org/crrem-pathways-methodology/"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["AU","CN","HK","IN","JP","MY","PH","SG","KR"],
+      "jurisdictionCount": 9,
+      "propertyTypeList": ["Office","Retail High Street","Shopping Centre","Retail Warehouse","Hotel","Healthcare","Industrial Warehouse (Warm)","Industrial Warehouse (Cooled)","Lodging / Leisure / Recreation","Residential Multi-Family"],
+      "propertyTypeCount": 10,
+      "mapRegion": "asia-pacific",
+      "timeRange": "2020\u20132050"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
     "id": "pcaf",
     "name": "PCAF Global GHG Standard",
     "version": "3.0",

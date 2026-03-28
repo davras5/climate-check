@@ -30,7 +30,8 @@
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/eu-levels/card.svg\":*)",
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/ashrae-beq/card.svg\":*)",
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/os-physrisk/card.svg\":*)",
-      "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop\")"
+      "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop\")",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/crrem-apac/card.svg\":*)"
     ]
   }
 }
