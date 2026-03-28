@@ -5,7 +5,32 @@
       "Bash(python3:*)",
       "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" log --oneline)",
       "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" ls-files)",
-      "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" status)"
+      "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" status)",
+      "Bash(python3 -c \"import subprocess, sys; subprocess.check_call\\([sys.executable, ''Scripts/pywin32_postinstall.py'', ''-install''], cwd=sys.prefix\\)\")",
+      "Bash(pip show:*)",
+      "Bash(\"C:\\\\Users\\\\DavidRasner\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\" -m pip install pywin32 xlwings)",
+      "Bash(\"C:\\\\Users\\\\DavidRasner\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\" -c \"import win32com.client; print\\(''''win32com ready''''\\)\")",
+      "Bash(PYTHONIOENCODING=utf-8 \"C:\\\\Users\\\\DavidRasner\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\" << 'PYEOF':*)",
+      "Bash(gzip -k -c \"c:/Users/DavidRasner/Documents/GitHub/climate-check/data/crrem-eu.db\")",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:primer.style)",
+      "WebFetch(domain:unpkg.com)",
+      "Bash(curl -sI \"https://unpkg.com/@primer/css@22.1.1/dist/primer.css\")",
+      "Bash(curl -s \"https://unpkg.com/@primer/css@22.1.1/dist/primer.css\")",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg\" -o /tmp/world-map.svg)",
+      "Read(//tmp/**)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/flekschas/simple-world-map/master/world-map.svg\" -o \"c:/Users/DavidRasner/Documents/GitHub/climate-check/data/world-map.svg\")",
+      "Bash(for d:*)",
+      "Bash(do mkdir:*)",
+      "Bash(done)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/zero-tool/card.svg\":*)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/ec3/card.svg\":*)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/eu-levels/card.svg\":*)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/ashrae-beq/card.svg\":*)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/os-physrisk/card.svg\":*)",
+      "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop\")"
     ]
   }
 }

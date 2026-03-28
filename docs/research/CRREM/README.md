@@ -380,29 +380,29 @@ Note: The APAC edition reuses the EU postal code database internally, with APAC 
 
 ### Per-Asset Required Inputs
 
-| Field | Format | Description | Notes |
-|---|---|---|---|
-| Asset Name | Text | Identifier for the building | |
-| Reporting Year | Selection | Year of the energy data | 2020, 2021, 2022, 2023, or 2024 (V2.06+ added 2023-2024) |
-| Country | Selection | Jurisdiction where the building is located | 30 (EU), 9 (APAC), 2 (NA) — see Jurisdictions |
-| Property Type | Selection | Building use classification | 11 types (EU/APAC), 16 types (NA) — see Property Types |
-| Total Gross Internal Area | Numeric (m2) | Floor area measured to IPMS 2 standard | Exclude outdoor/exterior areas and indoor parking (heated or non-heated). Switzerland: multiply EBF by 0.9. Hong Kong residential: multiply Leasable Area by 1.15. |
-| Average Annual Vacant Area | Numeric (m2) | Unoccupied floor area | Used for occupancy normalization |
+| Field | Required | Format | Description | Notes |
+|---|---|---|---|---|
+| Asset Name | Yes | Text | Identifier for the building | |
+| Reporting Year | Yes | Selection | Year of the energy data | 2020, 2021, 2022, 2023, or 2024 (V2.06+ added 2023-2024) |
+| Country | Yes | Selection | Jurisdiction where the building is located | 30 (EU), 9 (APAC), 2 (NA) — see Jurisdictions |
+| Property Type | Yes | Selection | Building use classification | 11 types (EU/APAC), 16 types (NA) — see Property Types |
+| Total Gross Internal Area | Yes | Numeric (m2) | Floor area measured to IPMS 2 standard | Exclude outdoor/exterior areas and indoor parking (heated or non-heated). Switzerland: multiply EBF by 0.9. Hong Kong residential: multiply Leasable Area by 1.15. |
+| Average Annual Vacant Area | Yes | Numeric (m2) | Unoccupied floor area | Used for occupancy normalization |
 
 ### Per-Asset Optional Inputs
 
-| Field | Format | Description | Notes |
-|---|---|---|---|
-| Gross Asset Value (GAV) | Numeric (EUR or USD) | Market value of the asset | Required for Carbon Value at Risk (CVaR) calculation. Currency depends on edition. |
-| % Ownership | Numeric (%) | Partial ownership allocation | Allocates proportional share of emissions |
-| Reporting Period Start Month | Selection (1-12) | Month the energy reporting period begins | |
-| Reporting Period Length | Numeric (months) | Duration of energy data (1-12) | Default assumes annualized |
-| Entity / Fund Name | Text | Portfolio grouping identifier | For portfolio-level filtering |
-| City | Text | City location | |
-| ZIP / Postal Code | Text | Postal code | Enables local HDD/CDD climate corrections and (in NA) automatic pathway assignment |
-| Address | Text | Full street address | |
-| Air Conditioning | Yes/No | Whether the building has AC | Affects energy projections |
-| Include / Exclude | Selection | Toggle asset in/out of portfolio analysis | |
+| Field | Required | Format | Description | Notes |
+|---|---|---|---|---|
+| Gross Asset Value (GAV) | For CVaR | Numeric (EUR or USD) | Market value of the asset | Required for Carbon Value at Risk (CVaR) calculation. Currency depends on edition. |
+| % Ownership | No | Numeric (%) | Partial ownership allocation | Allocates proportional share of emissions |
+| Reporting Period Start Month | No | Selection (1-12) | Month the energy reporting period begins | |
+| Reporting Period Length | No | Numeric (months) | Duration of energy data (1-12) | Default assumes annualized |
+| Entity / Fund Name | No | Text | Portfolio grouping identifier | For portfolio-level filtering |
+| City | No | Text | City location | |
+| ZIP / Postal Code | No | Text | Postal code | Enables local HDD/CDD climate corrections and (in NA) automatic pathway assignment |
+| Address | No | Text | Full street address | |
+| Air Conditioning | No | Yes/No | Whether the building has AC | Affects energy projections |
+| Include / Exclude | No | Selection | Toggle asset in/out of portfolio analysis | |
 
 ### Energy Consumption (per energy source)
 
@@ -410,32 +410,32 @@ For each energy source, three values are collected: consumption (kWh), data cove
 
 Users must normalize for operating hours before data entry (e.g., 24/7 buildings vs. standard 8-hour offices). EV charging station electricity must be excluded. Parking areas should be excluded from floor area measurements.
 
-| Energy Source | Emission Factor Basis | Notes |
-|---|---|---|
-| Grid Electricity | Jurisdiction-specific grid EF (projected annually) | |
-| Natural Gas | Static fuel EF: 0.18316 kgCO2e/kWh (EU/APAC) or 0.18105 kgCO2e/kWh (NA) | Source: UK Gov BEIS 2020 |
-| Fuel Oil | Static fuel EF | |
-| District Heating (steam) | Coupled to electricity EF via ratio | Hot water DH should be reported under "Other" |
-| District Cooling | Coupled to electricity EF via ratio | |
-| Other Source 1 | Per-fuel static EF | Biogas, wood chips, wood pellets, coal, landfill gas, LPG |
-| Other Source 2 | Per-fuel static EF | Second alternative fuel source |
+| Energy Source | Required | Emission Factor Basis | Notes |
+|---|---|---|---|
+| Grid Electricity | Min. 1 source | Jurisdiction-specific grid EF (projected annually) | |
+| Natural Gas | Min. 1 source | Static fuel EF: 0.18316 kgCO2e/kWh (EU/APAC) or 0.18105 kgCO2e/kWh (NA) | Source: UK Gov BEIS 2020 |
+| Fuel Oil | Min. 1 source | Static fuel EF | |
+| District Heating (steam) | Min. 1 source | Coupled to electricity EF via ratio | Hot water DH should be reported under "Other" |
+| District Cooling | Min. 1 source | Coupled to electricity EF via ratio | |
+| Other Source 1 | Min. 1 source | Per-fuel static EF | Biogas, wood chips, wood pellets, coal, landfill gas, LPG |
+| Other Source 2 | Min. 1 source | Per-fuel static EF | Second alternative fuel source |
 
 ### Renewable Energy Generation
 
 The tool collects three aggregate fields (not broken down by solar/wind/other):
 
-| Field | Format | Description |
-|---|---|---|
-| On-site generated and consumed on-site | Numeric (kWh) | All on-site renewable energy used on-site (solar PV, wind, geothermal, hydro, etc.). Added to total energy consumption but assigned EF = 0. |
-| Generated on-site and exported to grid | Numeric (kWh) | All on-site renewable energy sold back to the grid. Reduces the building's carbon footprint. |
-| Off-site renewable electricity purchased | Numeric (kWh) | Renewable energy contracts. Accounting method selection: location-based (recommended) or market-based. |
+| Field | Required | Format | Description |
+|---|---|---|---|
+| On-site generated and consumed on-site | No | Numeric (kWh) | All on-site renewable energy used on-site (solar PV, wind, geothermal, hydro, etc.). Added to total energy consumption but assigned EF = 0. |
+| Generated on-site and exported to grid | No | Numeric (kWh) | All on-site renewable energy sold back to the grid. Reduces the building's carbon footprint. |
+| Off-site renewable electricity purchased | No | Numeric (kWh) | Renewable energy contracts. Accounting method selection: location-based (recommended) or market-based. |
 
 ### Fugitive Emissions (Refrigerants)
 
-| Field | Format | Description |
-|---|---|---|
-| Refrigerant gas type (up to 2) | Selection | Gas type (e.g., R-410A with GWP 2088, R-134a with GWP 1300). 40+ types available. |
-| Annual leakage amount (up to 2) | Numeric (kg) | Annual refrigerant leakage per type |
+| Field | Required | Format | Description |
+|---|---|---|---|
+| Refrigerant gas type (up to 2) | No | Selection | Gas type (e.g., R-410A with GWP 2088, R-134a with GWP 1300). 40+ types available. |
+| Annual leakage amount (up to 2) | No | Numeric (kg) | Annual refrigerant leakage per type |
 
 Reporting fugitive emissions switches the benchmark from a CO2-only pathway to a CO2e pathway (which includes an F-gas allowance).
 
@@ -443,27 +443,27 @@ Reporting fugitive emissions switches the benchmark from a CO2-only pathway to a
 
 The tool supports up to **3 retrofit actions per asset** (RF1, RF2, RF3), each with the following fields:
 
-| Field | Format | Description |
-|---|---|---|
-| Year of retrofit | Year (2020-2050) | Year the retrofit is planned or executed |
-| Retrofit investment | Numeric (EUR or USD) | Capital cost of the retrofit |
-| Achieved energy reduction | Numeric (%) | Expected energy reduction percentage |
-| Embodied carbon of retrofit | Numeric (kgCO2e) | Lifecycle carbon cost of the retrofit materials and works |
+| Field | Required | Format | Description |
+|---|---|---|---|
+| Year of retrofit | No | Year (2020-2050) | Year the retrofit is planned or executed |
+| Retrofit investment | No | Numeric (EUR or USD) | Capital cost of the retrofit |
+| Achieved energy reduction | No | Numeric (%) | Expected energy reduction percentage |
+| Embodied carbon of retrofit | No | Numeric (kgCO2e) | Lifecycle carbon cost of the retrofit materials and works |
 
 ### Configurable Settings (per asset, with defaults)
 
-| Setting | Default | Notes |
-|---|---|---|
-| Normalize to 100% occupancy | Yes | Adjusts energy consumption for vacancy |
-| Normalize current HDD/CDD | Yes | Climate correction for comparison period |
-| Climate change projection scenario | RCP4.5 | Alternative: RCP8.5 |
-| Custom electricity emission factor schedule (2020-2050) | Country default | Override kgCO2e/kWh per year |
-| Custom district heating EF schedule | Country default | Override DH emission factors |
-| Custom district cooling EF schedule | Country default | Override DC emission factors |
-| Energy prices (electricity, gas, DH, other) and annual escalation | Country defaults | Per-source price and escalation rate |
-| Carbon price schedule (initial, climax, growth type, rate) | 32 EUR/t in 2023, 250 EUR/t in 2050, linear (per Reference Guide V2) | User-overridable |
-| Discount rate | 3% | For NPV calculations (source: BPIE) |
-| User-defined decarbonization pathway (kgCO2e/m2 per year) | None (uses CRREM 1.5C/2C) | 31 annual values, 2020-2050 |
+| Setting | Required | Default | Notes |
+|---|---|---|---|
+| Normalize to 100% occupancy | No | Yes | Adjusts energy consumption for vacancy |
+| Normalize current HDD/CDD | No | Yes | Climate correction for comparison period |
+| Climate change projection scenario | No | RCP4.5 | Alternative: RCP8.5 |
+| Custom electricity emission factor schedule (2020-2050) | No | Country default | Override kgCO2e/kWh per year |
+| Custom district heating EF schedule | No | Country default | Override DH emission factors |
+| Custom district cooling EF schedule | No | Country default | Override DC emission factors |
+| Energy prices (electricity, gas, DH, other) and annual escalation | No | Country defaults | Per-source price and escalation rate |
+| Carbon price schedule (initial, climax, growth type, rate) | No | 32 EUR/t in 2023, 250 EUR/t in 2050, linear (per Reference Guide V2) | User-overridable |
+| Discount rate | No | 3% | For NPV calculations (source: BPIE) |
+| User-defined decarbonization pathway (kgCO2e/m2 per year) | No | None (uses CRREM 1.5C/2C) | 31 annual values, 2020-2050 |
 
 ---
 

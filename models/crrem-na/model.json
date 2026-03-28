@@ -1,0 +1,22 @@
+{
+  "id": "crrem-na",
+  "name": "CRREM North America",
+  "version": "2.07",
+  "status": "coming-soon",
+  "image": "models/crrem-na/card.svg",
+  "description": "Stranding assessment for US and Canadian buildings with 57 US sub-regions (eGRID \u00d7 CBECS climate zone) and 11 Canadian sub-regions.",
+  "tags": ["stranding", "carbon-intensity", "financial-risk", "energy"],
+  "region": ["NA"],
+  "sector": ["commercial", "residential"],
+  "source": {
+    "name": "CRREM Foundation / LBNL",
+    "url": "https://www.crrem.eu"
+  },
+  "coverage": {
+    "jurisdictionCount": 68,
+    "propertyTypeCount": 16,
+    "timeRange": "2020\u20132050"
+  },
+  "inputs": [],
+  "outputs": []
+}

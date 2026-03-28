@@ -1,0 +1,22 @@
+{
+  "id": "sbti-crrem",
+  "name": "SBTi for Buildings (via CRREM)",
+  "version": "1.0",
+  "status": "coming-soon",
+  "image": "models/sbti-crrem/card.svg",
+  "description": "Science Based Targets initiative alignment check for real estate portfolios. Uses CRREM pathways as the approved SDA tool for buildings sector target validation.",
+  "tags": ["stranding", "carbon-intensity", "net-zero", "target-setting"],
+  "region": ["global"],
+  "sector": ["commercial", "residential", "industrial"],
+  "source": {
+    "name": "SBTi",
+    "url": "https://sciencebasedtargets.org"
+  },
+  "coverage": {
+    "jurisdictionCount": 0,
+    "propertyTypeCount": 0,
+    "timeRange": "2020\u20132050"
+  },
+  "inputs": [],
+  "outputs": []
+}

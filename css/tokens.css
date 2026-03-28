@@ -1,0 +1,140 @@
+/* ============================================================
+   climate-check — Design Tokens
+   Colors, typography, spacing, radii, shadows.
+   ============================================================ */
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ---- Tokens ---- */
+:root {
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+
+  /* Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 3px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
+
+  /* Light theme colors */
+  --fg: #1a1a1a;
+  --fg-muted: #656d76;
+  --fg-faint: #8b949e;
+  --bg: #ffffff;
+  --bg-muted: #f6f8fa;
+  --bg-inset: #eff1f3;
+  --border: #d1d9e0;
+  --border-muted: #e8ecf0;
+
+  --accent: #0969da;
+  --accent-fg: #0550ae;
+  --accent-muted: #ddf4ff;
+  --accent-emphasis: #0969da;
+
+  --danger: #d1242f;
+  --danger-fg: #cf222e;
+  --danger-muted: #ffebe9;
+  --danger-emphasis: #cf222e;
+
+  --attention: #9a6700;
+  --attention-fg: #9a6700;
+  --attention-muted: #fff8c5;
+  --attention-emphasis: #bf8700;
+
+  --success: #1a7f37;
+  --success-fg: #1a7f37;
+  --success-muted: #dafbe1;
+  --success-emphasis: #1f883d;
+
+  --open: #1a7f37;
+  --open-muted: #dafbe1;
+
+  /* Aliases (used by app.js inline styles) */
+  --fgColor-default: var(--fg);
+  --fgColor-muted: var(--fg-muted);
+  --fgColor-accent: var(--accent-fg);
+  --fgColor-danger: var(--danger-fg);
+  --fgColor-attention: var(--attention-fg);
+  --fgColor-success: var(--success-fg);
+  --fgColor-open: var(--open);
+  --fgColor-onEmphasis: #fff;
+
+  --bgColor-default: var(--bg);
+  --bgColor-muted: var(--bg-muted);
+  --bgColor-inset: var(--bg-inset);
+  --bgColor-accent-muted: var(--accent-muted);
+  --bgColor-accent-emphasis: var(--accent-emphasis);
+  --bgColor-danger-muted: var(--danger-muted);
+  --bgColor-danger-emphasis: var(--danger-emphasis);
+  --bgColor-attention-muted: var(--attention-muted);
+  --bgColor-attention-emphasis: var(--attention-emphasis);
+  --bgColor-success-muted: var(--success-muted);
+  --bgColor-success-emphasis: var(--success-emphasis);
+  --bgColor-open-muted: var(--open-muted);
+
+  --borderColor-default: var(--border);
+  --borderColor-muted: var(--border-muted);
+  --borderColor-accent-emphasis: var(--accent);
+  --borderColor-danger-emphasis: var(--danger);
+  --borderColor-attention-emphasis: var(--attention);
+  --borderColor-success-emphasis: var(--success);
+  --borderColor-accent-muted: #b6e3ff;
+}
+
+/* ---- Dark mode ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e6edf3;
+    --fg-muted: #8b949e;
+    --fg-faint: #6e7681;
+    --bg: #0d1117;
+    --bg-muted: #161b22;
+    --bg-inset: #1c2128;
+    --border: #30363d;
+    --border-muted: #21262d;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 3px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+
+    --accent: #58a6ff;
+    --accent-fg: #58a6ff;
+    --accent-muted: #12263a;
+    --accent-emphasis: #1f6feb;
+
+    --danger: #f85149;
+    --danger-fg: #f85149;
+    --danger-muted: #3d1214;
+    --danger-emphasis: #da3633;
+
+    --attention: #d29922;
+    --attention-fg: #d29922;
+    --attention-muted: #2e1f00;
+    --attention-emphasis: #d29922;
+
+    --success: #3fb950;
+    --success-fg: #3fb950;
+    --success-muted: #0f2d16;
+    --success-emphasis: #2ea043;
+
+    --open: #3fb950;
+    --open-muted: #0f2d16;
+
+    --borderColor-accent-muted: #1f3a5f;
+  }
+}

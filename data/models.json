@@ -1,0 +1,655 @@
+[
+  {
+    "id": "crrem-eu",
+    "name": "CRREM EU Risk Assessment",
+    "version": "2.07",
+    "status": "live",
+    "image": "models/crrem-eu/card.svg",
+    "description": "Paris-aligned stranding assessment for commercial and residential buildings across 30 European jurisdictions.",
+    "longDescription": "The Carbon Risk Real Estate Monitor (CRREM) translates global carbon budgets into property-level carbon intensity and energy use intensity (EUI) pathways from 2020 to 2050. For each building, it calculates a projected emissions trajectory based on reported energy consumption and country-specific grid decarbonization trends, then compares this against the science-based 1.5\u00b0C decarbonization pathway to determine stranding year, excess emissions, and financial risk exposure.",
+    "categories": ["transition-risk"],
+    "tags": ["stranding", "carbon-intensity", "financial-risk", "energy"],
+    "region": ["EU"],
+    "sector": ["commercial", "residential"],
+    "author": "CRREM Foundation / Institut f\u00fcr Immobilien\u00f6konomie (IIO)",
+    "license": {
+      "name": "Proprietary \u2014 free for non-commercial use",
+      "url": "https://www.crrem.eu/frequently-asked-questions/"
+    },
+    "lastUpdated": "2025-07-11",
+    "scenario": "1.5\u00b0C (IEA NZE 2050); 2\u00b0C alternative; RCP 4.5 / 8.5 for climate projections",
+    "scope": "Whole-building operational GHG (Scope 1 + 2 + downstream tenant energy); CO2e including F-gases; embodied carbon excluded",
+    "adoptedBy": ["GRESB", "SBTi", "PCAF", "EU Taxonomy (recommended)"],
+    "limitations": [
+      "Embodied carbon excluded \u2014 operational energy only",
+      "Location-based accounting only \u2014 RECs/GOs not reflected in grid emission factors",
+      "Static fuel emission factors for natural gas and fuel oil (only grid electricity and DH projected forward)",
+      "Single reporting-year baseline \u2014 no multi-year trending",
+      "No building-level retrofit feasibility validation",
+      "Data centres explicitly excluded (EUI too high)",
+      "V2.07 is final Excel release \u2014 CRREM transitioning to disaggregated open-access data"
+    ],
+    "citation": "CRREM Foundation / IIO (2025). CRREM Risk Assessment Tool V2.07. Carbon Risk Real Estate Monitor. https://www.crrem.eu",
+    "source": {
+      "name": "CRREM Foundation / IIO",
+      "url": "https://www.crrem.eu",
+      "documentation": "docs/research/CRREM/README.md",
+      "methodology": "https://crrem.org/crrem-pathways-methodology/"
+    },
+    "database": "data/crrem-eu.db",
+    "engine": "js/engines/crrem-eu.js",
+    "testData": "models/crrem-eu/test.csv",
+    "coverage": {
+      "jurisdictionCodes": ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","CH","GB"],
+      "jurisdictionCount": 30,
+      "propertyTypeList": ["Office","Retail High Street","Shopping Centre","Retail Warehouse","Hotel","Healthcare","Industrial Warehouse (Warm)","Industrial Warehouse (Cooled)","Lodging / Leisure / Recreation","Residential Multi-Family"],
+      "propertyTypeCount": 10,
+      "mapRegion": "europe",
+      "timeRange": "2020\u20132050"
+    },
+    "inputs": [
+      {"field": "asset_name", "label": "Asset Name", "type": "string", "required": true, "description": "Building identifier"},
+      {"field": "reporting_year", "label": "Reporting Year", "type": "integer", "required": true, "description": "2020\u20132024"},
+      {"field": "country_code", "label": "Country", "type": "enum", "required": true, "description": "ISO 2-letter (30 European jurisdictions)"},
+      {"field": "property_type_code", "label": "Property Type", "type": "enum", "required": true, "description": "OFF, RHS, RSM, RWB, DWC, DWW, HOT, HEC, LEI, RMF"},
+      {"field": "floor_area", "label": "Floor Area", "type": "number", "unit": "m\u00b2", "required": true, "description": "Gross internal area (IPMS 2)"},
+      {"field": "vacant_area", "label": "Vacant Area", "type": "number", "unit": "m\u00b2", "required": false, "description": "For occupancy normalization"},
+      {"field": "gav", "label": "Gross Asset Value", "type": "number", "unit": "EUR", "required": false, "description": "Market value \u2014 needed for CVaR"},
+      {"field": "electricity_kwh", "label": "Grid Electricity", "type": "number", "unit": "kWh", "required": false, "group": "energy", "description": "Annual consumption (country-projected EF)"},
+      {"field": "natural_gas_kwh", "label": "Natural Gas", "type": "number", "unit": "kWh", "required": false, "group": "energy", "description": "Static EF: 0.183 kgCO2e/kWh"},
+      {"field": "district_heating_kwh", "label": "District Heating", "type": "number", "unit": "kWh", "required": false, "group": "energy", "description": "Steam \u2014 projected EF tracks grid"},
+      {"field": "fuel_oil_kwh", "label": "Fuel Oil", "type": "number", "unit": "kWh", "required": false, "group": "energy", "description": "Static EF: 0.247 kgCO2e/kWh"},
+      {"field": "district_cooling_kwh", "label": "District Cooling", "type": "number", "unit": "kWh", "required": false, "group": "energy", "description": "Projected EF"},
+      {"field": "renewable_onsite_kwh", "label": "On-site Renewables", "type": "number", "unit": "kWh", "required": false, "group": "renewables", "description": "Generated and consumed on-site (EF=0)"},
+      {"field": "renewable_export_kwh", "label": "Exported Renewables", "type": "number", "unit": "kWh", "required": false, "group": "renewables", "description": "Exported to grid (carbon credit)"}
+    ],
+    "outputs": [
+      {"field": "strandingYear", "label": "Stranding Year", "type": "year|null", "description": "First year asset CI exceeds CRREM pathway"},
+      {"field": "baselineCarbonIntensity", "label": "Baseline Carbon Intensity", "unit": "kgCO2e/m\u00b2/yr", "description": "From reported energy and emission factors"},
+      {"field": "baselineEUI", "label": "Baseline EUI", "unit": "kWh/m\u00b2/yr", "description": "Energy use intensity at floor area"},
+      {"field": "projectedCI", "label": "Projected CI Trajectory", "type": "array[31]", "unit": "kgCO2e/m\u00b2/yr", "description": "Annual 2020\u20132050 projection"},
+      {"field": "cumulativeExcess", "label": "Cumulative Excess Emissions", "unit": "tCO2e", "description": "Total above pathway through 2050"},
+      {"field": "npvExcessCosts", "label": "NPV Excess Costs", "unit": "EUR", "description": "Net present value at 3% discount rate"},
+      {"field": "cvar", "label": "Carbon Value at Risk", "unit": "% of GAV", "description": "NPV costs as share of gross asset value"},
+      {"field": "annualExcessCosts", "label": "Annual Excess Costs", "type": "array[31]", "unit": "EUR/yr", "description": "Year-by-year excess emission costs"},
+      {"field": "renewableShare", "label": "Renewable Share", "unit": "%", "description": "On-site renewables as % of total energy"}
+    ]
+  },
+  {
+    "id": "crrem-na",
+    "name": "CRREM North America",
+    "version": "2.07",
+    "status": "coming-soon",
+    "image": "models/crrem-na/card.svg",
+    "description": "Stranding assessment for US and Canadian buildings across 57 US sub-regions (eGRID \u00d7 CBECS climate zone) and 11 Canadian provinces.",
+    "longDescription": "The North America edition of CRREM extends the science-based 1.5\u00b0C decarbonization framework to the US and Canada, developed in partnership with Lawrence Berkeley National Laboratory (LBNL) and the ULI Greenprint Center. It uses eGRID sub-regions cross-tabulated with CBECS climate zones to create 57 granular US sub-regions, plus 11 Canadian provinces/territories, each with dedicated carbon intensity and EUI pathways. Grid emission factor projections use EPA Cambium data, and baseline EUIs are derived from CBECS (US) and NRCan surveys (Canada).",
+    "categories": ["transition-risk"],
+    "tags": ["stranding", "carbon-intensity", "financial-risk", "energy"],
+    "region": ["NA"],
+    "sector": ["commercial", "residential"],
+    "author": "CRREM Foundation, Lawrence Berkeley National Laboratory (LBNL), ULI Greenprint",
+    "license": {
+      "name": "Proprietary \u2014 free for non-commercial use",
+      "url": "https://www.crrem.eu/frequently-asked-questions/"
+    },
+    "lastUpdated": "2025-07-11",
+    "scenario": "1.5\u00b0C (IEA NZE 2050); 2\u00b0C alternative; RCP 4.5 / 8.5 for climate projections",
+    "scope": "Whole-building operational GHG (Scope 1 + 2 + downstream tenant energy); CO2e including F-gases; embodied carbon excluded",
+    "adoptedBy": ["GRESB", "SBTi"],
+    "limitations": [
+      "US CBECS baselines represent buildings averaging ~16,300 sq ft \u2014 smaller than typical institutional assets",
+      "Canada excludes Small Multi-family property type (15 of 16 types only)",
+      "Canada uses sector-level weighted emission factors (less granular than US)",
+      "Alaska and Hawaii use national Cambium shape applied to local starting values",
+      "Building-level renewable energy procurement does not alter pathway performance",
+      "Embodied carbon excluded from pathways"
+    ],
+    "citation": "CRREM Foundation / LBNL (2025). CRREM Risk Assessment Tool \u2014 North America, V2.07. https://crrem.org",
+    "source": {
+      "name": "CRREM Foundation / LBNL",
+      "url": "https://www.crrem.eu",
+      "methodology": "https://crrem.org/crrem-pathways-methodology/"
+    },
+    "coverage": {
+      "jurisdictionCount": 68,
+      "propertyTypeList": ["Office","Retail High Street","Enclosed Retail Mall","Strip Shopping Center","Retail Store","Hotel","Inpatient Healthcare","Outpatient Healthcare","Industrial Warehouse (Warm)","Industrial Warehouse (Cooled)","Leisure","Self Storage","Mixed Use","Residential Multi-family High-Rise","Residential Multi-family Low-Rise","Residential Small Multi-family"],
+      "propertyTypeCount": 16,
+      "mapRegion": "north-america",
+      "timeRange": "2020\u20132050"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "pcaf",
+    "name": "PCAF Global GHG Standard",
+    "version": "3.0",
+    "status": "coming-soon",
+    "image": "models/pcaf/card.svg",
+    "description": "GHG accounting and reporting standard for financial institutions \u2014 measures financed emissions across 10 asset classes including commercial real estate and mortgages.",
+    "longDescription": "The PCAF Global GHG Accounting and Reporting Standard provides a harmonized methodology for financial institutions to measure, report, and disclose greenhouse gas emissions associated with their lending and investment portfolios (Scope 3, Category 15). For real estate, PCAF covers two asset classes: Commercial Real Estate (offices, retail, hotels, industrial) and Mortgages (residential). Building-level Scope 1 and 2 emissions are attributed to the financial institution based on the ratio of loan/investment amount to property value. Data quality is scored 1\u20135, where Score 1 represents verified building-level data and Score 5 represents floor-area-based estimates. The standard is in conformance with the GHG Protocol and referenced by TCFD, CDP, CSRD, SFDR, and the Net-Zero Banking Alliance.",
+    "categories": ["carbon-accounting"],
+    "tags": ["financed-emissions", "scope-3", "financial-risk", "data-quality-scoring"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "Partnership for Carbon Accounting Financials (PCAF)",
+    "license": {
+      "name": "Proprietary \u2014 freely accessible",
+      "url": "https://carbonaccountingfinancials.com/standard"
+    },
+    "lastUpdated": "2025-12-02",
+    "scenario": "GHG Protocol (location- and market-based accounting)",
+    "scope": "Scope 3 Category 15 (financed emissions); attributes Scope 1 + 2 of borrowers/investees; 10 asset classes",
+    "adoptedBy": ["GHG Protocol", "TCFD", "CDP", "Net-Zero Banking Alliance", "CSRD / SFDR", "GFANZ"],
+    "limitations": [
+      "Data quality is primary challenge \u2014 most portfolios rely on estimated data (scores 3\u20135)",
+      "~35% of properties typically lack EPC data, forcing modeled estimates",
+      "Attribution approach risks double-counting across multiple financiers",
+      "PCAF states estimates may not be useful for individual investment decisions",
+      "Scope 3 of underlying borrowers/investees is extremely difficult to measure",
+      "Part B (Facilitated Emissions) still under development"
+    ],
+    "citation": "PCAF (2025). The Global GHG Accounting and Reporting Standard for the Financial Industry. Part A: Financed Emissions. Third Edition. https://carbonaccountingfinancials.com/standard",
+    "source": {
+      "name": "PCAF",
+      "url": "https://carbonaccountingfinancials.com",
+      "methodology": "https://carbonaccountingfinancials.com/standard"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeList": ["Commercial Real Estate","Mortgages (Residential)"],
+      "propertyTypeCount": 2,
+      "timeRange": "Annual"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "sbti-crrem",
+    "name": "SBTi for Buildings (via CRREM)",
+    "version": "1.1",
+    "status": "coming-soon",
+    "image": "models/sbti-crrem/card.svg",
+    "description": "Science-based target-setting for real estate using CRREM-aligned 1.5\u00b0C pathways. Covers in-use operational emissions and embodied carbon with a whole-building approach.",
+    "longDescription": "The SBTi Buildings Sector Guidance provides a standardized methodology for companies in the buildings sector to set greenhouse gas reduction targets aligned with 1.5\u00b0C. It uses a Sectoral Decarbonization Approach (SDA) that translates global carbon budgets into region- and property-type-specific pathways. For in-use operational emissions, the framework uses CRREM-aligned pathways co-developed in a formal partnership since January 2022. For embodied emissions, pathways were developed with Ramboll. The framework applies a whole-building approach covering landlord and tenant energy across Scope 1, 2, and 3, and is used by over 10,000 companies globally.",
+    "categories": ["transition-risk", "target-setting"],
+    "tags": ["stranding", "carbon-intensity", "net-zero", "whole-building"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "Science Based Targets initiative (SBTi) \u2014 CDP, UNGC, WRI, WWF",
+    "license": {
+      "name": "Proprietary \u2014 all rights reserved",
+      "url": "https://sciencebasedtargets.org/about-us/website-terms-of-use"
+    },
+    "lastUpdated": "2025-06-01",
+    "scenario": "1.5\u00b0C (Sectoral Decarbonization Approach via IEA NZE / IPCC AR6)",
+    "scope": "Whole-building: Scope 1 + 2 + Scope 3 (tenant energy); in-use operational + embodied carbon (new developments)",
+    "adoptedBy": ["UN Race to Zero", "GFANZ", "Net-Zero Banking Alliance"],
+    "limitations": [
+      "Performance gap \u2014 modeled vs. actual energy consumption can diverge significantly",
+      "Scope 3 tenant data is difficult to obtain",
+      "Only 29% of pathways were pilot-tested with real-world data before release",
+      "Embodied emissions methodology is newer and less mature than operational pathways",
+      "Near-term targets only (5\u201310yr); long-term net-zero guidance is separate",
+      "Infrastructure explicitly excluded from Buildings Criteria"
+    ],
+    "citation": "SBTi (2025). Buildings Sector Science-Based Target-Setting Criteria, Version 1.1. https://sciencebasedtargets.org/sectors/buildings",
+    "source": {
+      "name": "SBTi",
+      "url": "https://sciencebasedtargets.org/sectors/buildings",
+      "methodology": "https://files.sciencebasedtargets.org/production/files/SBTi-Buildings-Criteria.pdf"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "2020\u20132050"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "zero-tool",
+    "name": "Architecture 2030 Zero Tool",
+    "version": "3.0",
+    "status": "coming-soon",
+    "image": "models/zero-tool/card.svg",
+    "description": "Building energy benchmarking against zero-carbon targets. Normalizes by climate, space type, size, occupancy, and schedule using CBECS baselines.",
+    "longDescription": "The Zero Tool by Architecture 2030 calculates a building's energy consumption baseline and target, producing a score where 0 equals a Zero Net Carbon building. It normalizes performance using climate zone, building type, gross area, occupancy levels, and operating schedule. Baseline data comes from CBECS 2003, and the tool aligns with the Zero Energy Performance Index (zEPI) and HERS Index. A free API and portfolio bulk upload are available.",
+    "categories": ["energy-benchmarking"],
+    "tags": ["zero-carbon", "eui", "baseline", "zEPI"],
+    "region": ["NA"],
+    "sector": ["commercial"],
+    "author": "Architecture 2030",
+    "license": {
+      "name": "Free \u2014 open API",
+      "url": "https://www.zerotool.org/"
+    },
+    "lastUpdated": "2024-01-01",
+    "scenario": "Architecture 2030 Challenge (zero carbon by 2030)",
+    "scope": "Operational energy (site and source EUI)",
+    "adoptedBy": ["AIA 2030 Commitment", "Architecture 2030 Challenge"],
+    "limitations": [
+      "CBECS 2003 baselines may not reflect current building stock",
+      "US/Canada focus \u2014 limited international applicability",
+      "Does not account for embodied carbon"
+    ],
+    "citation": "Architecture 2030 (2024). Zero Tool. https://www.zerotool.org/",
+    "source": {
+      "name": "Architecture 2030",
+      "url": "https://www.zerotool.org/"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["US","CA"],
+      "jurisdictionCount": 2,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ec3",
+    "name": "EC3 Embodied Carbon Calculator",
+    "version": "2.0",
+    "status": "coming-soon",
+    "image": "models/ec3/card.svg",
+    "description": "Benchmarking and reducing embodied carbon in construction materials using the world's largest EPD database. Open source with open API.",
+    "longDescription": "EC3 (Embodied Carbon in Construction Calculator) by Building Transparency is a free, open-access tool for comparing and reducing the embodied carbon of construction materials. It houses the world's largest database of Environmental Product Declarations (EPDs) and enables material comparison during specification and procurement. Projects using EC3 have reported 30%+ reductions in embodied carbon. The tool provides building-level and material-level carbon benchmarking.",
+    "categories": ["embodied-carbon"],
+    "tags": ["epd", "materials", "lifecycle", "construction"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "Building Transparency (501c3 nonprofit)",
+    "license": {
+      "name": "Open source \u2014 open API",
+      "url": "https://www.buildingtransparency.org/"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (materials accounting, not scenario-based)",
+    "scope": "Upfront embodied carbon (A1\u2013A3 manufacturing); cradle-to-gate EPD data",
+    "adoptedBy": ["Buy Clean California", "GSA", "LEED v4.1"],
+    "limitations": [
+      "EPD coverage varies by material category and region",
+      "Focuses on upfront embodied carbon (A1\u2013A3); operational carbon not covered",
+      "EPD quality and comparability can vary between PCRs"
+    ],
+    "citation": "Building Transparency (2024). EC3: Embodied Carbon in Construction Calculator. https://www.buildingtransparency.org/tools/ec3/",
+    "source": {
+      "name": "Building Transparency",
+      "url": "https://www.buildingtransparency.org/tools/ec3/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "N/A"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "eu-levels",
+    "name": "EU Level(s) Framework",
+    "version": "2.0",
+    "status": "coming-soon",
+    "image": "models/eu-levels/card.svg",
+    "description": "European Commission framework with 16 sustainability indicators across carbon, energy, water, materials, health, comfort, and climate resilience for buildings.",
+    "longDescription": "Level(s) is the European Commission's voluntary framework for sustainable buildings, developed by the Joint Research Centre. It defines 16 indicators across 6 macro-objectives: greenhouse gas emissions, resource efficiency (energy, water, materials), health and comfort, climate resilience, and life cycle cost. Each indicator can be assessed at three levels of detail, from simple design-stage estimates to as-built verified performance. Level(s) is referenced in the EU Taxonomy for sustainable activities and supports compliance with CSRD and the Energy Performance of Buildings Directive (EPBD).",
+    "categories": ["energy-benchmarking", "embodied-carbon"],
+    "tags": ["lifecycle", "sustainability-indicators", "water", "health", "materials"],
+    "region": ["EU"],
+    "sector": ["commercial", "residential"],
+    "author": "European Commission (Joint Research Centre)",
+    "license": {
+      "name": "Free \u2014 open methodology",
+      "url": "https://green-forum.ec.europa.eu/green-business/levels_en"
+    },
+    "lastUpdated": "2024-01-01",
+    "scenario": "EU Taxonomy alignment (NZEB pathway)",
+    "scope": "Whole lifecycle: operational energy, embodied carbon, water, waste, health, comfort, resilience, cost",
+    "adoptedBy": ["EU Taxonomy", "CSRD", "EPBD"],
+    "limitations": [
+      "EU residential and office focus \u2014 limited property type coverage",
+      "Three assessment levels add complexity for full compliance",
+      "Not a certification \u2014 a measurement framework only"
+    ],
+    "citation": "European Commission (2024). Level(s) \u2014 European framework for sustainable buildings. https://green-forum.ec.europa.eu/green-business/levels_en",
+    "source": {
+      "name": "European Commission / JRC",
+      "url": "https://green-forum.ec.europa.eu/green-business/levels_en"
+    },
+    "coverage": {
+      "jurisdictionCount": 27,
+      "propertyTypeList": ["Office","Residential"],
+      "propertyTypeCount": 2,
+      "timeRange": "Lifecycle"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ashrae-beq",
+    "name": "ASHRAE Building EQ",
+    "version": "1.0",
+    "status": "coming-soon",
+    "image": "models/ashrae-beq/card.svg",
+    "description": "Building energy performance scoring using metered data or ASHRAE 90.1 simulation. Compares actual EUI against Standard 100 baselines.",
+    "longDescription": "ASHRAE Building EQ (Energy Quotient) benchmarks building energy performance using two methods: 'In Operation' compares actual metered energy data against ASHRAE Standard 100 baselines or Architecture 2030 Zero Tool references; 'As Designed' uses ASHRAE 90.1 Appendix G simulation to rate design-stage performance. The scoring formula is straightforward: (EUI_actual / EUI_baseline) \u00d7 100, making it easily implementable as a web calculator.",
+    "categories": ["energy-benchmarking"],
+    "tags": ["eui", "ashrae", "metered-data", "scoring"],
+    "region": ["NA"],
+    "sector": ["commercial"],
+    "author": "ASHRAE",
+    "license": {
+      "name": "Free (requires ASHRAE account)",
+      "url": "https://www.ashrae.org/technical-resources/building-eq"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (benchmarking against baselines)",
+    "scope": "Operational energy (site and source EUI)",
+    "adoptedBy": ["ASHRAE Standard 100", "ASHRAE 90.1"],
+    "limitations": [
+      "Baseline data primarily from US CBECS",
+      "Scoring methodology documented but tool requires ASHRAE account",
+      "Does not cover carbon intensity \u2014 energy only"
+    ],
+    "citation": "ASHRAE (2024). Building Energy Quotient (Building EQ). https://www.ashrae.org/technical-resources/building-eq",
+    "source": {
+      "name": "ASHRAE",
+      "url": "https://www.ashrae.org/technical-resources/building-eq"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["US"],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "os-physrisk",
+    "name": "OS-Climate physrisk",
+    "version": "0.30",
+    "status": "coming-soon",
+    "image": "models/os-physrisk/card.svg",
+    "description": "Open-source physical climate risk analysis for real estate portfolios. Models flood, heat stress, wind, and drought impacts on individual assets.",
+    "longDescription": "OS-Climate physrisk is an open-source Python library developed under the Linux Foundation (FINOS), led by BNP Paribas. It provides physical climate risk analysis for large portfolios of individual assets, modeling the impact of climate hazards including riverine and coastal flooding, extreme heat, tropical cyclones, and drought. Designed for real estate mortgage portfolios, credit risk assessment, and loan origination, it uses CMIP6 climate projections and geospatial hazard data to produce asset-level risk scores.",
+    "categories": ["physical-risk"],
+    "tags": ["flood", "heat-stress", "wind", "drought", "open-source"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "OS-Climate / Linux Foundation (FINOS), led by BNP Paribas",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://github.com/os-climate/physrisk/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-09-01",
+    "scenario": "CMIP6 SSP1-2.6, SSP2-4.5, SSP5-8.5",
+    "scope": "Physical climate hazards: flood, heat, wind, drought \u2014 economic damage estimation",
+    "adoptedBy": ["UNEP FI", "NGFS"],
+    "limitations": [
+      "Python library requires backend service or JS port for web use",
+      "Hazard model resolution varies by data source",
+      "Economic damage functions are generalized \u2014 not building-specific",
+      "Actively under development \u2014 API may change"
+    ],
+    "citation": "OS-Climate (2025). physrisk: Physical Climate Risk Analysis. https://github.com/os-climate/physrisk",
+    "source": {
+      "name": "OS-Climate / FINOS",
+      "url": "https://github.com/os-climate/physrisk",
+      "methodology": "https://github.com/os-climate/physrisk"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "2020\u20132100"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ifc-bri",
+    "name": "IFC Building Resilience Index",
+    "version": "1.0",
+    "status": "coming-soon",
+    "image": "models/ifc-bri/card.svg",
+    "description": "Web-based tool that evaluates location-specific climate and disaster risks for buildings, assigning a standardized A\u2013F resilience grade.",
+    "longDescription": "The IFC Building Resilience Index (BRI), developed by the International Finance Corporation (World Bank Group), is a web-based self-assessment tool that evaluates a building's exposure to climate hazards and natural disasters. It assigns a standardized letter grade (A through F) based on location-specific risk exposure and the adaptation measures implemented. The tool is designed for emerging markets and supports investors, developers, and building owners in understanding and communicating physical climate resilience.",
+    "categories": ["physical-risk"],
+    "tags": ["resilience", "adaptation", "hazards", "emerging-markets"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "IFC (World Bank Group)",
+    "license": {
+      "name": "Free web application",
+      "url": "https://www.resilienceindex.org/"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "Multi-hazard (flood, wind, seismic, heat, wildfire)",
+    "scope": "Physical resilience: hazard exposure + adaptation measures \u2192 A\u2013F grade",
+    "adoptedBy": ["IFC EDGE", "World Bank Group"],
+    "limitations": [
+      "Self-declaration model \u2014 no third-party verification",
+      "Emerging market focus may limit developed-market applicability",
+      "Grade reflects both exposure and adaptation \u2014 not pure risk"
+    ],
+    "citation": "IFC (2024). Building Resilience Index. https://www.resilienceindex.org/",
+    "source": {
+      "name": "IFC / World Bank Group",
+      "url": "https://www.resilienceindex.org/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Current + projected"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "energy-star",
+    "name": "ENERGY STAR Portfolio Manager",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/energy-star/card.svg",
+    "description": "US EPA tool that benchmarks building energy performance against national averages. Produces a 1\u2013100 score where 50 is the median for similar buildings.",
+    "longDescription": "ENERGY STAR Portfolio Manager is the US EPA's free online tool for benchmarking building energy and water performance. It compares a building's actual utility data against the national median for similar building types derived from CBECS, producing a 1\u2013100 score where 50 represents the median. Buildings scoring 75 or above qualify for ENERGY STAR certification. The tool calculates Site EUI, Source EUI, and weather-normalized metrics. A full RESTful web services API enables data exchange with third-party platforms.",
+    "categories": ["energy-benchmarking"],
+    "tags": ["eui", "scoring", "utility-data", "epa"],
+    "region": ["US"],
+    "sector": ["commercial"],
+    "author": "US Environmental Protection Agency (EPA)",
+    "license": {
+      "name": "Free \u2014 public API",
+      "url": "https://www.energystar.gov/buildings/benchmark"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (benchmarking against peer buildings)",
+    "scope": "Operational energy and water consumption",
+    "adoptedBy": ["US DOE", "Local building performance standards", "LEED"],
+    "limitations": [
+      "US-only \u2014 scoring uses CBECS data for US buildings",
+      "Score available for ~20 eligible building types; others get EUI only",
+      "Does not measure carbon intensity directly"
+    ],
+    "citation": "US EPA (2025). ENERGY STAR Portfolio Manager. https://www.energystar.gov/buildings/benchmark",
+    "source": {
+      "name": "US EPA",
+      "url": "https://www.energystar.gov/buildings/benchmark"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["US"],
+      "jurisdictionCount": 1,
+      "propertyTypeList": ["Office","K-12 School","Bank","Courthouse","Data Center","Hospital","Hotel","House of Worship","Multifamily Housing","Retail Store","Senior Care","Supermarket","Warehouse","Wastewater Treatment","Wholesale Club","Financial Office","Medical Office","Residence Hall","Parking","Swimming Pool"],
+      "propertyTypeCount": 20,
+      "timeRange": "Annual"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ngfs",
+    "name": "NGFS Climate Scenarios",
+    "version": "5.0",
+    "status": "coming-soon",
+    "image": "models/ngfs/card.svg",
+    "description": "Comprehensive climate scenario data for transition and physical risks from the Network for Greening the Financial System. Used by central banks worldwide.",
+    "longDescription": "The NGFS Climate Scenarios, produced by the Network for Greening the Financial System (a consortium of 130+ central banks and supervisors), provide comprehensive scenario data for both transition and physical climate risks. Version 5.0 includes macroeconomic impact projections, carbon price trajectories, energy mix evolution, and subnational physical risk indicators via the Climate Impact Explorer. The scenarios span Orderly, Disorderly, and Hot House World narratives, enabling financial institutions to stress-test portfolios against different climate futures.",
+    "categories": ["transition-risk", "physical-risk"],
+    "tags": ["scenarios", "central-banks", "stress-testing", "macro"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "Network for Greening the Financial System (NGFS)",
+    "license": {
+      "name": "Free \u2014 open access via IIASA",
+      "url": "https://www.ngfs.net/ngfs-scenarios-portal/"
+    },
+    "lastUpdated": "2024-11-01",
+    "scenario": "Net Zero 2050, Below 2\u00b0C, Delayed Transition, NDCs, Current Policies, Fragmented World",
+    "scope": "Transition risk (carbon prices, energy mix, GDP) + physical risk (chronic and acute hazards)",
+    "adoptedBy": ["ECB", "Bank of England", "Fed", "TCFD", "ISSB"],
+    "limitations": [
+      "Macro-level scenarios \u2014 building-level translation requires additional modeling",
+      "Physical risk indicators are subnational but not property-level",
+      "Scenario narratives are illustrative \u2014 not forecasts"
+    ],
+    "citation": "NGFS (2024). NGFS Climate Scenarios, Version 5.0. https://www.ngfs.net/ngfs-scenarios-portal/",
+    "source": {
+      "name": "NGFS",
+      "url": "https://www.ngfs.net/ngfs-scenarios-portal/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "2020\u20132100"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "nabers",
+    "name": "NABERS",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/nabers/card.svg",
+    "description": "Australian government rating system measuring operational environmental performance of buildings using actual utility data. 0\u20136 star scale.",
+    "longDescription": "NABERS (National Australian Built Environment Rating System) is the Australian government's rating system for measuring the operational environmental performance of buildings. It uses actual utility consumption data to produce a 0\u20136 star rating normalized for climate zone, hours of operation, and building type. NABERS covers energy, water, waste, and indoor environment quality. The energy rating methodology is well-documented with clear normalization formulas, and NABERS ratings are mandatory for commercial office buildings over 1,000 m\u00b2 in Australia under the Commercial Building Disclosure program.",
+    "categories": ["energy-benchmarking"],
+    "tags": ["star-rating", "operational", "utility-data", "mandatory-disclosure"],
+    "region": ["AU"],
+    "sector": ["commercial"],
+    "author": "Australian Government (DCCEEW)",
+    "license": {
+      "name": "Government program \u2014 public methodology",
+      "url": "https://www.nabers.gov.au/"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (performance rating against normalized benchmarks)",
+    "scope": "Operational energy, water, waste, indoor environment",
+    "adoptedBy": ["Commercial Building Disclosure (CBD) Act", "Green Star", "Climate Active"],
+    "limitations": [
+      "Australia only \u2014 not directly applicable to other jurisdictions",
+      "Official rating requires an accredited NABERS assessor",
+      "Star rating bands are periodically recalibrated"
+    ],
+    "citation": "Australian Government (2025). NABERS \u2014 National Australian Built Environment Rating System. https://www.nabers.gov.au/",
+    "source": {
+      "name": "Australian Government / DCCEEW",
+      "url": "https://www.nabers.gov.au/"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["AU"],
+      "jurisdictionCount": 1,
+      "propertyTypeList": ["Office","Shopping Centre","Hotel","Data Centre","Apartment","Hospital"],
+      "propertyTypeCount": 6,
+      "timeRange": "Annual"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ifc-edge",
+    "name": "IFC EDGE",
+    "version": "3.0",
+    "status": "coming-soon",
+    "image": "models/ifc-edge/card.svg",
+    "description": "Free web app that calculates resource-efficient building design strategies for energy, water, and embodied carbon. Targets 20%+ savings in 170+ countries.",
+    "longDescription": "EDGE (Excellence in Design for Greater Efficiencies), developed by the IFC (World Bank Group) and certified by GBCI, is a free web application for calculating optimal resource-efficient building design. It compares energy, water, and embodied carbon performance against country-specific baselines, targeting a minimum 20% improvement. EDGE covers 170+ countries with localized climate and construction data, making it the leading green building tool for emerging markets. Three certification levels are available: EDGE Certified (20%), EDGE Advanced (40%), and Zero Carbon.",
+    "categories": ["energy-benchmarking", "embodied-carbon"],
+    "tags": ["green-building", "design-optimization", "emerging-markets", "certification"],
+    "region": ["Global"],
+    "sector": ["commercial", "residential"],
+    "author": "IFC (World Bank Group), certified by GBCI",
+    "license": {
+      "name": "Free tool \u2014 certification is paid",
+      "url": "https://edgebuildings.com/"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (design-stage optimization against local baselines)",
+    "scope": "Operational energy, water consumption, and embodied carbon of materials",
+    "adoptedBy": ["IFC", "GBCI", "World Bank Group"],
+    "limitations": [
+      "Design-stage tool \u2014 does not track as-built or operational performance",
+      "Country-specific baselines may not reflect local market conditions",
+      "Certification requires third-party audit (paid)"
+    ],
+    "citation": "IFC (2025). EDGE \u2014 Excellence in Design for Greater Efficiencies, v3.0. https://edgebuildings.com/",
+    "source": {
+      "name": "IFC / GBCI",
+      "url": "https://edgebuildings.com/"
+    },
+    "coverage": {
+      "jurisdictionCount": 170,
+      "propertyTypeList": ["Homes","Hotels","Offices","Hospitals","Retail","Warehouses"],
+      "propertyTypeCount": 6,
+      "timeRange": "Design stage"
+    },
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "bafu-co2",
+    "name": "BAFU CO2 Calculator for Buildings",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/bafu-co2/card.svg",
+    "description": "Swiss federal building-level CO2 emissions calculator using the GWR register and SIA 380/1 standard. Simulates heating system replacements and energy retrofits.",
+    "longDescription": "The CO2-Rechner Geb\u00e4ude is an interactive tool developed for the Swiss Federal Office for the Environment (BAFU/FOEN) that provides climate and energy-relevant information for every residential building in Switzerland. It calculates CO2 emissions under standard conditions based on data from the Federal Register of Buildings and Dwellings (GWR), incorporating heating system type, energy source, building use, heated area, year of construction, altitude, and topographical location. Calculations follow SIA Norm 380/1 (2016). Users can simulate how a change of energy source (e.g., from gas to heat pump) or an energy-efficient renovation would improve the CO2 value. The 2024 expanded version extends coverage to Scope 2 emissions and provides rough estimates of embodied carbon from building materials. Deployed as part of the PACTA Climate Test for Swiss financial institutions.",
+    "categories": ["carbon-accounting", "energy-benchmarking"],
+    "tags": ["building-emissions", "SIA-380-1", "GWR", "retrofit-simulation", "PACTA", "net-zero-2050"],
+    "region": ["CH"],
+    "sector": ["residential"],
+    "author": "Swiss Federal Office for the Environment (BAFU/FOEN), developed by FPRE / W\u00fcest Partner",
+    "license": {
+      "name": "Open source (R package, available on request)",
+      "url": "https://www.bafu.admin.ch/en/calculator-co2-buildings"
+    },
+    "lastUpdated": "2024-12-10",
+    "scenario": "Swiss Net-Zero 2050 (Climate and Innovation Act / CO2 Act)",
+    "scope": "Scope 1 (heating fuels) + Scope 2 (electricity, district heating); rough embodied carbon estimates",
+    "adoptedBy": ["PACTA Climate Test Switzerland", "Swiss CO2 Act", "Federal Geoportal (geo.admin.ch)"],
+    "limitations": [
+      "Standard values only \u2014 SIA 380/1 demand values may not reflect actual consumption",
+      "Residential focus \u2014 commercial building coverage is limited",
+      "GWR data may have incomplete or outdated entries",
+      "Embodied carbon estimates are approximate \u2014 not full lifecycle assessments",
+      "Switzerland-only \u2014 depends on Swiss-specific data sources (GWR, EGID, SIA)",
+      "No actual metering \u2014 does not incorporate smart meter data"
+    ],
+    "citation": "BAFU (2024). Methodenbericht 2024 zum erweiterten CO2-Rechner f\u00fcr Geb\u00e4ude. Bundesamt f\u00fcr Umwelt, Bern.",
+    "source": {
+      "name": "BAFU / FOEN",
+      "url": "https://www.bafu.admin.ch/en/calculator-co2-buildings",
+      "methodology": "https://www.bafu.admin.ch/dam/de/sd-web/DVy64CzUV6wk/Methodenbericht%202024%20zum%20erweiterten%20CO2-Rechner%20f%C3%BCr%20Geb%C3%A4ude.pdf"
+    },
+    "coverage": {
+      "jurisdictionCodes": ["CH"],
+      "jurisdictionCount": 1,
+      "propertyTypeList": ["Residential (single-family)","Residential (multi-family)"],
+      "propertyTypeCount": 2,
+      "timeRange": "Current\u20132050"
+    },
+    "inputs": [],
+    "outputs": []
+  }
+]

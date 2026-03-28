@@ -1,0 +1,22 @@
+{
+  "id": "pcaf",
+  "name": "PCAF Global GHG Standard",
+  "version": "2.0",
+  "status": "coming-soon",
+  "image": "models/pcaf/card.svg",
+  "description": "Partnership for Carbon Accounting Financials \u2014 GHG accounting and reporting standard for financial institutions. Scope 1, 2, and 3 emissions attribution for real estate loans and investments.",
+  "tags": ["carbon-footprint", "financial-risk", "scope-3"],
+  "region": ["global"],
+  "sector": ["commercial", "residential"],
+  "source": {
+    "name": "PCAF",
+    "url": "https://carbonaccountingfinancials.com"
+  },
+  "coverage": {
+    "jurisdictionCount": 0,
+    "propertyTypeCount": 0,
+    "timeRange": "Annual"
+  },
+  "inputs": [],
+  "outputs": []
+}
