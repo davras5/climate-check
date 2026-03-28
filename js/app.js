@@ -1019,9 +1019,9 @@ function renderDashboard() {
   <div class="Box p-3 mb-4">
     <div class="rbar mb-2" role="img" aria-label="Risk distribution: ${hi.length} high, ${md.length} medium, ${lo.length} low">${hP?`<div class="rd" style="width:${hP}%">${hi.length}</div>`:''}${mP?`<div class="ra" style="width:${mP}%">${md.length}</div>`:''}${lP?`<div class="rs" style="width:${lP}%">${lo.length}</div>`:''}</div>
     <div class="d-flex gap-3 f6 fgColor-muted">
-      <span><span class="d-inline-block rounded-1 mr-1" style="width:8px;height:8px;background:var(--bgColor-danger-emphasis)"></span>High</span>
-      <span><span class="d-inline-block rounded-1 mr-1" style="width:8px;height:8px;background:var(--bgColor-attention-emphasis)"></span>Medium</span>
-      <span><span class="d-inline-block rounded-1 mr-1" style="width:8px;height:8px;background:var(--bgColor-success-emphasis)"></span>Low / Aligned</span>
+      <span><span class="legend-dot bgColor-danger-emphasis"></span>High</span>
+      <span><span class="legend-dot bgColor-attention-emphasis"></span>Medium</span>
+      <span><span class="legend-dot bgColor-success-emphasis"></span>Low / Aligned</span>
     </div>
   </div>
 
