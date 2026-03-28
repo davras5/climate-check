@@ -861,6 +861,67 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   display: flex; gap: var(--space-1);
 }
 
+/* ---- API docs ---- */
+.api-header { border-bottom: 1px solid var(--border-muted); padding-bottom: var(--space-4); }
+.api-base-url {
+  padding: var(--space-3);
+  background: var(--bg-muted);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+.api-base-url code { font-size: 13px; color: var(--accent-fg); word-break: break-all; }
+.api-section h2 { border-bottom: 1px solid var(--border-muted); padding-bottom: var(--space-2); }
+
+.api-endpoint {
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+}
+.api-endpoint-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  list-style: none;
+}
+.api-endpoint-header::-webkit-details-marker { display: none; }
+.api-endpoint[open] .api-endpoint-header {
+  border-bottom: 1px solid var(--border-muted);
+  background: var(--bg-muted);
+}
+.api-method {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.api-method-get { background: var(--accent-muted); color: var(--accent-fg); }
+.api-method-post { background: var(--success-muted); color: var(--success-fg); }
+.api-path { font-size: 13px; color: var(--fg); font-weight: 500; }
+.api-endpoint-body { padding: var(--space-3); }
+.api-params { margin-bottom: var(--space-3); }
+.api-params table { border: 1px solid var(--border-muted); border-radius: var(--radius-md); }
+.api-code {
+  background: var(--bg-inset);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--fg);
+  margin: 0;
+}
+
 /* ---- Upload drop zone ---- */
 .drop {
   border: 2px dashed var(--border);

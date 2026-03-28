@@ -93,6 +93,7 @@ function galleryHref() {
 // ============================================================
 async function route() {
   const h = location.hash || '#/';
+  if (h === '#/api') { showApiDocs(); return; }
   const m = h.match(/^#\/models\/([^/]+)(?:\/(\w+))?/);
   if (m) {
     modelTab = m[2] || 'about';
@@ -159,6 +160,7 @@ const CARD_IMG = {
   'flexmeasures':'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=300&fit=crop',
   'resstock-comstock':'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&h=300&fit=crop',
   'der-vet':     'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=300&fit=crop',
+  'snbs':        'https://images.unsplash.com/photo-1527576539890-dfa815648363?w=600&h=300&fit=crop',
 };
 
 function addFilter(grp, val) {
@@ -494,6 +496,218 @@ async function renderGalleryMap(filteredModels) {
       p.addEventListener('click', () => { viewMode = 'gallery'; addFilter('region', info.region); });
     });
   });
+}
+
+// ============================================================
+// API DOCS
+// ============================================================
+function showApiDocs() {
+  const app = $('#app');
+  const base = 'https://api.climate-check.io/api/v1';
+
+  const ep = (method, path, desc, params, resp) => {
+    const mc = method === 'GET' ? 'api-method-get' : 'api-method-post';
+    const paramHtml = params ? `<div class="api-params"><div class="label-xs mb-2">Parameters</div><table class="f6 width-full"><tbody>${params.map(p =>
+      `<tr class="border-bottom"><td class="py-1 px-3"><code>${p[0]}</code></td><td class="py-1 px-3 fgColor-muted">${p[1]}</td><td class="py-1 px-3 fgColor-muted">${p[2]}</td></tr>`
+    ).join('')}</tbody></table></div>` : '';
+    const respHtml = resp ? `<div class="api-response mt-3"><div class="label-xs mb-2">Example Response</div><pre class="api-code">${resp}</pre></div>` : '';
+    return `<details class="api-endpoint">
+      <summary class="api-endpoint-header">
+        <span class="api-method ${mc}">${method}</span>
+        <code class="api-path">${path}</code>
+        <span class="fgColor-muted f6">${desc}</span>
+        <span class="chev" style="margin-left:auto"></span>
+      </summary>
+      <div class="api-endpoint-body">${paramHtml}${respHtml}</div>
+    </details>`;
+  };
+
+  const sampleModel = models[0] ? JSON.stringify({
+    id: models[0].id, name: models[0].name, version: models[0].version,
+    status: models[0].status, categories: models[0].categories,
+    region: models[0].region, maturity: models[0].maturity,
+    complexity: models[0].complexity, approach: models[0].approach
+  }, null, 2) : '{}';
+
+  let h = `
+  <nav class="breadcrumb mb-3" aria-label="Breadcrumb">
+    <a href="#/">Models</a>
+    <span class="breadcrumb-sep" aria-hidden="true">/</span>
+    <span class="fgColor-muted">API Documentation</span>
+  </nav>
+
+  <div class="api-header mb-4">
+    <div class="d-flex flex-justify-between flex-items-start gap-4 flex-wrap">
+      <div>
+        <h1 class="f2 mb-1">climate-check API <span class="IssueLabel fgColor-muted">v1</span></h1>
+        <p class="fgColor-muted mb-3">Open API for climate risk model metadata, reference data, and calculation engines.</p>
+        <div class="d-flex gap-2 flex-wrap">
+          <span class="IssueLabel bgColor-open-muted fgColor-open">REST</span>
+          <span class="IssueLabel bgColor-accent-muted fgColor-accent">JSON</span>
+          <span class="IssueLabel">API Key Auth</span>
+        </div>
+      </div>
+      <div class="api-base-url">
+        <div class="label-xs mb-1">Base URL</div>
+        <code class="f5">${base}</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="api-section mb-4">
+    <div class="label-xs mb-2">Authentication</div>
+    <div class="Box p-3 f6">
+      <p class="mb-2">Include your API key in the request header:</p>
+      <pre class="api-code">X-API-Key: your-api-key-here</pre>
+      <p class="fgColor-muted mt-2">Free tier: 100 requests/day, read-only. Pro tier: unlimited reads + calculation endpoints.</p>
+    </div>
+  </div>
+
+  <div class="api-section mb-4">
+    <h2 class="f4 text-bold mb-3">Models</h2>
+    ${ep('GET', '/models', 'List all models with filtering, search, and sort', [
+      ['q','string','Full-text search across name and description'],
+      ['categories','string','Filter by category (comma-separated)'],
+      ['region','string','Filter by region (comma-separated)'],
+      ['status','string','Filter: live, coming-soon'],
+      ['lifecycle','string','Filter by lifecycle phase'],
+      ['license','string','Filter by license type'],
+      ['tags','string','Filter by tags (comma-separated)'],
+      ['sort','string','Sort: name, maturity, complexity, updated'],
+      ['order','string','asc or desc (default: asc)'],
+      ['page','integer','Page number (default: 1)'],
+      ['per_page','integer','Items per page (default: 20, max: 100)']
+    ], `{
+  "data": [
+    ${sampleModel}
+  ],
+  "meta": {
+    "total": ${models.length},
+    "page": 1,
+    "per_page": 20,
+    "total_pages": ${Math.ceil(models.length/20)}
+  }
+}`)}
+    ${ep('GET', '/models/{id}', 'Get full model detail including metadata, coverage, and schema', [
+      ['id','string','Model identifier (e.g., crrem-eu)']
+    ], null)}
+    ${ep('GET', '/models/{id}/schema', 'Get input and output field definitions', [
+      ['id','string','Model identifier']
+    ], null)}
+    ${ep('GET', '/models/{id}/coverage', 'Get jurisdictions and property types', [
+      ['id','string','Model identifier']
+    ], null)}
+  </div>
+
+  <div class="api-section mb-4">
+    <h2 class="f4 text-bold mb-3">Taxonomies</h2>
+    ${ep('GET', '/categories', 'List all categories with model counts', null,
+`{
+  "data": [
+    { "id": "energy-performance", "label": "Energy Performance", "count": 14 },
+    { "id": "physical-risk", "label": "Physical Risk", "count": 11 },
+    { "id": "carbon-accounting", "label": "Carbon Accounting", "count": 6 }
+  ]
+}`)}
+    ${ep('GET', '/regions', 'List all regions with model counts', null, null)}
+    ${ep('GET', '/lifecycle-stages', 'List 6 lifecycle phases with model counts', null, null)}
+    ${ep('GET', '/license-types', 'List license type enum with model counts', null, null)}
+    ${ep('GET', '/tags', 'List all tags with model counts', [
+      ['min_count','integer','Only return tags with at least N models (default: 1)']
+    ], null)}
+  </div>
+
+  <div class="api-section mb-4">
+    <h2 class="f4 text-bold mb-3">Reference Data</h2>
+    ${ep('GET', '/data/pathways', 'CRREM decarbonization pathways by jurisdiction and property type', [
+      ['jurisdiction','string','ISO country code (e.g., DE, US)'],
+      ['property_type','string','Property type code (e.g., OFF, RMF)'],
+      ['scenario','string','1.5C or 2C (default: 1.5C)'],
+      ['year_from','integer','Start year (default: 2020)'],
+      ['year_to','integer','End year (default: 2050)']
+    ], `{
+  "jurisdiction": "DE",
+  "property_type": "OFF",
+  "scenario": "1.5C",
+  "unit": "kgCO2e/m\u00b2/yr",
+  "values": [
+    { "year": 2020, "ci": 34.2 },
+    { "year": 2025, "ci": 28.1 },
+    { "year": 2030, "ci": 21.7 }
+  ]
+}`)}
+    ${ep('GET', '/data/emission-factors', 'Grid and fuel emission factors by jurisdiction and year', [
+      ['jurisdiction','string','ISO country code'],
+      ['fuel_type','string','electricity, natural_gas, fuel_oil, district_heating'],
+      ['year','integer','Projection year (2020\u20132050)']
+    ], null)}
+    ${ep('GET', '/data/climate-projections', 'HDD/CDD projections by jurisdiction', [
+      ['jurisdiction','string','ISO country code'],
+      ['scenario','string','RCP 4.5 or RCP 8.5']
+    ], null)}
+  </div>
+
+  <div class="api-section mb-4">
+    <h2 class="f4 text-bold mb-3">Calculation <span class="IssueLabel bgColor-attention-muted fgColor-attention">Pro</span></h2>
+    ${ep('POST', '/calculate/{id}', 'Run single-asset calculation (live models only)', [
+      ['id','string','Model identifier (e.g., crrem-eu)']
+    ], `// Request body
+{
+  "asset_name": "HQ Berlin",
+  "country_code": "DE",
+  "property_type_code": "OFF",
+  "floor_area": 12000,
+  "reporting_year": 2024,
+  "electricity_kwh": 480000,
+  "natural_gas_kwh": 360000
+}
+
+// Response
+{
+  "strandingYear": 2031,
+  "baselineCarbonIntensity": 42.1,
+  "baselineEUI": 165.3,
+  "cumulativeExcess": 3200,
+  "npvExcessCosts": 95000,
+  "cvar": 1.2
+}`)}
+    ${ep('POST', '/calculate/{id}/batch', 'Run portfolio batch calculation (CSV or JSON array)', [
+      ['id','string','Model identifier'],
+      ['format','string','csv or json (default: json)']
+    ], null)}
+    ${ep('POST', '/validate/{id}', 'Validate input data against model schema', [
+      ['id','string','Model identifier']
+    ], `// Request body
+{
+  "asset_name": "HQ Berlin",
+  "floor_area": -100
+}
+
+// Response
+{
+  "valid": false,
+  "errors": [
+    "floor_area must be greater than 0"
+  ]
+}`)}
+  </div>
+
+  <div class="api-section mb-4">
+    <div class="label-xs mb-2">Rate Limits</div>
+    <div class="Box p-3">
+      <table class="f6 width-full">
+        <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Tier</th><th class="py-2 px-3 text-left label-xs">Reads</th><th class="py-2 px-3 text-left label-xs">Calculations</th><th class="py-2 px-3 text-left label-xs">Price</th></tr></thead>
+        <tbody>
+          <tr class="border-bottom"><td class="py-2 px-3 text-bold">Free</td><td class="py-2 px-3">100/day</td><td class="py-2 px-3 fgColor-muted">\u2014</td><td class="py-2 px-3">Free</td></tr>
+          <tr class="border-bottom"><td class="py-2 px-3 text-bold">Pro</td><td class="py-2 px-3">Unlimited</td><td class="py-2 px-3">1,000/day</td><td class="py-2 px-3">Contact us</td></tr>
+          <tr><td class="py-2 px-3 text-bold">Enterprise</td><td class="py-2 px-3">Unlimited</td><td class="py-2 px-3">Unlimited</td><td class="py-2 px-3">Contact us</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  `;
+
+  app.innerHTML = h;
 }
 
 const CAT_COLORS = {

@@ -2683,5 +2683,91 @@
     "approach": "quantitative",
     "inputs": [],
     "outputs": []
+  },
+  {
+    "id": "snbs",
+    "name": "SNBS Hochbau",
+    "version": "2023.1",
+    "status": "coming-soon",
+    "image": "models/snbs/card.svg",
+    "description": "Swiss multi-criteria sustainability certification for buildings. 35 criteria across society, economy, and environment with Silver/Gold/Platinum ratings.",
+    "longDescription": "The Swiss Sustainable Building Standard (SNBS-Hochbau) provides a comprehensive framework for assessing building sustainability across three equally weighted pillars — society, economy, and environment. It evaluates 35 criteria organized into 11 themes using 98 measurement parameters. Buildings are scored on a 1–6 scale and may achieve Platinum (5.5–6.0), Gold (5.0–5.4), or Silver (4.0–4.9) certification. Since November 2023, SNBS shares a common label platform with Minergie, enabling streamlined dual certification.",
+    "categories": [
+      "multi-criteria",
+      "energy-performance",
+      "embodied-carbon",
+      "indoor-environment"
+    ],
+    "tags": [
+      "certification",
+      "lifecycle",
+      "sustainability",
+      "indoor-environment",
+      "circular-economy",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "NNBS (Netzwerk Nachhaltiges Bauen Schweiz), operated by Minergie",
+    "license": {
+      "type": "free-non-commercial",
+      "name": "Free criteria — certification is paid",
+      "url": "https://www.snbs-hochbau.ch/"
+    },
+    "lastUpdated": "2024-01-01",
+    "scenario": "2000-Watt Society pathway (Swiss net-zero 2050)",
+    "scope": "Full triple-bottom-line: operational energy, embodied carbon, indoor environment, social sustainability, lifecycle costs, biodiversity, water",
+    "adoptedBy": [
+      "Swiss Federal Council",
+      "KBOB",
+      "BBL (Federal Buildings)",
+      "Das Gebäudeprogramm",
+      "Minergie platform"
+    ],
+    "limitations": [
+      "Switzerland-only — tailored to Swiss regulations and SIA norms",
+      "Limited to residential, office, and educational buildings",
+      "No financial risk output (certification only, not stranding/CVaR)",
+      "Energy targets reference 2000-Watt Society, not IPCC 1.5°C scenarios",
+      "Fewer indicators than DGNB (98 vs 343 parameters)",
+      "Qualitative architectural assessment introduces evaluator subjectivity"
+    ],
+    "citation": "NNBS (2023). Kriterienbeschrieb SNBS-Hochbau, Version 2023.1. https://www.snbs-hochbau.ch/",
+    "source": {
+      "name": "NNBS / Minergie",
+      "url": "https://www.snbs-hochbau.ch/",
+      "methodology": "https://www.snbs-hochbau.ch/standards/"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeList": [
+        "Residential (multi-family)",
+        "Office / Administration",
+        "Educational buildings"
+      ],
+      "propertyTypeCount": 3,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Production",
+      "Construction",
+      "Operation",
+      "End of life",
+      "Circularity"
+    ],
+    "complexity": 7,
+    "maturity": 7,
+    "approach": "mixed",
+    "inputs": [],
+    "outputs": []
   }
 ]

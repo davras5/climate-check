@@ -45,7 +45,18 @@
       "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1468421870903-4df1664ac249?w=600&h=300&fit=crop\")",
       "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=600&h=300&fit=crop\")",
       "Bash(node data/transform.js)",
-      "Bash(rm data/transform.js data/new-models-2.json)"
+      "Bash(rm data/transform.js data/new-models-2.json)",
+      "WebFetch(domain:www.snbs-hochbau.ch)",
+      "WebFetch(domain:nnbs.ch)",
+      "WebFetch(domain:www.creatio.ch)",
+      "WebFetch(domain:woeb.swiss)",
+      "WebFetch(domain:de.wikipedia.org)",
+      "WebFetch(domain:www.energie-experten.ch)",
+      "WebFetch(domain:www.svlw.ch)",
+      "WebFetch(domain:www.fhnw.ch)",
+      "WebFetch(domain:merkblatt.suissetec.ch)",
+      "WebFetch(domain:www.energieagentur-sg.ch)",
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/snbs/card.svg\":*)"
     ]
   }
 }
