@@ -318,13 +318,6 @@ input:focus-visible,
   color: var(--accent-fg);
   border-color: var(--accent);
 }
-.IssueLabel.tag-nav::after {
-  content: ' \2197';
-  font-size: 9px;
-  opacity: 0;
-  transition: opacity var(--duration-fast);
-}
-.IssueLabel.tag-nav:hover::after { opacity: 0.6; }
 
 .Counter {
   display: inline-block;
@@ -732,8 +725,8 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
 }
 .filter-chip {
   display: inline-flex; align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-1) var(--space-2);
+  gap: 0;
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
   font-size: var(--text-sm); font-weight: 500; line-height: 1.6;
   color: var(--accent-fg);
   background: var(--accent-muted);
@@ -743,11 +736,11 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
 }
 .filter-chip-x {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 18px; height: 18px; padding: 0;
-  font-size: var(--text-base); line-height: 1;
+  width: 20px; height: 20px; padding: 0;
+  font-size: var(--text-sm); line-height: 1;
   color: var(--accent-fg);
   background: none; border: none; border-radius: 50%;
-  cursor: pointer; opacity: 0.5;
+  cursor: pointer; opacity: 0.4;
   transition: opacity var(--duration-fast), background var(--duration-fast);
   margin-left: var(--space-1);
 }
