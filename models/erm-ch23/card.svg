@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 180">
-  <rect width="400" height="180" fill="#9a6700" rx="4"/>
-  <text x="200" y="70" text-anchor="middle" fill="white" font-family="system-ui" font-size="32" font-weight="700">ERM-CH23</text>
-  <text x="200" y="105" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="system-ui" font-size="18">ETH SED</text>
-  <text x="200" y="140" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="system-ui" font-size="14">Earthquake Risk &#183; Switzerland</text>
-</svg>

@@ -223,7 +223,7 @@ function viewToggleHtml() {
 }
 
 function galleryCard(m) {
-  const img = m.cardImage || CARD_IMG[m.id] || m.image;
+  const img = m.cardImage || CARD_IMG[m.id];
   const cats = (m.categories||[]);
   return `<div class="Box model-card" data-href="#/models/${m.id}">
     <div class="model-card-img-wrap">
@@ -949,7 +949,7 @@ async function showModel(id) {
   const app = $('#app');
   const live = model.status === 'live';
   const cov = model.coverage || {};
-  const img = model.cardImage || CARD_IMG[model.id] || model.image;
+  const img = model.cardImage || CARD_IMG[model.id];
 
   // Tabs: always show all three
   const tabs = [

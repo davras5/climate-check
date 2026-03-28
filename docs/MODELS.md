@@ -1,6 +1,6 @@
 # Climate Check — Model Directory Meta-Model
 
-> 37 models for climate risk assessment in real estate.
+> 49 models for climate risk assessment in real estate.
 > Last updated: 2026-03-28.
 
 ---
@@ -15,8 +15,8 @@ The real estate industry recognizes two fundamental climate risk types per TCFD/
 
 | Domain | Description | Models |
 |--------|-------------|--------|
-| **Transition risk** | Financial exposure from decarbonization policies, carbon pricing, stranding, obsolescence | CRREM (EU/NA/APAC), SBTi, NGFS, Climate Bonds |
-| **Physical risk** | Financial exposure from climate hazards — acute (storms, floods, fire) and chronic (heat, drought, SLR) | CLIMADA, OpenQuake, SFINCS, OS-physrisk, HAZUS/FAST, JRC Flood Maps, WRI Aqueduct, Oasis LMF, IFC BRI, EIOPA CLIMADA-App |
+| **Transition risk** | Financial exposure from decarbonization policies, carbon pricing, stranding, obsolescence | CRREM (EU/NA/APAC), SBTi, NGFS, PACTA-CH |
+| **Physical risk** | Financial exposure from climate hazards — acute (storms, floods, fire) and chronic (heat, drought, SLR) | CLIMADA, OpenQuake, SFINCS, OS-physrisk, HAZUS/FAST, JRC Flood Maps, WRI Aqueduct, Oasis LMF, IFC BRI, EIOPA CLIMADA-App, geo.admin.ch, Gefahrenkarten, ERM-CH23, NCCS CH2025, Naturgefahren-Check |
 
 Some models span both (NGFS scenarios cover transition + physical).
 
@@ -24,13 +24,15 @@ Some models span both (NGFS scenarios cover transition + physical).
 
 | Type | Description | Models |
 |------|-------------|--------|
-| **Carbon accounting** | Measuring and reporting GHG emissions (operational or financed) | PCAF, BAFU CO2, eLCA, DGNB, BREEAM |
-| **Energy performance** | Benchmarking operational energy use against baselines or peers | ENERGY STAR, NABERS, ASHRAE BEQ, Zero Tool, BETTER, TABULA, SRI |
-| **Embodied carbon** | Lifecycle carbon in materials, construction, demolition | EC3, eLCA, EU Level(s), IFC EDGE |
-| **Hazard modeling** | Probabilistic damage/loss estimation from natural hazards | CLIMADA, OpenQuake, SFINCS, HAZUS/FAST, Oasis LMF |
+| **Carbon accounting** | Measuring and reporting GHG emissions (operational or financed) | PCAF, BAFU CO2, eLCA, DGNB, BREEAM, KBOB, PACTA-CH, Climate Bonds, Mobitool, geo.admin.ch |
+| **Energy performance** | Benchmarking operational energy use against baselines or peers | ENERGY STAR, NABERS, ASHRAE BEQ, Zero Tool, BETTER, TABULA, SRI, pyBuildingEnergy, ResStock/ComStock, Sonnendach, SNBS, DGNB, BREEAM, IFC EDGE, BAFU CO2, geo.admin.ch |
+| **Embodied carbon** | Lifecycle carbon in materials, construction, demolition | EC3, eLCA, EU Level(s), IFC EDGE, KBOB, DGNB, BREEAM, SNBS, Madaster |
+| **Hazard modeling** | Probabilistic damage/loss estimation from natural hazards | CLIMADA, OpenQuake, SFINCS, HAZUS/FAST, Oasis LMF, ERM-CH23, Naturgefahren-Check |
 | **Stranding analysis** | When a building exceeds its decarbonization pathway | CRREM (EU/NA/APAC) |
 | **Target setting** | Aligning portfolios with science-based pathways | SBTi, Climate Bonds |
-| **Multi-criteria** | Holistic sustainability rating across multiple indicators | DGNB, BREEAM, EU Level(s) |
+| **Multi-criteria** | Holistic sustainability rating across multiple indicators | DGNB, BREEAM, EU Level(s), SNBS, SSREI |
+| **Grid optimization** | DER sizing, demand flexibility, storage, renewable optimization | REopt, FlexMeasures, DER-VET |
+| **Indoor environment** | Thermal comfort, air quality, occupant health | CBE Thermal Comfort Tool, SNBS |
 
 ### 3. Building Lifecycle Phase
 
@@ -38,29 +40,29 @@ Based on simplified EN 15978 phases:
 
 | Phase | What happens | Example models |
 |-------|-------------|----------------|
-| **Planning** | Design decisions, target-setting, feasibility | eLCA, EU Level(s), DGNB, IFC EDGE |
-| **Production** | Raw materials, manufacturing | EC3, eLCA, SBTi, IFC EDGE |
-| **Construction** | Transport to site, installation | eLCA, EU Level(s), DGNB, BREEAM, Climate Bonds |
-| **Operation** | Energy use, maintenance, water, occupancy | CRREM, PCAF, ENERGY STAR, NABERS, BETTER, TABULA, and 10+ more |
-| **End of life** | Demolition, waste processing, disposal | eLCA, EU Level(s), DGNB |
-| **Circularity** | Reuse, recovery, recycling potential | DGNB |
+| **Planning** | Design decisions, target-setting, feasibility | eLCA, EU Level(s), DGNB, IFC EDGE, SNBS, Sonnendach, Gefahrenkarten |
+| **Production** | Raw materials, manufacturing | EC3, eLCA, SBTi, IFC EDGE, SNBS, KBOB, BAFU CO2, Madaster |
+| **Construction** | Transport to site, installation | eLCA, EU Level(s), DGNB, BREEAM, Climate Bonds, KBOB, Madaster |
+| **Operation** | Energy use, maintenance, water, occupancy | CRREM, PCAF, ENERGY STAR, NABERS, BETTER, TABULA, and 20+ more |
+| **End of life** | Demolition, waste processing, disposal | eLCA, EU Level(s), DGNB, KBOB, SNBS, Madaster |
+| **Circularity** | Reuse, recovery, recycling potential | DGNB, EU Level(s), SNBS, Madaster |
 
-Most models (19 of 31) focus on **Operation**. Only 3 cover **End of life** or **Circularity**.
+Most models (34 of 49) focus on **Operation**. 6 cover **End of life** and 4 cover **Circularity**.
 
 ### 4. Scale of Assessment
 
 | Scale | Description | Models |
 |-------|-------------|--------|
-| **Building** | Single-asset assessment | EC3, IFC BRI, NABERS, ASHRAE BEQ, Zero Tool, IFC EDGE, DGNB, BREEAM, SRI, eLCA |
-| **Portfolio** | Multi-asset portfolio analysis | PCAF, SBTi, OS-physrisk, NGFS, CLIMADA, EIOPA CLIMADA-App, Oasis LMF |
-| **Both** | Works at building and portfolio level | CRREM (EU/NA/APAC), ENERGY STAR, BAFU CO2, BETTER, HAZUS/FAST |
+| **Building** | Single-asset assessment | EC3, IFC BRI, NABERS, ASHRAE BEQ, Zero Tool, IFC EDGE, DGNB, BREEAM, SRI, eLCA, OpenQuake, SFINCS, TABULA, Climate Bonds, pyBuildingEnergy, REopt, FlexMeasures, DER-VET, SNBS, Gefahrenkarten, ERM-CH23, Sonnendach, Naturgefahren-Check, KBOB, Madaster, Mobitool, CBE Thermal Comfort Tool |
+| **Portfolio** | Multi-asset portfolio analysis | PCAF, SBTi, OS-physrisk, NGFS, CLIMADA, EIOPA CLIMADA-App, Oasis LMF, WRI Aqueduct, JRC Flood Maps, NCCS CH2025, PACTA-CH, SSREI |
+| **Both** | Works at building and portfolio level | CRREM (EU/NA/APAC), ENERGY STAR, BAFU CO2, BETTER, HAZUS/FAST, ResStock/ComStock, geo.admin.ch |
 
 ### 5. Approach
 
 | Approach | Description | Count |
 |----------|-------------|-------|
-| **Quantitative** | Produces numerical outputs (scores, projections, loss estimates) | 24 |
-| **Mixed** | Combines quantitative metrics with qualitative assessment | 6 (SBTi, EU Level(s), IFC EDGE, SRI, DGNB, BREEAM) |
+| **Quantitative** | Produces numerical outputs (scores, projections, loss estimates) | 40 |
+| **Mixed** | Combines quantitative metrics with qualitative assessment | 8 (SBTi, EU Level(s), IFC EDGE, SRI, DGNB, BREEAM, SNBS, SSREI) |
 | **Qualitative** | Primarily descriptive/grade-based assessment | 1 (IFC BRI) |
 
 ---
@@ -77,7 +79,6 @@ Each model in `data/models.json` has the following schema:
 | `name` | string | yes | Display name |
 | `version` | string | yes | Current version |
 | `status` | enum | yes | `live` or `coming-soon` |
-| `image` | string | yes | Path to card SVG |
 
 ### Description
 
@@ -151,15 +152,15 @@ Each model in `data/models.json` has the following schema:
 
 | Value | Description | Count |
 |-------|-------------|-------|
-| `energy-performance` | Operational energy performance rating, scoring, simulation | 14 |
-| `physical-risk` | Climate hazard damage, loss estimation, resilience, insurance | 11 |
-| `carbon-accounting` | GHG measurement, reporting, attribution | 6 |
-| `embodied-carbon` | Materials, construction, lifecycle carbon | 6 |
-| `transition-risk` | Carbon stranding, pathway misalignment, policy exposure | 5 |
-| `multi-criteria` | Holistic sustainability certification across multiple dimensions | 3 |
+| `energy-performance` | Operational energy performance rating, scoring, simulation | 17 |
+| `physical-risk` | Climate hazard damage, loss estimation, resilience, insurance | 16 |
+| `carbon-accounting` | GHG measurement, reporting, attribution | 10 |
+| `embodied-carbon` | Materials, construction, lifecycle carbon | 9 |
+| `transition-risk` | Carbon stranding, pathway misalignment, policy exposure | 6 |
+| `multi-criteria` | Holistic sustainability certification across multiple dimensions | 5 |
 | `grid-optimization` | DER sizing, demand flexibility, storage, renewable optimization | 3 |
 | `target-setting` | Science-based target alignment and validation | 2 |
-| `indoor-environment` | Thermal comfort, air quality, occupant health | 1 |
+| `indoor-environment` | Thermal comfort, air quality, occupant health | 2 |
 
 ### `region` (enum, multi-select)
 
@@ -178,12 +179,16 @@ Each model in `data/models.json` has the following schema:
 
 | Value | Description | Count |
 |-------|-------------|-------|
-| `open-source` | Source code available under OSI/FSF license | 9 |
-| `free` | Free to use, no source code | 7 |
-| `free-open-methodology` | Methodology docs publicly available | 5 |
-| `free-non-commercial` | Free for non-commercial use, commercial license required | 4 |
-| `free-open-access` | Freely downloadable, standard copyright | 3 |
-| `free-open-api` | Free tool with open API | 3 |
+| `open-source` | Source code available under OSI/FSF license | 14 |
+| `free` | Free to use, no source code | 13 |
+| `free-open-methodology` | Methodology docs publicly available | 7 |
+| `free-non-commercial` | Free for non-commercial use, commercial license required | 5 |
+| `free-open-api` | Free tool with open API | 4 |
+| `free-open-access` | Freely downloadable, standard copyright | 2 |
+| `source-available` | Source code available on request, no formal OSS license | 1 |
+| `proprietary` | Commercial product, documentation may be available for purchase | 1 |
+| `membership` | Access requires organizational membership | 1 |
+| `commercial` | Paid SaaS or subscription product | 1 |
 
 ### `lifecycleStages` (enum, multi-select)
 
@@ -229,7 +234,7 @@ Each model in `data/models.json` has the following schema:
 
 **SFINCS** (Deltares) is a fast compound flooding model that simulates coastal surge, riverine, and rainfall flooding 100-1000x faster than full hydrodynamic models, making it uniquely suited for climate scenario analysis.
 
-**JRC Flood Hazard Maps** provide pre-computed open-data flood inundation maps for 10-500 year return periods at 25m resolution for Europe — the most accessible flood risk data for EU real estate portfolios.
+**JRC Flood Hazard Maps** provide pre-computed open-data flood inundation maps for 10-500 year return periods at 100m resolution for Europe — the most accessible flood risk data for EU real estate portfolios.
 
 ### Carbon & Energy
 
@@ -241,7 +246,7 @@ Each model in `data/models.json` has the following schema:
 
 ### Multi-Criteria / Certification
 
-**BREEAM** (BRE, UK) is the world's most widely used sustainability assessment, operating in 100+ countries. Version 7 (July 2025) maps directly to EU Taxonomy technical screening criteria.
+**BREEAM** (BRE, UK) is the world's most widely used sustainability assessment, operating in 100+ countries. Version 7 (2025) maps directly to EU Taxonomy technical screening criteria.
 
 **DGNB** (Germany) is the EU's most rigorous full-lifecycle certification, evaluating 29 criteria across 6 quality areas from Planning through Circularity.
 
@@ -253,11 +258,11 @@ Each model in `data/models.json` has the following schema:
 
 ### Indoor Environment
 
-**CBE Thermal Comfort Tool** (UC Berkeley) is the standard free online calculator for ASHRAE 55, ISO 7730, and EN 16798 thermal comfort assessment, with ~50,000 annual users. Open source (BSD). Calculates PMV/PPD, adaptive comfort, SET, and local discomfort.
+**CBE Thermal Comfort Tool** (UC Berkeley) is the standard free online calculator for ASHRAE 55, ISO 7730, and EN 16798 thermal comfort assessment, with ~50,000 annual users. Open source (GPL-2.0). Calculates PMV/PPD, adaptive comfort, SET, and local discomfort.
 
 ### Grid Optimization
 
-**REopt** (NREL) is the leading open-source platform for optimizing solar, battery, wind, and CHP sizing and dispatch at buildings. Web tool with API. Has supported 260+ MW of renewable energy decisions.
+**REopt** (NREL) is the leading open-source platform for optimizing solar, battery, wind, and CHP sizing and dispatch at buildings. Web tool with API (Apache-2.0). Has supported 260+ MW of renewable energy decisions.
 
 **FlexMeasures** (LF Energy) optimizes behind-the-meter flexibility for batteries, heat pumps, and EVs. API-first design, Apache 2.0 licensed.
 
@@ -271,17 +276,41 @@ Each model in `data/models.json` has the following schema:
 
 ### EPBD Compliance
 
-**pyBuildingEnergy** (EURAC Research) implements ISO 52016-1:2018 in Python for EPBD-compliant energy performance calculation. Open source, wrappable as a web API.
+**pyBuildingEnergy** (EURAC Research) implements ISO 52016-1:2018 in Python for EPBD-compliant energy performance calculation. Open source (MIT), wrappable as a web API.
+
+### Switzerland
+
+Switzerland has a uniquely comprehensive ecosystem of 13 building climate tools:
+
+**BAFU CO2 Calculator** calculates building-level CO2 emissions using the Federal Register of Buildings (GWR) and SIA 380/1 standard. Source available on request from FOEN. Used in the PACTA Climate Test for Swiss financial institutions.
+
+**PACTA Climate Test Switzerland** is the biennial government-commissioned climate alignment assessment for Swiss financial institutions. Measures building emission intensity against the Swiss net-zero 2050 pathway. Participation is free; 80% of the Swiss financial market participated in 2020.
+
+**KBOB Okobilanzdaten** (v8.02) is the authoritative Swiss LCA database for construction materials, used by all major Swiss building labels (Minergie, SNBS, SIA 2032). Free data download via lcadata.ch.
+
+**SNBS Hochbau** is the Swiss multi-criteria sustainability certification (35 criteria, 98 parameters) with Silver/Gold/Platinum ratings. Shares a common label platform with Minergie since November 2023.
+
+**SSREI** is the leading sustainability assessment framework for Swiss institutional real estate portfolios (36 indicators). Recognized by GRESB as equivalent to operational green building certification.
+
+**Sonnendach.ch** calculates solar energy potential for every roof in Switzerland with system sizing, costs, and payback. Open data via opendata.swiss.
+
+**NCCS Climate Scenarios CH2025** provide official Swiss climate projections at 1km grid resolution under Global Warming Levels 1.5/2.0/2.5/3.0°C. Supersedes CH2018.
+
+**geo.admin.ch Hazard Layers** expose 50+ coordinate-queryable layers via REST API including CO2 emissions per building, flood zones, earthquake zones, storm gusts, hail hazard, building register, solar potential, and noise exposure.
+
+**Cantonal Hazard Maps (Gefahrenkarten)** are the legally binding natural hazard maps for Switzerland, aggregated via geodienste.ch. Determine building permits and insurance terms.
+
+**ERM-CH23** is Switzerland's first national earthquake risk model, covering 2M+ buildings with financial loss estimation. Built on OpenQuake.
+
+**Schutz vor Naturgefahren** provides free address-level multi-hazard checks for any Swiss building, combining all official hazard data with building protection recommendations.
+
+**Madaster Switzerland** is the material passport platform for Swiss buildings, recording all materials from BIM data with circularity index and residual value calculation. Commercial SaaS.
+
+**Mobitool** provides standardized environmental impact data for all Swiss transport modes, relevant for calculating Scope 3 transport emissions of building locations.
 
 ---
 
 ## Coverage Gaps
-
-Gaps addressed in this release:
-- Indoor environment: **CBE Thermal Comfort Tool** added
-- Grid optimization: **REopt**, **FlexMeasures**, **DER-VET** added
-- Retrofit planning: **BETTER**, **ResStock/ComStock** added
-- EPBD compliance: **pyBuildingEnergy** added
 
 Remaining gaps:
 
@@ -301,12 +330,12 @@ Remaining gaps:
 
 ## Statistics
 
-- **37 models** total (1 live, 36 coming-soon)
-- **9 categories** — energy-performance (14) and physical-risk (11) most populated
-- **3 new categories** added: multi-criteria (3), grid-optimization (3), indoor-environment (1)
-- **85 unique tags** for fine-grained filtering
-- **6 license types** — 12 open-source, 7 free, 5 free-open-methodology
-- **Complexity range**: 2-8 (median 5)
-- **Maturity range**: 4-9 (median 7.5)
-- **30 quantitative**, 6 mixed, 1 qualitative
-- **25 of 37** cover the Operation phase; only 2 cover Circularity
+- **49 models** total (1 live, 48 coming-soon)
+- **9 categories** — energy-performance (17) and physical-risk (16) most populated
+- **110 unique tags** for fine-grained filtering
+- **10 license types** — 14 open-source, 13 free, 7 free-open-methodology
+- **13 Swiss-specific models** covering emissions, hazards, solar, LCA, certification, and transport
+- **Complexity range**: 1-8 (median 5)
+- **Maturity range**: 4-9 (median 8)
+- **40 quantitative**, 8 mixed, 1 qualitative
+- **34 of 49** cover the Operation phase; 6 cover End of life, 4 cover Circularity
