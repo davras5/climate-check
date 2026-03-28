@@ -31,7 +31,15 @@
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/ashrae-beq/card.svg\":*)",
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/os-physrisk/card.svg\":*)",
       "Bash(curl -o /dev/null -s -w \"%{http_code}\" \"https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop\")",
-      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/crrem-apac/card.svg\":*)"
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/crrem-apac/card.svg\":*)",
+      "WebFetch(domain:www.crrem.eu)",
+      "WebFetch(domain:crrem.org)",
+      "WebFetch(domain:www.buildingtransparency.org)",
+      "WebFetch(domain:www.zerotool.org)",
+      "WebFetch(domain:carbonaccountingfinancials.com)",
+      "WebFetch(domain:www.measurabl.com)",
+      "WebFetch(domain:www.bafu.admin.ch)",
+      "Bash(node -e \":*)"
     ]
   }
 }

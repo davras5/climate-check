@@ -20,11 +20,18 @@
   --space-5: 40px;
   --space-6: 64px;
 
+  /* Layout */
+  --max-content-width: 1120px;
+
   /* Radii */
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 10px;
   --radius-full: 9999px;
+
+  /* Transitions */
+  --duration-fast: 0.1s;
+  --duration-normal: 0.2s;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);

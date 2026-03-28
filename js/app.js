@@ -5,11 +5,10 @@
 const YEARS = Array.from({length:31}, (_,i) => 2020+i);
 let models = [], currentModel = null, currentEngine = null, currentResults = [], charts = {};
 let sortCol = 'strandingYear', sortAsc = true;
-let filters = { q:'', categories:[], region:[], status:[], tags:[] };
+let filters = { q:'', categories:[], lifecycle:[], license:[], region:[], status:[], tags:[] };
 let viewMode = 'gallery'; // gallery | list | map
 let gallerySort = 'name'; // name | status | updated | region
 
-// --- Icons ---
 const ICON = {
   grid: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>',
   list: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="2" width="14" height="2" rx="0.5"/><rect x="1" y="7" width="14" height="2" rx="0.5"/><rect x="1" y="12" width="14" height="2" rx="0.5"/></svg>',
@@ -17,11 +16,12 @@ const ICON = {
   back: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"/></svg>',
 };
 
-// --- Helpers ---
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const fmt = v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v.toFixed(0);
 const eur = v => '\u20AC'+fmt(v);
+const humanize = s => s.replace(/-/g, ' ');
+const LIFECYCLE_PHASES = ['Planning','Production','Construction','Operation','End of life','Circularity'];
 function riskTier(r) { if(!r.strandingYear) return 'low'; const d=r.strandingYear-r.reportingYear; return d<=5?'high':d<=15?'med':'low'; }
 function riskName(t) { return {high:'High',med:'Medium',low:'Low'}[t]; }
 function badge(t) {
@@ -31,13 +31,11 @@ function badge(t) {
 function strandTxt(r) { return r.strandingYear ? String(r.strandingYear) : 'Aligned'; }
 function statusDot(s) {
   return s==='live'
-    ? '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live"><span aria-hidden="true">\u25cf</span> Live</span>'
-    : '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon"><span aria-hidden="true">\u25cb</span> Coming soon</span>';
+    ? '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live">Live</span>'
+    : '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon">Coming soon</span>';
 }
 
-// Search debounce
-let _searchTimer = null;
-function debounce(fn, ms) { return (...args) => { clearTimeout(_searchTimer); _searchTimer = setTimeout(() => fn(...args), ms); }; }
+function debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; }
 
 // ============================================================
 // FILTER URL SYNC
@@ -46,6 +44,8 @@ function filtersToParams() {
   const p = new URLSearchParams();
   if (filters.q) p.set('q', filters.q);
   if (filters.categories.length) p.set('categories', filters.categories.join(','));
+  if (filters.lifecycle.length) p.set('lifecycle', filters.lifecycle.join(','));
+  if (filters.license.length) p.set('license', filters.license.join(','));
   if (filters.region.length) p.set('region', filters.region.join(','));
   if (filters.status.length) p.set('status', filters.status.join(','));
   if (filters.tags.length) p.set('tags', filters.tags.join(','));
@@ -58,6 +58,8 @@ function filtersFromParams() {
   const p = new URLSearchParams(location.search);
   filters.q = p.get('q') || '';
   filters.categories = p.get('categories') ? p.get('categories').split(',') : [];
+  filters.lifecycle = p.get('lifecycle') ? p.get('lifecycle').split(',') : [];
+  filters.license = p.get('license') ? p.get('license').split(',') : [];
   filters.region = p.get('region') ? p.get('region').split(',') : [];
   filters.status = p.get('status') ? p.get('status').split(',') : [];
   filters.tags = p.get('tags') ? p.get('tags').split(',') : [];
@@ -81,8 +83,13 @@ function galleryHref() {
 // ============================================================
 async function route() {
   const h = location.hash || '#/';
-  const m = h.match(/^#\/models\/([^/]+)/);
-  if (m) { await showModel(m[1]); } else { filtersFromParams(); showGallery(); }
+  const m = h.match(/^#\/models\/([^/]+)(?:\/(\w+))?/);
+  if (m) {
+    modelTab = m[2] || 'about';
+    await showModel(m[1]);
+  } else {
+    filtersFromParams(); showGallery();
+  }
 }
 
 // ============================================================
@@ -91,6 +98,7 @@ async function route() {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     models = await fetch('data/models.json').then(r => { if (!r.ok) throw new Error('Failed to load'); return r.json(); });
+    cacheModelData();
   } catch(e) {
     $('#app').innerHTML = '<div class="gallery-empty"><p class="f3">Failed to load models</p><p class="f6 fgColor-muted">Check your connection and reload the page.</p></div>';
     return;
@@ -133,14 +141,35 @@ function removeFilter(grp, val) {
   showGallery();
 }
 
-// Build country→region map from model data
-function countryRegionMap() {
-  const m = {};
+let _allCats, _allLife, _allLic, _allReg, _allTags, _filterCounts, _countryRegionMap;
+
+function cacheModelData() {
+  _allCats = [...new Set(models.flatMap(m=>m.categories||[]))].sort();
+  _allLife = LIFECYCLE_PHASES.filter(p => models.some(m => (m.lifecycleStages||[]).includes(p)));
+  _allLic = [...new Set(models.map(m=>m.license&&m.license.type?m.license.type:'').filter(Boolean))].sort();
+  _allReg = [...new Set(models.flatMap(m=>m.region))].sort();
+  _allTags = [...new Set(models.flatMap(m=>m.tags))].sort();
+  _filterCounts = {};
+  const countFor = (grp, val) => models.filter(m => {
+    if (grp === 'categories') return (m.categories||[]).includes(val);
+    if (grp === 'lifecycle') return (m.lifecycleStages||[]).includes(val);
+    if (grp === 'license') return m.license && m.license.type === val;
+    if (grp === 'region') return m.region.includes(val);
+    if (grp === 'status') return m.status === val;
+    if (grp === 'tags') return m.tags.includes(val);
+    return false;
+  }).length;
+  _allCats.forEach(v => { _filterCounts['categories:'+v] = countFor('categories',v); });
+  _allLife.forEach(v => { _filterCounts['lifecycle:'+v] = countFor('lifecycle',v); });
+  _allLic.forEach(v => { _filterCounts['license:'+v] = countFor('license',v); });
+  _allReg.forEach(v => { _filterCounts['region:'+v] = countFor('region',v); });
+  ['live','coming-soon'].forEach(v => { _filterCounts['status:'+v] = countFor('status',v); });
+  _allTags.forEach(v => { _filterCounts['tags:'+v] = countFor('tags',v); });
+  _countryRegionMap = {};
   models.forEach(mod => {
     const codes = mod.coverage && mod.coverage.jurisdictionCodes;
-    if (codes) codes.forEach(c => { if (!m[c.toLowerCase()]) m[c.toLowerCase()] = mod.region[0]; });
+    if (codes) codes.forEach(c => { if (!_countryRegionMap[c.toLowerCase()]) _countryRegionMap[c.toLowerCase()] = mod.region[0]; });
   });
-  return m;
 }
 
 // View toggle HTML
@@ -149,15 +178,14 @@ function viewToggleHtml() {
   return `<div class="view-toggle" role="group" aria-label="View mode">${btn('gallery',ICON.grid,'Gallery view')}${btn('list',ICON.list,'List view')}${btn('map',ICON.map,'Map view')}</div>`;
 }
 
-// Render gallery card
 function galleryCard(m) {
   const img = CARD_IMG[m.id] || m.image;
   const cats = (m.categories||[]);
   return `<div class="Box model-card" data-href="#/models/${m.id}">
     <div class="model-card-img-wrap">
       <img src="${img}" alt="${m.name}" class="model-card-img" loading="lazy">
-      ${cats.length ? `<div class="model-card-cats">${cats.map(c => `<span class="cat-pill tag-click" data-g="categories" data-v="${c}">${c.replace(/-/g,' ')}</span>`).join('')}</div>` : ''}
-      ${m.region.length ? `<div class="model-card-region">${m.region.map(r => `<span class="region-pill tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</div>` : ''}
+      ${cats.length ? `<div class="model-card-cats">${cats.map(c => `<span class="overlay-pill cat-pill tag-click" data-g="categories" data-v="${c}">${humanize(c)}</span>`).join('')}</div>` : ''}
+      ${m.region.length ? `<div class="model-card-region">${m.region.map(r => `<span class="overlay-pill region-pill tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</div>` : ''}
     </div>
     <div class="p-3">
       <div class="mb-1">
@@ -166,18 +194,17 @@ function galleryCard(m) {
       <p class="f6 fgColor-muted mb-2 line-clamp-2">${m.description}</p>
       <div class="d-flex flex-wrap gap-1">
         ${statusDot(m.status)}
-        ${m.tags.slice(0,2).map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
+        ${m.tags.slice(0,2).map(t=>`<span class="IssueLabel tag-click" data-g="tags" data-v="${t}">${humanize(t)}</span>`).join('')}
       </div>
     </div>
   </div>`;
 }
 
-// Render list row
 function listRow(m) {
-  return `<tr class="border-bottom list-row" data-href="#/models/${m.id}" tabindex="0">
+  return `<tr class="border-bottom clickable-row" data-href="#/models/${m.id}" tabindex="0">
     <td class="py-2 px-3 text-bold">${m.name}</td>
     <td class="py-2 px-3">${statusDot(m.status)}</td>
-    <td class="py-2 px-3">${(m.categories||[]).map(c=>`<span class="IssueLabel tag-click" data-g="categories" data-v="${c}">${c.replace(/-/g,' ')}</span>`).join(' ')}</td>
+    <td class="py-2 px-3">${(m.categories||[]).map(c=>`<span class="IssueLabel tag-click" data-g="categories" data-v="${c}">${humanize(c)}</span>`).join(' ')}</td>
     <td class="py-2 px-3">${m.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</td>
     <td class="py-2 px-3 fgColor-muted line-clamp-2">${m.description}</td>
   </tr>`;
@@ -190,6 +217,8 @@ function showGallery() {
   const vis = models.filter(m => {
     if (filters.q && !(m.name+' '+m.description).toLowerCase().includes(filters.q.toLowerCase())) return false;
     if (filters.categories.length && !filters.categories.some(c=>(m.categories||[]).includes(c))) return false;
+    if (filters.lifecycle.length && !filters.lifecycle.some(l=>(m.lifecycleStages||[]).includes(l))) return false;
+    if (filters.license.length && !filters.license.some(l=>m.license && m.license.type === l)) return false;
     if (filters.region.length && !filters.region.some(r=>m.region.includes(r))) return false;
     if (filters.status.length && !filters.status.includes(m.status)) return false;
     if (filters.tags.length && !filters.tags.some(t=>m.tags.includes(t))) return false;
@@ -202,55 +231,52 @@ function showGallery() {
   });
 
   const activeFilters = [
-    ...filters.categories.map(v => ({grp:'categories', val:v, lab:v.replace(/-/g,' ')})),
+    ...filters.categories.map(v => ({grp:'categories', val:v, lab:humanize(v)})),
+    ...filters.lifecycle.map(v => ({grp:'lifecycle', val:v, lab:v})),
+    ...filters.license.map(v => ({grp:'license', val:v, lab:humanize(v)})),
     ...filters.region.map(v => ({grp:'region', val:v, lab:v})),
     ...filters.status.map(v => ({grp:'status', val:v, lab:v==='live'?'Live':'Coming soon'})),
-    ...filters.tags.map(v => ({grp:'tags', val:v, lab:v.replace(/-/g,' ')})),
+    ...filters.tags.map(v => ({grp:'tags', val:v, lab:humanize(v)})),
   ];
   const hasFilters = activeFilters.length > 0;
 
-  const allCats = [...new Set(models.flatMap(m=>m.categories||[]))].sort();
-  const allReg = [...new Set(models.flatMap(m=>m.region))].sort();
-  const allTags = [...new Set(models.flatMap(m=>m.tags))].sort();
-
-  // Count models per filter value
-  const countFor = (grp, val) => {
-    return models.filter(m => {
-      if (grp === 'categories') return (m.categories||[]).includes(val);
-      if (grp === 'region') return m.region.includes(val);
-      if (grp === 'status') return m.status === val;
-      if (grp === 'tags') return m.tags.includes(val);
-      return false;
-    }).length;
-  };
+  const allCats = _allCats, allLife = _allLife, allLic = _allLic, allReg = _allReg, allTags = _allTags;
 
   const cb = (grp, val, lab) => {
     const checked = filters[grp].includes(val) ? ' checked' : '';
-    const count = countFor(grp, val);
+    const count = _filterCounts[grp+':'+val] || 0;
     return `<label class="filter-cb"><input type="checkbox" data-g="${grp}" data-v="${val}"${checked}><span>${lab}</span><span class="filter-count">${count}</span></label>`;
   };
 
   let h = `<div class="gallery-layout">
   <aside class="filter-panel" aria-label="Filter models">
-    <div class="filter-panel-title">Filters</div>
-    <div class="filter-group">
-      <div class="filter-heading">Category</div>
-      ${allCats.map(c => cb('categories', c, c.replace(/-/g,' '))).join('')}
-    </div>
-    <div class="filter-group">
-      <div class="filter-heading">Region</div>
-      ${allReg.map(r => cb('region', r, r)).join('')}
-    </div>
-    <div class="filter-group">
-      <div class="filter-heading">Status</div>
+    <div class="filter-panel-title label-xs">Filters</div>
+    <details class="filter-group" open>
+      <summary class="filter-heading label-xs"><span class="chev"></span>Status</summary>
       ${cb('status', 'live', 'Live')}
       ${cb('status', 'coming-soon', 'Coming soon')}
-    </div>
-    <div class="filter-group">
-      <div class="filter-heading">Tags</div>
-      ${allTags.slice(0,10).map(t => cb('tags', t, t.replace(/-/g,' '))).join('')}
-      ${allTags.length > 10 ? `<div class="filter-tags-overflow" style="display:none">${allTags.slice(10).map(t => cb('tags', t, t.replace(/-/g,' '))).join('')}</div><button class="btn-link f6 mt-1" id="showAllTags">Show all ${allTags.length} tags</button>` : ''}
-    </div>
+    </details>
+    <details class="filter-group" open>
+      <summary class="filter-heading label-xs"><span class="chev"></span>Category</summary>
+      ${allCats.map(c => cb('categories', c, humanize(c))).join('')}
+    </details>
+    <details class="filter-group" open>
+      <summary class="filter-heading label-xs"><span class="chev"></span>Region</summary>
+      ${allReg.map(r => cb('region', r, r)).join('')}
+    </details>
+    <details class="filter-group" open>
+      <summary class="filter-heading label-xs"><span class="chev"></span>License</summary>
+      ${allLic.map(l => cb('license', l, humanize(l))).join('')}
+    </details>
+    <details class="filter-group">
+      <summary class="filter-heading label-xs"><span class="chev"></span>Lifecycle</summary>
+      ${allLife.map(l => cb('lifecycle', l, l)).join('')}
+    </details>
+    <details class="filter-group">
+      <summary class="filter-heading label-xs"><span class="chev"></span>Tags</summary>
+      ${allTags.slice(0,10).map(t => cb('tags', t, humanize(t))).join('')}
+      ${allTags.length > 10 ? `<div class="filter-tags-overflow" style="display:none">${allTags.slice(10).map(t => cb('tags', t, humanize(t))).join('')}</div><button class="btn-link f6 mt-1" id="showAllTags">Show all ${allTags.length} tags</button>` : ''}
+    </details>
   </aside>
 
   <section class="gallery-main">
@@ -279,7 +305,7 @@ function showGallery() {
   if (vis.length === 0) {
     h += `<div class="gallery-empty"><p class="f3">No models match your filters</p><p class="f6 fgColor-muted">Try removing some filters or clearing the search</p></div>`;
   } else if (viewMode === 'list') {
-    h += `<div class="Box" style="overflow-x:auto"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Models list">
+    h += `<div class="Box" class="overflow-x"><table class="f6" class="width-full" aria-label="Models list">
       <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Name</th><th class="py-2 px-3 text-left label-xs">Status</th><th class="py-2 px-3 text-left label-xs">Category</th><th class="py-2 px-3 text-left label-xs">Region</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead>
       <tbody>${vis.map(m => listRow(m)).join('')}</tbody>
     </table></div>`;
@@ -300,70 +326,59 @@ function showGallery() {
     renderGalleryMap();
   }
 
-  // Events — mobile filter panel toggle
   const fp = $('.filter-panel-title');
   if (fp) fp.addEventListener('click', () => fp.closest('.filter-panel').classList.toggle('filter-panel-open'));
-  // Events — sort
   $('#gallerySort').addEventListener('change', e => { gallerySort = e.target.value; showGallery(); });
-  // Events — search (debounced)
   const searchHandler = debounce(() => { filters.q = $('#gsearch').value; showGallery(); }, 200);
   $('#gsearch').addEventListener('input', searchHandler);
-  // Events — view toggle
-  $$('.view-btn').forEach(b => b.addEventListener('click', () => {
-    viewMode = b.dataset.view;
-    showGallery();
-  }));
-  // Events — show all tags
+  $$('.view-btn').forEach(b => b.addEventListener('click', () => { viewMode = b.dataset.view; showGallery(); }));
   const sat = $('#showAllTags');
-  if (sat) sat.addEventListener('click', () => {
-    const overflow = $('.filter-tags-overflow');
-    if (overflow) { overflow.style.display = 'block'; sat.remove(); }
-  });
-  // Events — sidebar checkboxes
+  if (sat) sat.addEventListener('click', () => { const o=$('.filter-tags-overflow'); if(o){o.style.display='block';sat.remove();} });
   $$('.filter-cb input').forEach(el => el.addEventListener('change', () => {
-    const g = el.dataset.g, v = el.dataset.v;
-    if (el.checked) { if (!filters[g].includes(v)) filters[g].push(v); }
-    else { filters[g] = filters[g].filter(x => x !== v); }
+    const g=el.dataset.g, v=el.dataset.v;
+    if (el.checked) { if(!filters[g].includes(v)) filters[g].push(v); } else { filters[g]=filters[g].filter(x=>x!==v); }
     showGallery();
   }));
-  // Events — whole card / list row clickable
   $$('[data-href]').forEach(el => {
     el.addEventListener('click', () => { location.hash = el.dataset.href; });
-    el.addEventListener('keydown', e => { if (e.key==='Enter') { e.preventDefault(); location.hash = el.dataset.href; } });
+    el.addEventListener('keydown', e => { if(e.key==='Enter'){e.preventDefault();location.hash=el.dataset.href;} });
   });
-  // Events — clickable IssueLabels add filter
-  $$('.tag-click').forEach(el => el.addEventListener('click', e => {
-    e.stopPropagation();
-    addFilter(el.dataset.g, el.dataset.v);
-  }));
-  // Events — remove active filter chips
-  $$('.filter-chip-x').forEach(b => b.addEventListener('click', () => {
-    removeFilter(b.dataset.g, b.dataset.v);
-  }));
-  // Events — reset all filters
+  $$('.tag-click').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); addFilter(el.dataset.g, el.dataset.v); }));
+  $$('.filter-chip-x').forEach(b => b.addEventListener('click', () => { removeFilter(b.dataset.g, b.dataset.v); }));
   const rst = $('#resetFilters');
-  if (rst) rst.addEventListener('click', () => { filters.categories=[]; filters.region=[]; filters.status=[]; filters.tags=[]; showGallery(); });
+  if (rst) rst.addEventListener('click', () => { filters.categories=[]; filters.lifecycle=[]; filters.license=[]; filters.region=[]; filters.status=[]; filters.tags=[]; showGallery(); });
 }
 
-// Gallery map view — load SVG, highlight covered countries, make clickable
-async function renderGalleryMap() {
-  const el = $('#galleryMap');
-  if (!el) return;
+async function injectWorldSvg(el, ariaLabel) {
   const svgText = await loadWorldMap();
   el.innerHTML = svgText;
   const svg = el.querySelector('svg');
-  if (!svg) return;
+  if (!svg) return null;
   svg.removeAttribute('width');
   svg.removeAttribute('height');
   svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', 'World map — click a highlighted country to filter by region');
+  svg.setAttribute('aria-label', ariaLabel);
   svg.style.width = '100%';
   svg.style.height = 'auto';
-
-  const crMap = countryRegionMap();
   svg.querySelectorAll('path').forEach(p => p.classList.add('map-country'));
+  return svg;
+}
 
-  // Highlight and make clickable
+function highlightCountries(svg, codes) {
+  codes.forEach(code => {
+    const country = svg.querySelector('#' + code.toLowerCase());
+    if (!country) return;
+    const paths = country.tagName === 'g' ? country.querySelectorAll('path') : [country];
+    paths.forEach(p => p.classList.add('map-active'));
+  });
+}
+
+async function renderGalleryMap() {
+  const el = $('#galleryMap');
+  if (!el) return;
+  const svg = await injectWorldSvg(el, 'World map \u2014 click a highlighted country to filter by region');
+  if (!svg) return;
+  const crMap = _countryRegionMap;
   Object.entries(crMap).forEach(([code, region]) => {
     const country = svg.querySelector('#' + code);
     if (!country) return;
@@ -381,7 +396,6 @@ async function renderGalleryMap() {
 // ============================================================
 let modelTab = 'about';
 
-// ---- Coverage map: loads world-map.svg and highlights countries ----
 let _worldMapSvg = null;
 async function loadWorldMap() {
   if (_worldMapSvg) return _worldMapSvg;
@@ -392,27 +406,8 @@ async function loadWorldMap() {
 
 async function renderCoverageMap(el, codes) {
   if (!el || !codes || !codes.length) return;
-  const svgText = await loadWorldMap();
-  el.innerHTML = svgText;
-  const svg = el.querySelector('svg');
-  if (!svg) return;
-  svg.removeAttribute('width');
-  svg.removeAttribute('height');
-  svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', codes.length + ' covered jurisdictions');
-  svg.style.width = '100%';
-  svg.style.height = 'auto';
-  svg.querySelectorAll('path').forEach(p => p.classList.add('map-country'));
-  codes.forEach(code => {
-    const country = svg.querySelector('#' + code.toLowerCase());
-    if (country) {
-      if (country.tagName === 'g') {
-        country.querySelectorAll('path').forEach(p => p.classList.add('map-active'));
-      } else {
-        country.classList.add('map-active');
-      }
-    }
-  });
+  const svg = await injectWorldSvg(el, codes.length + ' covered jurisdictions');
+  if (svg) highlightCountries(svg, codes);
 }
 
 async function showModel(id) {
@@ -455,7 +450,7 @@ async function showModel(id) {
         </div>
         <div class="d-flex flex-wrap gap-1 mb-2">
           ${statusDot(model.status)}
-          ${model.tags.map(t=>`<span class="IssueLabel tag-click tag-nav" data-g="tags" data-v="${t}">${t.replace(/-/g,' ')}</span>`).join('')}
+          ${model.tags.map(t=>`<span class="IssueLabel tag-click tag-nav" data-g="tags" data-v="${t}">${humanize(t)}</span>`).join('')}
           ${model.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click tag-nav" data-g="region" data-v="${r}">${r}</span>`).join('')}
         </div>
       </div>
@@ -473,6 +468,36 @@ async function showModel(id) {
     <p class="mb-4">${model.longDescription||model.description}</p>`;
 
   // Model details section
+  // Sliders above the detail list
+  const slider = (label, leftLab, rightLab, val, max, valueLab) => {
+    const pct = ((val - 1) / (max - 1) * 100).toFixed(0);
+    return `<div class="detail-slider">
+      <div class="detail-slider-label">${label}</div>
+      <div class="detail-slider-track-wrap">
+        <span class="detail-slider-end f6">${leftLab}</span>
+        <div class="detail-slider-track"><div class="detail-slider-dot" style="left:${pct}%"></div></div>
+        <span class="detail-slider-end f6">${rightLab}</span>
+      </div>
+      <div class="detail-slider-value f6 fgColor-muted">${valueLab}</div>
+    </div>`;
+  };
+  const approachMap = { qualitative: 0, mixed: 50, quantitative: 100 };
+  let slidersHtml = '';
+  if (model.maturity) slidersHtml += slider('Maturity', 'Low', 'High', model.maturity, 10, model.maturity + '/10');
+  if (model.complexity) slidersHtml += slider('Complexity', 'Low', 'High', model.complexity, 10, model.complexity + '/10');
+  if (model.approach) {
+    const aPct = approachMap[model.approach] ?? 50;
+    slidersHtml += `<div class="detail-slider">
+      <div class="detail-slider-label">Approach</div>
+      <div class="detail-slider-track-wrap">
+        <span class="detail-slider-end f6">Qualitative</span>
+        <div class="detail-slider-track"><div class="detail-slider-dot" style="left:${aPct}%"></div></div>
+        <span class="detail-slider-end f6">Quantitative</span>
+      </div>
+      <div class="detail-slider-value f6 fgColor-muted">${model.approach}</div>
+    </div>`;
+  }
+
   const detailRows = [];
   if (model.version) detailRows.push(['Version', model.version]);
   if (model.source && model.source.url) detailRows.push(['Project', `<a href="${model.source.url}" target="_blank" rel="noopener">${model.source.url.replace(/^https?:\/\/(www\.)?/,'')}</a>`]);
@@ -480,6 +505,11 @@ async function showModel(id) {
   if (model.author) detailRows.push(['Author', model.author]);
   if (model.scenario) detailRows.push(['Scenario', model.scenario]);
   if (model.scope) detailRows.push(['Scope', model.scope]);
+  const activePhases = model.lifecycleStages || [];
+  detailRows.push(['Lifecycle', LIFECYCLE_PHASES.map(p => {
+    const active = activePhases.includes(p);
+    return `<span class="IssueLabel${active?' bgColor-accent-muted fgColor-accent':''} tag-click tag-nav" data-g="lifecycle" data-v="${p}">${p}</span>`;
+  }).join(' ')]);
   if (model.lastUpdated) detailRows.push(['Last updated', model.lastUpdated]);
   if (model.license) detailRows.push(['License', model.license.url ? `<a href="${model.license.url}" target="_blank" rel="noopener">${model.license.name}</a>` : model.license.name]);
   if (model.adoptedBy && model.adoptedBy.length) detailRows.push(['Adopted by', model.adoptedBy.join(', ')]);
@@ -488,7 +518,8 @@ async function showModel(id) {
   if (detailRows.length) {
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Details <span class="Counter ml-1">${detailRows.length}</span></summary>
-      <dl class="detail-list mt-1 mb-3">
+      ${slidersHtml ? `<div class="detail-sliders mt-1 mb-3">${slidersHtml}</div>` : ''}
+      <dl class="detail-list mb-3">
         ${detailRows.map(([k,v]) => `<div class="detail-row"><dt>${k}</dt><dd>${v}</dd></div>`).join('')}
       </dl>
     </details>`;
@@ -498,7 +529,7 @@ async function showModel(id) {
   if (model.limitations && model.limitations.length) {
     h += `<details class="schema-section">
       <summary class="schema-header"><span class="chev"></span>Limitations <span class="Counter ml-1">${model.limitations.length}</span></summary>
-      <ul class="limitations-list mt-1 mb-3">
+      <ul class="divider-list limitations mt-1 mb-3">
         ${model.limitations.map(l => `<li>${l}</li>`).join('')}
       </ul>
     </details>`;
@@ -516,7 +547,7 @@ async function showModel(id) {
   if (cov.propertyTypeList && cov.propertyTypeList.length) {
     h += `<details class="schema-section">
       <summary class="schema-header"><span class="chev"></span>Property Types <span class="Counter ml-1">${cov.propertyTypeCount}</span></summary>
-      <ul class="coverage-list mt-1 mb-3">
+      <ul class="divider-list mt-1 mb-3">
         ${cov.propertyTypeList.map(t => `<li>${t}</li>`).join('')}
       </ul>
     </details>`;
@@ -531,7 +562,7 @@ async function showModel(id) {
     let lastG = '';
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Inputs <span class="Counter ml-1">${model.inputs.length}</span></summary>
-      <div class="border rounded-2 mt-2 mb-4" style="overflow-x:auto"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Input fields">
+      <div class="border rounded-2 mt-2 mb-4" class="overflow-x"><table class="f6" class="width-full" aria-label="Input fields">
         <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Field</th><th class="py-2 px-3 label-xs"></th><th class="py-2 px-3 text-left label-xs">Type</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead><tbody>`;
     model.inputs.forEach(inp => {
       if (inp.group && inp.group !== lastG) { lastG = inp.group; h += `<tr class="bgColor-muted"><td colspan="4" class="py-1 px-3 text-bold label-xs">${inp.group}</td></tr>`; }
@@ -543,7 +574,7 @@ async function showModel(id) {
   if (model.outputs.length) {
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Outputs <span class="Counter ml-1">${model.outputs.length}</span></summary>
-      <div class="border rounded-2 mt-2" style="overflow-x:auto"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Output fields">
+      <div class="border rounded-2 mt-2" class="overflow-x"><table class="f6" class="width-full" aria-label="Output fields">
         <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Output</th><th class="py-2 px-3 text-left label-xs">Unit</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead><tbody>`;
     model.outputs.forEach(o => {
       h += `<tr class="border-bottom"><td class="py-1 px-3 text-bold">${o.label}</td><td class="py-1 px-3 fgColor-muted">${o.unit||o.type||''}</td><td class="py-1 px-3 fgColor-muted">${o.description}</td></tr>`;
@@ -583,25 +614,23 @@ async function showModel(id) {
 
   app.innerHTML = h;
 
-  // Tab switching (accessible)
+  // Tab switching (accessible, URL-synced)
   $$('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
     modelTab = btn.dataset.tab;
     $$('.tab-btn').forEach(b => { b.classList.toggle('tab-active', b.dataset.tab===modelTab); b.setAttribute('aria-selected', b.dataset.tab===modelTab); });
     $$('.tab-pane').forEach(p => p.classList.toggle('tab-pane-active', p.dataset.pane===modelTab));
+    history.replaceState(null, '', `#/models/${model.id}/${modelTab}`);
   }));
 
-  // Clickable IssueLabels → navigate to gallery with filter
   $$('.tag-click').forEach(el => el.addEventListener('click', e => {
     e.stopPropagation();
     addFilter(el.dataset.g, el.dataset.v);
   }));
 
-  // Render coverage map
   if (cov.jurisdictionCodes) {
     renderCoverageMap($('#coverageMap'), cov.jurisdictionCodes);
   }
 
-  // Load engine
   if (live && model.engine) {
     await initEngine(model);
     wireEvents();
@@ -714,12 +743,12 @@ function renderDashboard() {
     <div class="Box-header d-flex flex-justify-between flex-items-center">
       <strong>Portfolio</strong><span class="f6 fgColor-muted">Click row to drill down</span>
     </div>
-    <div class="ptable-wrap"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Portfolio assets">
+    <div class="ptable-wrap"><table class="f6" class="width-full" aria-label="Portfolio assets">
       <thead><tr class="bgColor-muted">${th('name','Asset')}${th('strandingYear','Stranding')}${th('ci','CI')}${th('excess','Excess (t)')}${th('npv','NPV')}<th class="py-2 px-3 label-xs">Risk</th></tr></thead>
       <tbody>`;
 
   sorted.forEach(r => {
-    h += `<tr class="border-bottom" data-i="${R.indexOf(r)}" tabindex="0"><td class="py-2 px-3 text-bold">${r.name}<br><span class="f6 fgColor-muted text-normal">${r.country} \u00b7 ${r.propertyType}</span></td><td class="py-2 px-3">${strandTxt(r)}</td><td class="py-2 px-3 text-right text-mono">${r.baselineCarbonIntensity.toFixed(1)}</td><td class="py-2 px-3 text-right text-mono">${(r.cumulativeExcess/1000).toFixed(0)}</td><td class="py-2 px-3 text-right text-mono">${eur(r.npvExcessCosts)}</td><td class="py-2 px-3">${badge(riskTier(r))}</td></tr>`;
+    h += `<tr class="border-bottom clickable-row" data-i="${R.indexOf(r)}" tabindex="0"><td class="py-2 px-3 text-bold">${r.name}<br><span class="f6 fgColor-muted text-normal">${r.country} \u00b7 ${r.propertyType}</span></td><td class="py-2 px-3">${strandTxt(r)}</td><td class="py-2 px-3 text-right text-mono">${r.baselineCarbonIntensity.toFixed(1)}</td><td class="py-2 px-3 text-right text-mono">${(r.cumulativeExcess/1000).toFixed(0)}</td><td class="py-2 px-3 text-right text-mono">${eur(r.npvExcessCosts)}</td><td class="py-2 px-3">${badge(riskTier(r))}</td></tr>`;
   });
   h += '</tbody></table></div></div><div id="detail"></div></div>';
 
@@ -766,7 +795,7 @@ function showDetail(r) {
 
   h += `<div class="g2 mb-4"><div class="Box p-3"><div class="label-xs mb-2">Carbon Intensity</div><div class="cht"><canvas id="ch1"></canvas></div></div><div class="Box p-3"><div class="label-xs mb-2">Excess Costs</div><div class="cht"><canvas id="ch2"></canvas></div></div></div>`;
 
-  h += `<details><summary class="f5 text-bold" style="cursor:pointer">Year-by-year data</summary><div class="mt-3 border rounded-2" style="max-height:360px;overflow-y:auto"><table class="f6" style="width:100%;border-collapse:collapse" aria-label="Year-by-year projections"><thead><tr class="bgColor-muted"><th class="py-1 px-3 text-left label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Year</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Asset CI</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Pathway</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Excess</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Cost</th></tr></thead><tbody>`;
+  h += `<details><summary class="f5 text-bold" style="cursor:pointer">Year-by-year data</summary><div class="mt-3 border rounded-2" style="max-height:360px;overflow-y:auto"><table class="f6" class="width-full" aria-label="Year-by-year projections"><thead><tr class="bgColor-muted"><th class="py-1 px-3 text-left label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Year</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Asset CI</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Pathway</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Excess</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Cost</th></tr></thead><tbody>`;
   for (let y=0;y<31;y++) {
     const x=Math.max(0,r.projectedCI[y]-r.carbonPathway[y]);
     h += `<tr class="border-bottom${x>0?' xr':''}"><td class="py-1 px-3">${YEARS[y]}</td><td class="py-1 px-3 text-right text-mono">${r.projectedCI[y].toFixed(2)}</td><td class="py-1 px-3 text-right text-mono">${r.carbonPathway[y].toFixed(2)}</td><td class="py-1 px-3 text-right text-mono${x>0?' fgColor-danger':''}">${x>0?x.toFixed(2):'\u2014'}</td><td class="py-1 px-3 text-right text-mono">${r.annualExcessCosts[y]>0?eur(r.annualExcessCosts[y]):'\u2014'}</td></tr>`;
