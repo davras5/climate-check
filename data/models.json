@@ -387,7 +387,7 @@
     "version": "2.07",
     "status": "coming-soon",
     "image": "models/crrem-apac/card.svg",
-    "description": "Stranding assessment for buildings across 9 Asia-Pacific jurisdictions including Australia, China, Hong Kong, India, Japan, Malaysia, Philippines, Singapore, and South Korea.",
+    "description": "Stranding assessment for buildings across 10 Asia-Pacific jurisdictions including Australia, China, Hong Kong, India, Japan, Malaysia, New Zealand, Philippines, Singapore, and South Korea.",
     "longDescription": "The Asia-Pacific edition of CRREM applies the science-based 1.5°C decarbonization framework to 9 major APAC markets. Like the EU and NA editions, it calculates property-level carbon intensity and EUI pathways from 2020 to 2050, using jurisdiction-specific grid emission factors, district heating factors, and climate projections (HDD/CDD). The APAC pathways account for the region's diverse energy mixes and rapid urbanization, with country-specific baseline EUIs and grid decarbonization trajectories.",
     "categories": [
       "transition-risk"
@@ -556,7 +556,7 @@
     "status": "coming-soon",
     "image": "models/sbti-crrem/card.svg",
     "description": "Science-based target-setting for real estate using CRREM-aligned 1.5°C pathways. Covers in-use operational emissions and embodied carbon with a whole-building approach.",
-    "longDescription": "The SBTi Buildings Sector Guidance provides a standardized methodology for companies in the buildings sector to set greenhouse gas reduction targets aligned with 1.5°C. It uses a Sectoral Decarbonization Approach (SDA) that translates global carbon budgets into region- and property-type-specific pathways. For in-use operational emissions, the framework uses CRREM-aligned pathways co-developed in a formal partnership since January 2022. For embodied emissions, pathways were developed with Ramboll. The framework applies a whole-building approach covering landlord and tenant energy across Scope 1, 2, and 3, and is used by over 10,000 companies globally.",
+    "longDescription": "The SBTi Buildings Sector Guidance provides a standardized methodology for companies in the buildings sector to set greenhouse gas reduction targets aligned with 1.5°C. It uses a Sectoral Decarbonization Approach (SDA) that translates global carbon budgets into region- and property-type-specific pathways. For in-use operational emissions, the framework uses CRREM-aligned pathways co-developed in a formal partnership since January 2022. For embodied emissions, pathways were developed with Ramboll. The framework applies a whole-building approach covering landlord and tenant energy across Scope 1, 2, and 3. SBTi has validated targets for over 10,000 companies globally across all sectors.",
     "categories": [
       "transition-risk",
       "target-setting"
@@ -574,7 +574,7 @@
       "commercial",
       "residential"
     ],
-    "author": "Science Based Targets initiative (SBTi) — CDP, UNGC, WRI, WWF",
+    "author": "Science Based Targets initiative (SBTi) — CDP, UNGC, WRI, WWF, We Mean Business Coalition",
     "license": {
       "type": "free-open-access",
       "name": "Proprietary — all rights reserved",
@@ -754,7 +754,7 @@
     "version": "1.1",
     "status": "coming-soon",
     "image": "models/eu-levels/card.svg",
-    "description": "European Commission framework with 16 sustainability indicators across carbon, energy, water, materials, health, comfort, and climate resilience for buildings.",
+    "description": "European Commission framework with 16 sustainability indicators across 6 macro-objectives: GHG emissions, resource efficiency, water, health and comfort, climate resilience, and life cycle cost for buildings.",
     "longDescription": "Level(s) is the European Commission's voluntary framework for sustainable buildings, developed by the Joint Research Centre. It defines 16 indicators across 6 macro-objectives: greenhouse gas emissions, resource efficiency (energy, water, materials), health and comfort, climate resilience, and life cycle cost. Each indicator can be assessed at three levels of detail, from simple design-stage estimates to as-built verified performance. Level(s) is referenced in the EU Taxonomy for sustainable activities and supports compliance with CSRD and the Energy Performance of Buildings Directive (EPBD).",
     "categories": [
       "energy-performance",
@@ -892,11 +892,11 @@
   {
     "id": "os-physrisk",
     "name": "OS-Climate physrisk",
-    "version": "0.40.0",
+    "version": "1.8.0",
     "status": "coming-soon",
     "image": "models/os-physrisk/card.svg",
     "description": "Open-source physical climate risk analysis for real estate portfolios. Models flood, heat stress, wind, and drought impacts on individual assets.",
-    "longDescription": "OS-Climate physrisk is an open-source Python library developed under the Linux Foundation (FINOS), led by BNP Paribas. It provides physical climate risk analysis for large portfolios of individual assets, modeling the impact of climate hazards including riverine and coastal flooding, extreme heat, tropical cyclones, and drought. Designed for real estate mortgage portfolios, credit risk assessment, and loan origination, it uses CMIP6 climate projections and geospatial hazard data to produce asset-level risk scores.",
+    "longDescription": "OS-Climate physrisk is an open-source Python library developed under the Linux Foundation (FINOS), with contributions from BNP Paribas. It provides physical climate risk analysis for large portfolios of individual assets, modeling the impact of climate hazards including riverine and coastal flooding, extreme heat, tropical cyclones, and drought. Designed for real estate mortgage portfolios, credit risk assessment, and loan origination, it uses CMIP6 climate projections and geospatial hazard data to produce asset-level risk scores.",
     "categories": [
       "physical-risk"
     ],
@@ -915,13 +915,13 @@
       "commercial",
       "residential"
     ],
-    "author": "OS-Climate / Linux Foundation (FINOS), led by BNP Paribas",
+    "author": "OS-Climate / Linux Foundation (FINOS), with contributions from BNP Paribas",
     "license": {
       "type": "open-source",
       "name": "Apache 2.0",
       "url": "https://github.com/os-climate/physrisk/blob/main/LICENSE"
     },
-    "lastUpdated": "2024-09-02",
+    "lastUpdated": "2026-03-23",
     "scenario": "CMIP6 SSP1-2.6, SSP2-4.5, SSP5-8.5",
     "scope": "Physical climate hazards: flood, heat, wind, drought — economic damage estimation",
     "adoptedBy": [
@@ -1058,7 +1058,7 @@
       "LEED"
     ],
     "limitations": [
-      "US-only — scoring uses CBECS data for US buildings",
+      "US and Canada — scoring uses CBECS data for US buildings and NRCan data for Canadian buildings",
       "Score available for ~20 eligible building types; others get EUI only",
       "Does not measure carbon intensity directly"
     ],
@@ -1138,7 +1138,7 @@
       "name": "Free — open access via IIASA",
       "url": "https://www.ngfs.net/ngfs-scenarios-portal/"
     },
-    "lastUpdated": "2024-11-01",
+    "lastUpdated": "2024-11-05",
     "scenario": "Net Zero 2050, Low Demand, Below 2°C, Delayed Transition, Fragmented World, NDCs, Current Policies",
     "scope": "Transition risk (carbon prices, energy mix, GDP) + physical risk (chronic and acute hazards)",
     "adoptedBy": [
@@ -1354,8 +1354,8 @@
     ],
     "author": "Swiss Federal Office for the Environment (BAFU/FOEN), developed by Wüest Partner AG",
     "license": {
-      "type": "open-source",
-      "name": "Open source (R script, available on request)",
+      "type": "source-available",
+      "name": "Source available (R script, available on request from FOEN)",
       "url": "https://www.bafu.admin.ch/en/calculator-co2-buildings"
     },
     "lastUpdated": "2024-12-10",
@@ -1468,7 +1468,7 @@
   {
     "id": "openquake",
     "name": "OpenQuake Engine",
-    "version": "3.25",
+    "version": "3.25.1",
     "status": "coming-soon",
     "image": "models/openquake/card.svg",
     "description": "Gold-standard open-source engine for probabilistic seismic hazard and risk assessment at building level.",
@@ -1555,7 +1555,7 @@
     "license": {
       "type": "open-source",
       "name": "BSD-3-Clause-LBNL",
-      "url": "https://github.com/LBNL-JCI-ICF/better"
+      "url": "https://github.com/LBNL-ETA/better-lbnl-os"
     },
     "lastUpdated": "2024-06-01",
     "scenario": "N/A (retrofit cost-benefit analysis)",
@@ -1628,7 +1628,7 @@
     "limitations": [
       "Residential only",
       "Data from 2016",
-      "20 EU countries (not all 27)"
+      "20 European countries (not all EU members — includes Norway, Serbia, and Great Britain)"
     ],
     "citation": "Loga, T. et al. (2016). TABULA building typologies. Energy and Buildings, 132, 4-12.",
     "source": {
@@ -1935,7 +1935,7 @@
       "commercial",
       "residential"
     ],
-    "author": "European Commission / Fraunhofer IBP / VITO",
+    "author": "European Commission / VITO / Waide Strategic Efficiency Europe",
     "license": {
       "type": "free-open-methodology",
       "name": "Free — EU regulation",
@@ -2008,7 +2008,7 @@
     },
     "lastUpdated": "2023-07-01",
     "scenario": "N/A (multi-criteria assessment)",
-    "scope": "38 criteria across 6 quality areas",
+    "scope": "29 criteria across 6 quality areas",
     "adoptedBy": [
       "German government",
       "EU Taxonomy alignment"
@@ -2051,7 +2051,7 @@
     "status": "coming-soon",
     "image": "models/breeam/card.svg",
     "description": "World’s most widely used sustainability assessment. V7 maps to EU Taxonomy. Pass through Outstanding.",
-    "longDescription": "BREEAM evaluates management, energy, water, transport, health, materials, waste, pollution, land use, and ecology. V7 (2024) maps to EU Taxonomy. Used in 100+ countries.",
+    "longDescription": "BREEAM evaluates management, energy, water, transport, health, materials, waste, pollution, land use, and ecology. V7 (2025) maps to EU Taxonomy. Used in 100+ countries.",
     "categories": [
       "energy-performance",
       "carbon-accounting",
@@ -2073,8 +2073,8 @@
     ],
     "author": "BRE Group (UK)",
     "license": {
-      "type": "free-open-access",
-      "name": "Proprietary — scheme docs available",
+      "type": "proprietary",
+      "name": "Proprietary — scheme docs available for purchase",
       "url": "https://breeam.com/"
     },
     "lastUpdated": "2025-07-16",
@@ -2141,7 +2141,7 @@
     "author": "FEMA / National Institute of Building Sciences",
     "license": {
       "type": "free",
-      "name": "Public domain (FAST is open-source)",
+      "name": "HAZUS: public domain; FAST: GPL-3.0",
       "url": "https://github.com/nhrap-hazus/FAST"
     },
     "lastUpdated": "2025-09-01",
@@ -2185,7 +2185,7 @@
     "version": "2.1",
     "status": "coming-soon",
     "image": "models/jrc-flood-maps/card.svg",
-    "description": "Pre-computed flood maps for 10–500yr return periods. 25m EU, 90m global. Open data from Copernicus.",
+    "description": "Pre-computed flood maps for 10–500yr return periods. 100m EU, 90m global. Open data from Copernicus.",
     "longDescription": "JRC Global and European River Flood Hazard Maps provide inundation extent and depth for return periods from 10 to 500 years. Derived from LISFLOOD model. Available via Copernicus EMS and Google Earth Engine.",
     "categories": [
       "physical-risk"
@@ -2211,7 +2211,7 @@
       "url": "https://data.jrc.ec.europa.eu/"
     },
     "lastUpdated": "2024-01-01",
-    "scenario": "Return periods (10, 20, 50, 100, 200, 500 years)",
+    "scenario": "Return periods (10, 20, 50, 75, 100, 200, 500 years)",
     "scope": "Riverine flood inundation extent and depth",
     "adoptedBy": [
       "Copernicus EMS",
@@ -2392,7 +2392,7 @@
     "author": "Center for the Built Environment (CBE), UC Berkeley",
     "license": {
       "type": "open-source",
-      "name": "BSD-3-Clause",
+      "name": "GPL-2.0",
       "url": "https://github.com/CenterForTheBuiltEnvironment/comfort_tool/blob/master/LICENSE"
     },
     "lastUpdated": "2025-01-01",
@@ -2457,8 +2457,8 @@
     "author": "National Renewable Energy Laboratory (NREL), US DOE",
     "license": {
       "type": "open-source",
-      "name": "BSD-3-Clause",
-      "url": "https://github.com/NREL/REopt.jl/blob/main/LICENSE"
+      "name": "Apache-2.0",
+      "url": "https://github.com/NREL/REopt.jl/blob/master/LICENSE"
     },
     "lastUpdated": "2025-06-01",
     "scenario": "N/A (techno-economic optimization)",
@@ -2501,7 +2501,7 @@
   {
     "id": "pybuildingenergy",
     "name": "pyBuildingEnergy",
-    "version": "1.0",
+    "version": "2.0.2",
     "status": "coming-soon",
     "image": "models/pybuildingenergy/card.svg",
     "description": "Open-source Python library implementing ISO 52016-1:2018 for EPBD-compliant building energy performance calculation.",
@@ -2526,10 +2526,10 @@
     "author": "EURAC Research, Institute for Renewable Energy (Bolzano, Italy)",
     "license": {
       "type": "open-source",
-      "name": "Open source",
-      "url": "https://github.com/EURAC-EEBgroup/pyBuildingEnergy"
+      "name": "MIT License",
+      "url": "https://github.com/EURAC-EEBgroup/pyBuildingEnergy/blob/main/LICENSE"
     },
-    "lastUpdated": "2024-06-01",
+    "lastUpdated": "2025-11-24",
     "scenario": "N/A (standardized energy calculation)",
     "scope": "Energy need for heating/cooling per ISO 52016-1, internal temperatures, loads",
     "adoptedBy": [
@@ -2564,7 +2564,7 @@
   {
     "id": "flexmeasures",
     "name": "FlexMeasures",
-    "version": "0.24",
+    "version": "0.31.2",
     "status": "coming-soon",
     "image": "models/flexmeasures/card.svg",
     "description": "Open-source energy management system for optimizing behind-the-meter flexibility. Schedules batteries, heat pumps, EVs, and industrial processes.",
@@ -2651,8 +2651,8 @@
     "author": "National Renewable Energy Laboratory (NREL), US DOE",
     "license": {
       "type": "open-source",
-      "name": "Open source",
-      "url": "https://github.com/NREL/resstock"
+      "name": "Custom BSD (NREL)",
+      "url": "https://github.com/NREL/resstock/blob/develop/LICENSE.md"
     },
     "lastUpdated": "2024-12-01",
     "scenario": "N/A (building stock simulation)",
@@ -2694,7 +2694,7 @@
   {
     "id": "der-vet",
     "name": "DER-VET",
-    "version": "1.2",
+    "version": "1.3.0",
     "status": "coming-soon",
     "image": "models/der-vet/card.svg",
     "description": "Open-source tool for optimizing sizing and dispatch of battery storage, solar, wind, and other DERs. Evaluates grid service revenue streams.",
@@ -2719,9 +2719,9 @@
     "license": {
       "type": "open-source",
       "name": "BSD-3-Clause",
-      "url": "https://github.com/epri-dev/DER-VET/blob/master/LICENSE"
+      "url": "https://github.com/epri-dev/DER-VET/blob/main/LICENSE.txt"
     },
-    "lastUpdated": "2024-09-01",
+    "lastUpdated": "2024-12-18",
     "scenario": "N/A (techno-economic optimization)",
     "scope": "DER sizing, dispatch, revenue from grid services, cost-benefit analysis",
     "adoptedBy": [
@@ -3167,7 +3167,7 @@
       "url": "https://www.nccs.admin.ch/"
     },
     "lastUpdated": "2025-01-01",
-    "scenario": "Multiple Global Warming Levels (GWL 1.5°C, 2°C, 3°C, 4°C)",
+    "scenario": "Multiple Global Warming Levels (GWL 1.5°C, 2°C, 2.5°C, 3°C)",
     "scope": "Temperature, precipitation, extreme events (heat, drought, heavy rain) at 1km grid",
     "adoptedBy": [
       "Swiss Climate Strategy",
@@ -3230,7 +3230,7 @@
       "commercial",
       "residential"
     ],
-    "author": "VKF/AECA (Prevention Foundation of Cantonal Building Insurers)",
+    "author": "VKF/AECA (Association of Cantonal Fire Insurance Institutes)",
     "license": {
       "type": "free",
       "name": "Free public tool",
@@ -3274,13 +3274,13 @@
   {
     "id": "kbob-lca",
     "name": "KBOB Ökobilanzdaten",
-    "version": "8.0",
+    "version": "8.02",
     "status": "coming-soon",
     "image": "models/kbob-lca/card.svg",
     "cardImage": "assets/img/kbob-lca.jpg",
     "cardImageSource": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=300&fit=crop",
     "description": "Authoritative Swiss LCA database for construction materials, building technology, and energy. Used by Minergie, SNBS, and all Swiss green building labels.",
-    "longDescription": "The KBOB Ökobilanzdaten im Baubereich is the authoritative Swiss lifecycle assessment database for construction, developed by KBOB with ecobau and IPB based on Ecoinvent methodology. Version 8.0 (February 2026) provides primary energy, GHG emissions, and environmental impact data for construction materials, building technology, energy systems, and transport. The database is used by all major Swiss building labels (Minergie, SNBS, BNB) and is accessible via the lcadata.ch API.",
+    "longDescription": "The KBOB Ökobilanzdaten im Baubereich is the authoritative Swiss lifecycle assessment database for construction, developed by KBOB with ecobau and IPB based on Ecoinvent methodology. Version 8.02 (March 2026) provides primary energy, GHG emissions, and environmental impact data for construction materials, building technology, energy systems, and transport. The database is used by all major Swiss building labels (Minergie, SNBS, BNB) and is accessible via the lcadata.ch data explorer.",
     "categories": [
       "embodied-carbon",
       "carbon-accounting"
@@ -3306,7 +3306,7 @@
       "name": "Free — data download and API",
       "url": "https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich"
     },
-    "lastUpdated": "2026-02-01",
+    "lastUpdated": "2026-03-16",
     "scenario": "N/A (lifecycle impact data)",
     "scope": "Primary energy, GHG emissions, environmental impacts for construction materials, technology, energy, transport",
     "adoptedBy": [
@@ -3322,7 +3322,7 @@
       "Updated approximately every 2 years",
       "API documentation at lcadata.ch"
     ],
-    "citation": "KBOB (2026). Ökobilanzdaten im Baubereich, Version 8.0. https://www.kbob.admin.ch/",
+    "citation": "KBOB (2026). Ökobilanzdaten im Baubereich, Version 8.02. https://www.kbob.admin.ch/",
     "source": {
       "name": "KBOB",
       "url": "https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich",
@@ -3448,7 +3448,7 @@
     ],
     "author": "SSREI Association (verified by SQS)",
     "license": {
-      "type": "free-non-commercial",
+      "type": "membership",
       "name": "Assessment tool via membership",
       "url": "https://ssrei.ch"
     },
@@ -3518,7 +3518,7 @@
     ],
     "author": "Madaster Foundation (Dutch origin, Swiss entity madaster.ch)",
     "license": {
-      "type": "free-non-commercial",
+      "type": "commercial",
       "name": "Commercial SaaS (subscription)",
       "url": "https://madaster.ch"
     },
