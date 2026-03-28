@@ -969,7 +969,7 @@ async function showModel(id) {
           </div>
           <a href="${galleryHref()}" class="btn btn-sm flex-shrink-0" aria-label="Back to models">${ICON.back} Back</a>
         </div>
-        <div class="d-flex flex-wrap gap-1 mb-2">
+        <div class="d-flex flex-wrap gap-2 mb-2">
           ${statusDot(model.status)}
           ${model.tags.map(t=>`<span class="IssueLabel tag-click tag-nav" data-g="tags" data-v="${t}">${humanize(t)}</span>`).join('')}
           ${model.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click tag-nav" data-g="region" data-v="${r}">${r}</span>`).join('')}

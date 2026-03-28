@@ -56,7 +56,10 @@
       "WebFetch(domain:www.fhnw.ch)",
       "WebFetch(domain:merkblatt.suissetec.ch)",
       "WebFetch(domain:www.energieagentur-sg.ch)",
-      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/snbs/card.svg\":*)"
+      "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/snbs/card.svg\":*)",
+      "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/**)",
+      "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/=== HARDCODED WIDTHS/**)",
+      "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/css/**)"
     ]
   }
 }

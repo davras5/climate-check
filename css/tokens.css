@@ -30,6 +30,19 @@
   --radius-lg: 10px;
   --radius-full: 9999px;
 
+  /* Font sizes (5-step scale: 12, 14, 16, 22, 28) */
+  --text-sm: 12px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+
+  /* Z-index layers */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 100;
+  --z-overlay: 200;
+
   /* Transitions */
   --duration-fast: 0.1s;
   --duration-normal: 0.2s;
