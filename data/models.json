@@ -289,7 +289,9 @@
     ],
     "complexity": 4,
     "maturity": 9,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/crrem-eu.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&h=300&fit=crop"
   },
   {
     "id": "crrem-na",
@@ -375,7 +377,9 @@
     ],
     "complexity": 4,
     "maturity": 8,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/crrem-na.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=300&fit=crop"
   },
   {
     "id": "crrem-apac",
@@ -465,7 +469,9 @@
     ],
     "complexity": 4,
     "maturity": 7,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/crrem-apac.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=300&fit=crop"
   },
   {
     "id": "pcaf",
@@ -539,7 +545,9 @@
     ],
     "complexity": 6,
     "maturity": 8,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/pcaf.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&h=300&fit=crop"
   },
   {
     "id": "sbti-crrem",
@@ -607,7 +615,9 @@
     ],
     "complexity": 7,
     "maturity": 7,
-    "approach": "mixed"
+    "approach": "mixed",
+    "cardImage": "assets/img/sbti-crrem.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&h=300&fit=crop"
   },
   {
     "id": "zero-tool",
@@ -670,7 +680,9 @@
     ],
     "complexity": 2,
     "maturity": 6,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/zero-tool.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=300&fit=crop"
   },
   {
     "id": "ec3",
@@ -732,7 +744,9 @@
     ],
     "complexity": 5,
     "maturity": 7,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/ec3.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=300&fit=crop"
   },
   {
     "id": "eu-levels",
@@ -805,7 +819,9 @@
     ],
     "complexity": 8,
     "maturity": 6,
-    "approach": "mixed"
+    "approach": "mixed",
+    "cardImage": "assets/img/eu-levels.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=300&fit=crop"
   },
   {
     "id": "ashrae-beq",
@@ -869,7 +885,9 @@
     ],
     "complexity": 2,
     "maturity": 7,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/ashrae-beq.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=300&fit=crop"
   },
   {
     "id": "os-physrisk",
@@ -934,7 +952,9 @@
     ],
     "complexity": 8,
     "maturity": 4,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/os-physrisk.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1527482797697-8795b05a13fe?w=600&h=300&fit=crop"
   },
   {
     "id": "ifc-bri",
@@ -993,7 +1013,9 @@
     "lifecycleStages": [],
     "complexity": 3,
     "maturity": 5,
-    "approach": "qualitative"
+    "approach": "qualitative",
+    "cardImage": "assets/img/ifc-bri.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=600&h=300&fit=crop"
   },
   {
     "id": "energy-star",
@@ -1081,7 +1103,9 @@
     ],
     "complexity": 2,
     "maturity": 9,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/energy-star.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop"
   },
   {
     "id": "ngfs",
@@ -1143,7 +1167,9 @@
     "lifecycleStages": [],
     "complexity": 7,
     "maturity": 8,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/ngfs.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&h=300&fit=crop"
   },
   {
     "id": "nabers",
@@ -1219,7 +1245,9 @@
     ],
     "complexity": 3,
     "maturity": 9,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/nabers.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&h=300&fit=crop"
   },
   {
     "id": "ifc-edge",
@@ -1295,7 +1323,9 @@
     ],
     "complexity": 4,
     "maturity": 7,
-    "approach": "mixed"
+    "approach": "mixed",
+    "cardImage": "assets/img/ifc-edge.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=300&fit=crop"
   },
   {
     "id": "bafu-co2",
@@ -1370,7 +1400,9 @@
     ],
     "complexity": 3,
     "maturity": 6,
-    "approach": "quantitative"
+    "approach": "quantitative",
+    "cardImage": "assets/img/bafu-co2.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&h=300&fit=crop"
   },
   {
     "id": "climada",
@@ -1429,7 +1461,9 @@
     "maturity": 8,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/climada.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=300&fit=crop"
   },
   {
     "id": "openquake",
@@ -1489,7 +1523,9 @@
     "maturity": 9,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/openquake.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1580974852861-c381510bc98a?w=600&h=300&fit=crop"
   },
   {
     "id": "better",
@@ -1549,7 +1585,9 @@
     "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/better.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=300&fit=crop"
   },
   {
     "id": "tabula-episcope",
@@ -1610,7 +1648,9 @@
     "maturity": 8,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/tabula-episcope.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600&h=300&fit=crop"
   },
   {
     "id": "sfincs",
@@ -1671,7 +1711,9 @@
     "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/sfincs.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop"
   },
   {
     "id": "wri-aqueduct",
@@ -1730,7 +1772,9 @@
     "maturity": 9,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/wri-aqueduct.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=600&h=300&fit=crop"
   },
   {
     "id": "climate-bonds",
@@ -1793,7 +1837,9 @@
     "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/climate-bonds.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=600&h=300&fit=crop"
   },
   {
     "id": "elca-oekobaudat",
@@ -1861,7 +1907,9 @@
     "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/elca-oekobaudat.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=600&h=300&fit=crop"
   },
   {
     "id": "sri",
@@ -1921,7 +1969,9 @@
     "maturity": 5,
     "approach": "mixed",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/sri.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=300&fit=crop"
   },
   {
     "id": "dgnb",
@@ -1990,7 +2040,9 @@
     "maturity": 8,
     "approach": "mixed",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/dgnb.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=300&fit=crop"
   },
   {
     "id": "breeam",
@@ -2057,7 +2109,9 @@
     "maturity": 9,
     "approach": "mixed",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/breeam.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=300&fit=crop"
   },
   {
     "id": "hazus-fast",
@@ -2121,7 +2175,9 @@
     "maturity": 9,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/hazus-fast.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=600&h=300&fit=crop"
   },
   {
     "id": "jrc-flood-maps",
@@ -2181,7 +2237,9 @@
     "maturity": 9,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/jrc-flood-maps.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1446824505046-e43605ffb17f?w=600&h=300&fit=crop"
   },
   {
     "id": "eiopa-climada",
@@ -2240,7 +2298,9 @@
     "maturity": 6,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/eiopa-climada.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop"
   },
   {
     "id": "oasis-lmf",
@@ -2300,7 +2360,9 @@
     "maturity": 8,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/oasis-lmf.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop"
   },
   {
     "id": "cbe-comfort",
@@ -2364,7 +2426,9 @@
     "maturity": 9,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/cbe-comfort.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=300&fit=crop"
   },
   {
     "id": "reopt",
@@ -2430,7 +2494,9 @@
     "maturity": 8,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/reopt.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop"
   },
   {
     "id": "pybuildingenergy",
@@ -2491,7 +2557,9 @@
     "maturity": 5,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/pybuildingenergy.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=300&fit=crop"
   },
   {
     "id": "flexmeasures",
@@ -2552,7 +2620,9 @@
     "maturity": 6,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/flexmeasures.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=300&fit=crop"
   },
   {
     "id": "resstock-comstock",
@@ -2617,7 +2687,9 @@
     "maturity": 8,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/resstock-comstock.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&h=300&fit=crop"
   },
   {
     "id": "der-vet",
@@ -2682,7 +2754,9 @@
     "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
-    "outputs": []
+    "outputs": [],
+    "cardImage": "assets/img/der-vet.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=300&fit=crop"
   },
   {
     "id": "snbs",
@@ -2767,6 +2841,791 @@
     "complexity": 7,
     "maturity": 7,
     "approach": "mixed",
+    "inputs": [],
+    "outputs": [],
+    "cardImage": "assets/img/snbs.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1527576539890-dfa815648363?w=600&h=300&fit=crop"
+  },
+  {
+    "id": "geoadmin-hazards",
+    "name": "geo.admin.ch Hazard Layers",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/geoadmin-hazards/card.svg",
+    "cardImage": "assets/img/geoadmin-hazards.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&h=300&fit=crop",
+    "description": "Swiss federal geoportal with 50+ coordinate-queryable layers for CO2 emissions, natural hazards, building data, solar potential, and environmental risk.",
+    "longDescription": "The geo.admin.ch REST API provides access to 50+ layers relevant to real estate climate risk, all queryable per-coordinate. Key layers include: CO2 emissions per building (BAFU), flood zones at 4 return periods (Aquaprotect), earthquake zones (SIA 261), storm gust peaks at 4 return periods, hail hazard by grain size, building register (GWR with 100+ fields), Minergie certifications, solar roof/facade potential, district heating networks, surface runoff hazard, radon probability, and noise exposure.",
+    "categories": [
+      "physical-risk",
+      "energy-performance",
+      "carbon-accounting"
+    ],
+    "tags": [
+      "coordinate-api",
+      "flood",
+      "earthquake",
+      "hail",
+      "storm",
+      "solar",
+      "CO2",
+      "building-register",
+      "both"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "swisstopo / BAFU / BFE / MeteoSwiss",
+    "license": {
+      "type": "free",
+      "name": "Free — Swiss federal open data",
+      "url": "https://docs.geo.admin.ch/"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Multiple return periods (50/100/250/500yr for flood, 10/20/50/100yr for hail)",
+    "scope": "CO2 emissions, natural hazards (flood, earthquake, storm, hail, landslide, avalanche), solar potential, building register, noise, radon",
+    "adoptedBy": [
+      "Swiss Federal Administration",
+      "Cantonal authorities",
+      "Insurance industry"
+    ],
+    "limitations": [
+      "Federal indicative layers only — legally binding maps are cantonal",
+      "GEAK energy labels not available via federal API",
+      "Swiss coordinate system (LV95) requires transformation for WGS84 input",
+      "Some layers have restricted access"
+    ],
+    "citation": "swisstopo (2025). geo.admin.ch REST API. https://api3.geo.admin.ch/",
+    "source": {
+      "name": "swisstopo",
+      "url": "https://docs.geo.admin.ch/",
+      "methodology": "https://api3.geo.admin.ch/rest/services/api/MapServer"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Current + return periods"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 4,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "geodienste-gefahren",
+    "name": "Cantonal Hazard Maps (Gefahrenkarten)",
+    "version": "1.3",
+    "status": "coming-soon",
+    "image": "models/geodienste-gefahren/card.svg",
+    "cardImage": "assets/img/geodienste-gefahren.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop",
+    "description": "Legally binding cantonal hazard maps for flood, landslide, rockfall, and avalanche via WFS/OGC API. Determines building permits and insurance terms.",
+    "longDescription": "The Gefahrenkarten service on geodienste.ch aggregates legally binding cantonal natural hazard maps into a nationally harmonized dataset. It shows flood, landslide, rockfall, and avalanche hazard zones with intensity levels (high/medium/low/residual) and return periods. These maps directly determine building permissions, insurance terms, and property values in Switzerland. Available via WMS, WFS, and OGC API Features with coordinate-based spatial queries.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "flood",
+      "landslide",
+      "avalanche",
+      "rockfall",
+      "legally-binding",
+      "coordinate-api",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Swiss Cantons via geodienste.ch (KGK/CGC)",
+    "license": {
+      "type": "free",
+      "name": "Free — cantonal government data",
+      "url": "https://www.geodienste.ch/services/gefahrenkarten"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Return period hazard zones (intensity × probability matrix)",
+    "scope": "Flood, landslide, rockfall, avalanche hazard zones with intensity classification",
+    "adoptedBy": [
+      "Swiss cantons",
+      "VKF/AECA (cantonal insurers)",
+      "Planning authorities"
+    ],
+    "limitations": [
+      "Coverage varies by canton (not all 26 fully mapped)",
+      "Legally binding at cantonal level only",
+      "Coordinate system is LV95 (EPSG:2056)",
+      "Does not include climate change projections"
+    ],
+    "citation": "geodienste.ch (2025). Gefahrenkarten v1.3. https://www.geodienste.ch/services/gefahrenkarten",
+    "source": {
+      "name": "geodienste.ch",
+      "url": "https://www.geodienste.ch/services/gefahrenkarten",
+      "methodology": "https://geodienste.ch/api-docs/index.html"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Current"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Operation"
+    ],
+    "complexity": 3,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "erm-ch23",
+    "name": "ERM-CH23 Earthquake Risk Model",
+    "version": "2023",
+    "status": "coming-soon",
+    "image": "models/erm-ch23/card.svg",
+    "cardImage": "assets/img/erm-ch23.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=600&h=300&fit=crop",
+    "description": "First national earthquake risk model for Switzerland. Estimates building vulnerability and financial losses for 2M+ buildings using OpenQuake.",
+    "longDescription": "ERM-CH23 is the first comprehensive national earthquake risk model for Switzerland, developed by ETH SED with BAFU and BABS. It combines the SUIhaz2015 seismic hazard model, site amplification effects, and building vulnerability data for 2M+ residential, commercial, and industrial buildings. Implemented in OpenQuake, it calculates financial losses and human impact for earthquake scenarios. An interactive web tool allows individual building risk assessment by location, type, age, and height.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "earthquake",
+      "seismic",
+      "probabilistic",
+      "building",
+      "insurance"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "ETH SED (Swiss Seismological Service) with BAFU and BABS",
+    "license": {
+      "type": "free",
+      "name": "Free — publicly accessible",
+      "url": "http://www.seismo.ethz.ch/en/knowledge/earthquake-hazard-and-risk/earthquake-risk-switzerland/Earthquake-Risk-Model/"
+    },
+    "lastUpdated": "2023-06-01",
+    "scenario": "Probabilistic seismic hazard (SUIhaz2015, multiple return periods)",
+    "scope": "Building damage, financial loss, human impact from earthquake scenarios",
+    "adoptedBy": [
+      "BAFU",
+      "BABS (Federal Civil Protection)",
+      "Swiss earthquake pool"
+    ],
+    "limitations": [
+      "Earthquake-only (no multi-hazard)",
+      "Building vulnerability based on typology, not individual inspection",
+      "Residential focus — commercial vulnerability less validated",
+      "Does not account for secondary effects (fire following earthquake)"
+    ],
+    "citation": "ETH SED (2023). Earthquake Risk Model of Switzerland ERM-CH23. http://www.seismo.ethz.ch/",
+    "source": {
+      "name": "ETH SED",
+      "url": "http://www.seismo.ethz.ch/en/knowledge/earthquake-hazard-and-risk/earthquake-risk-switzerland/Earthquake-Risk-Model/"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Probabilistic"
+    },
+    "lifecycleStages": [],
+    "complexity": 6,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "sonnendach",
+    "name": "Sonnendach.ch",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/sonnendach/card.svg",
+    "cardImage": "assets/img/sonnendach.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop",
+    "description": "Solar energy potential for every roof in Switzerland. Calculates electricity/heat yield, system costs, and payback per building.",
+    "longDescription": "Sonnendach.ch is the official Swiss tool for assessing solar energy potential, developed by BFE, MeteoSwiss, and swisstopo. It calculates potential electricity and heat yield for every roof surface in Switzerland based on swissBUILDINGS3D geometry and MeteoSwiss radiation data. Outputs include annual kWh production, system sizing, investment costs, and payback period. Companion tool Sonnenfassade.ch covers building facades.",
+    "categories": [
+      "energy-performance"
+    ],
+    "tags": [
+      "solar",
+      "renewable",
+      "roof",
+      "design",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "BFE (Federal Office of Energy) / MeteoSwiss / swisstopo",
+    "license": {
+      "type": "free-open-methodology",
+      "name": "Free — open data (GitHub + opendata.swiss)",
+      "url": "https://www.sonnendach.ch"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (solar radiation analysis)",
+    "scope": "Solar electricity and heat potential per roof surface, system sizing, costs, payback",
+    "adoptedBy": [
+      "Swiss Energy Strategy 2050",
+      "Das Gebäudeprogramm",
+      "Cantonal energy planning"
+    ],
+    "limitations": [
+      "Roof-only (Sonnenfassade.ch needed for facades)",
+      "Based on 3D model geometry — may not reflect recent renovations",
+      "Does not account for shading from vegetation or temporary structures",
+      "Cost estimates use average Swiss installation prices"
+    ],
+    "citation": "BFE (2025). Sonnendach.ch — Solar Energy Potential for Swiss Rooftops. https://www.sonnendach.ch",
+    "source": {
+      "name": "BFE / swisstopo",
+      "url": "https://www.sonnendach.ch"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Operation"
+    ],
+    "complexity": 2,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "nccs-ch2025",
+    "name": "NCCS Climate Scenarios CH2025",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/nccs-ch2025/card.svg",
+    "cardImage": "assets/img/nccs-ch2025.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=300&fit=crop",
+    "description": "Official Swiss climate projections on a 1km grid. Temperature, precipitation, and extreme events under multiple warming scenarios. CC BY 4.0.",
+    "longDescription": "The NCCS Climate Scenarios CH2025 provide localized climate projections for Switzerland at 1km grid resolution, produced by the National Centre for Climate Services with MeteoSwiss and ETH. They include daily temperature, precipitation, and extreme event projections under multiple Global Warming Levels. CH2025 supersedes CH2018 with higher-resolution convection-permitting models. Data is accessible via STAC API.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "climate-projections",
+      "temperature",
+      "precipitation",
+      "extreme-events",
+      "open-data",
+      "portfolio"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "NCCS (National Centre for Climate Services) / MeteoSwiss / ETH",
+    "license": {
+      "type": "free-open-methodology",
+      "name": "CC BY 4.0",
+      "url": "https://www.nccs.admin.ch/"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Multiple Global Warming Levels (GWL 1.5°C, 2°C, 3°C, 4°C)",
+    "scope": "Temperature, precipitation, extreme events (heat, drought, heavy rain) at 1km grid",
+    "adoptedBy": [
+      "Swiss Climate Strategy",
+      "BAFU",
+      "MeteoSwiss"
+    ],
+    "limitations": [
+      "Projections have inherent climate model uncertainty",
+      "1km grid — not building-level",
+      "Does not directly translate to building damage or financial loss",
+      "Requires additional modeling to derive property-level risk"
+    ],
+    "citation": "NCCS (2025). Swiss Climate Scenarios CH2025. https://www.nccs.admin.ch/",
+    "source": {
+      "name": "NCCS / MeteoSwiss",
+      "url": "https://www.nccs.admin.ch/nccs/en/home/climate-change-and-impacts/swiss-climate-change-scenarios.html",
+      "methodology": "https://opendatadocs.meteoswiss.ch/c-climate-data/c8-c9-climate-scenarios"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2100"
+    },
+    "lifecycleStages": [],
+    "complexity": 5,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "naturgefahren-check",
+    "name": "Schutz vor Naturgefahren",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/naturgefahren-check/card.svg",
+    "cardImage": "assets/img/naturgefahren-check.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=300&fit=crop",
+    "description": "Free address-level natural hazard check for any Swiss building. Combines flood, landslide, hail, avalanche, rockfall, and storm risk with protection recommendations.",
+    "longDescription": "Schutz vor Naturgefahren is a free public tool by the Prevention Foundation of VKF/AECA (cantonal building insurers). Enter any Swiss address to receive an overlay of all relevant natural hazards from official cantonal hazard maps, plus specific building protection recommendations. Outputs a PDF report covering flood, landslide, hail, earthquake, wind, avalanche, and rockfall exposure.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "multi-hazard",
+      "address-level",
+      "insurance",
+      "building",
+      "flood",
+      "hail",
+      "earthquake"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "VKF/AECA (Prevention Foundation of Cantonal Building Insurers)",
+    "license": {
+      "type": "free",
+      "name": "Free public tool",
+      "url": "https://www.schutz-vor-naturgefahren.ch"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Multi-hazard (current hazard maps)",
+    "scope": "Flood, landslide, hail, earthquake, wind, avalanche, rockfall — with protection measures",
+    "adoptedBy": [
+      "19 cantonal building insurers",
+      "Swiss building owners"
+    ],
+    "limitations": [
+      "Web tool only — no public API",
+      "Swiss addresses only",
+      "Outputs are advisory, not legally binding",
+      "Does not include climate change projections"
+    ],
+    "citation": "VKF/AECA (2025). Schutz vor Naturgefahren. https://www.schutz-vor-naturgefahren.ch",
+    "source": {
+      "name": "VKF/AECA",
+      "url": "https://www.schutz-vor-naturgefahren.ch"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Current"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 1,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "kbob-lca",
+    "name": "KBOB Ökobilanzdaten",
+    "version": "8.0",
+    "status": "coming-soon",
+    "image": "models/kbob-lca/card.svg",
+    "cardImage": "assets/img/kbob-lca.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=300&fit=crop",
+    "description": "Authoritative Swiss LCA database for construction materials, building technology, and energy. Used by Minergie, SNBS, and all Swiss green building labels.",
+    "longDescription": "The KBOB Ökobilanzdaten im Baubereich is the authoritative Swiss lifecycle assessment database for construction, developed by KBOB with ecobau and IPB based on Ecoinvent methodology. Version 8.0 (February 2026) provides primary energy, GHG emissions, and environmental impact data for construction materials, building technology, energy systems, and transport. The database is used by all major Swiss building labels (Minergie, SNBS, BNB) and is accessible via the lcadata.ch API.",
+    "categories": [
+      "embodied-carbon",
+      "carbon-accounting"
+    ],
+    "tags": [
+      "lca",
+      "materials",
+      "construction",
+      "epd",
+      "open-data",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "KBOB / ecobau / IPB (based on Ecoinvent)",
+    "license": {
+      "type": "free-open-api",
+      "name": "Free — data download and API",
+      "url": "https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich"
+    },
+    "lastUpdated": "2026-02-01",
+    "scenario": "N/A (lifecycle impact data)",
+    "scope": "Primary energy, GHG emissions, environmental impacts for construction materials, technology, energy, transport",
+    "adoptedBy": [
+      "Minergie",
+      "SNBS",
+      "GEAK",
+      "SIA 2032",
+      "BNB"
+    ],
+    "limitations": [
+      "Swiss-specific data — not directly applicable outside Switzerland",
+      "Based on Ecoinvent generic data where Swiss-specific EPDs unavailable",
+      "Updated approximately every 2 years",
+      "API documentation at lcadata.ch"
+    ],
+    "citation": "KBOB (2026). Ökobilanzdaten im Baubereich, Version 8.0. https://www.kbob.admin.ch/",
+    "source": {
+      "name": "KBOB",
+      "url": "https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich",
+      "methodology": "https://www.lcadata.ch/"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Production",
+      "Construction",
+      "Operation",
+      "End of life"
+    ],
+    "complexity": 5,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "pacta-ch",
+    "name": "PACTA Climate Test Switzerland",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/pacta-ch/card.svg",
+    "cardImage": "assets/img/pacta-ch.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&h=300&fit=crop",
+    "description": "Swiss government climate alignment test for real estate and mortgage portfolios. Measures building emission intensity against net-zero 2050 pathway.",
+    "longDescription": "The PACTA Climate Test Switzerland is a biennial climate alignment assessment commissioned by the Swiss Federal Office for the Environment (BAFU) and the State Secretariat for International Financial Matters (SIF). For real estate, it measures the emission intensity of building portfolios against the Swiss net-zero 2050 decarbonization pathway. The real estate module was developed by FPRE/Wüest Partner. Participation is free for Swiss financial institutions. The core PACTA equity/bond software is open source (MIT license on GitHub).",
+    "categories": [
+      "transition-risk",
+      "carbon-accounting"
+    ],
+    "tags": [
+      "pathway-alignment",
+      "portfolio",
+      "net-zero",
+      "government",
+      "financed-emissions"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "BAFU / SIF, developed by RMI + FPRE / Wüest Partner",
+    "license": {
+      "type": "free",
+      "name": "Free participation — core software open source (MIT)",
+      "url": "https://www.bafu.admin.ch/en/pacta-climate-test"
+    },
+    "lastUpdated": "2024-12-01",
+    "scenario": "Swiss net-zero 2050 (Climate and Innovation Act)",
+    "scope": "Building emission intensity alignment with Swiss decarbonization pathway for real estate and mortgage portfolios",
+    "adoptedBy": [
+      "BAFU",
+      "SIF",
+      "80% of Swiss financial market (2020)"
+    ],
+    "limitations": [
+      "Biennial test (2020, 2022, 2024, 2026) — not continuous",
+      "Real estate module operated by FPRE, not independently downloadable",
+      "Portfolio-level assessment, not individual building",
+      "Swiss-specific pathway and methodology"
+    ],
+    "citation": "BAFU / RMI (2024). PACTA Climate Test Switzerland. https://www.bafu.admin.ch/en/pacta-climate-test",
+    "source": {
+      "name": "BAFU / RMI",
+      "url": "https://www.bafu.admin.ch/en/pacta-climate-test",
+      "methodology": "https://github.com/RMI-PACTA"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2050"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 6,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "ssrei",
+    "name": "SSREI",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/ssrei/card.svg",
+    "cardImage": "assets/img/ssrei.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&h=300&fit=crop",
+    "description": "Swiss Sustainable Real Estate Index. 36 indicators across society, economy, and environment for institutional portfolio assessment. GRESB-recognized.",
+    "longDescription": "SSREI (Swiss Sustainable Real Estate Index) is the leading sustainability assessment framework for Swiss institutional real estate portfolios. It evaluates 36 indicators across society, economy, and environment dimensions, scored 0–3. An automated tool evaluates 23 of 36 indicators using public data. Recognized by GRESB as equivalent to operational green building certification. Verified by SQS.",
+    "categories": [
+      "multi-criteria"
+    ],
+    "tags": [
+      "sustainability",
+      "portfolio",
+      "ESG",
+      "institutional",
+      "certification"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "SSREI Association (verified by SQS)",
+    "license": {
+      "type": "free-non-commercial",
+      "name": "Assessment tool via membership",
+      "url": "https://ssrei.ch"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (sustainability assessment)",
+    "scope": "36 indicators: society, economy, environment for portfolio-level sustainability benchmarking",
+    "adoptedBy": [
+      "GRESB (recognized equivalent)",
+      "Swiss institutional investors",
+      "AMAS/KGAST"
+    ],
+    "limitations": [
+      "Swiss institutional real estate focus",
+      "Full assessment requires membership",
+      "23/36 indicators automated, 13 require manual input",
+      "Portfolio-level, not individual building"
+    ],
+    "citation": "SSREI (2024). Swiss Sustainable Real Estate Index. https://ssrei.ch",
+    "source": {
+      "name": "SSREI Association",
+      "url": "https://ssrei.ch",
+      "methodology": "https://tool.ssrei.ch"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 5,
+    "maturity": 7,
+    "approach": "mixed",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "madaster-ch",
+    "name": "Madaster Switzerland",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/madaster-ch/card.svg",
+    "cardImage": "assets/img/madaster-ch.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1558522195-e1201b090344?w=600&h=300&fit=crop",
+    "description": "Material passport platform for Swiss buildings. Records all materials from BIM data, calculates circularity index, environmental impact, and residual value.",
+    "longDescription": "Madaster Switzerland is the Swiss entity of the Madaster Foundation, providing an online registry and platform for material passports. It records all materials and products in a building from BIM (IFC) or Excel data, calculating a circularity index, environmental impact, and residual financial value. Used by SBB for circular construction projects. Enables tracking of material flows for end-of-life reuse and recycling.",
+    "categories": [
+      "embodied-carbon"
+    ],
+    "tags": [
+      "circular-economy",
+      "materials",
+      "BIM",
+      "reuse",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Madaster Foundation (Dutch origin, Swiss entity madaster.ch)",
+    "license": {
+      "type": "free-non-commercial",
+      "name": "Commercial SaaS (subscription)",
+      "url": "https://madaster.ch"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (material accounting)",
+    "scope": "Material passports, circularity index, embodied environmental impact, residual financial value",
+    "adoptedBy": [
+      "SBB",
+      "Swiss developers"
+    ],
+    "limitations": [
+      "Requires BIM (IFC) or detailed material inventory data",
+      "Commercial subscription required",
+      "Swiss adoption growing but still niche",
+      "Does not assess operational carbon"
+    ],
+    "citation": "Madaster (2025). Madaster Switzerland. https://madaster.ch",
+    "source": {
+      "name": "Madaster Foundation",
+      "url": "https://madaster.ch"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Production",
+      "Construction",
+      "End of life",
+      "Circularity"
+    ],
+    "complexity": 6,
+    "maturity": 6,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "mobitool",
+    "name": "Mobitool",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/mobitool/card.svg",
+    "cardImage": "assets/img/mobitool.jpg",
+    "cardImageSource": "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&h=300&fit=crop",
+    "description": "Swiss transport CO2 calculator covering all modes. Standardized environmental impact data for commuting, business travel, and freight.",
+    "longDescription": "Mobitool is a platform for calculating energy consumption and CO2 emissions of all transport modes in Switzerland, developed by SBB, Swisscom, EnergieSchweiz, BAFU, and obu. It provides mobitool factors — standardized environmental impact data covering the full lifecycle of Swiss transport (commuting, business travel, freight). Directly relevant for calculating Scope 3 transport emissions of building locations.",
+    "categories": [
+      "carbon-accounting"
+    ],
+    "tags": [
+      "transport",
+      "scope-3",
+      "commuting",
+      "mobility",
+      "building"
+    ],
+    "region": [
+      "CH"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "SBB / Swisscom / EnergieSchweiz / BAFU / obu",
+    "license": {
+      "type": "free",
+      "name": "Free",
+      "url": "https://www.mobitool.ch"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (transport emission factors)",
+    "scope": "Energy consumption and CO2 emissions for all Swiss transport modes (full lifecycle)",
+    "adoptedBy": [
+      "SBB",
+      "Swiss Federal Administration",
+      "SNBS (mobility criterion)"
+    ],
+    "limitations": [
+      "Swiss-specific transport data and emission factors",
+      "Web tool only — no public API",
+      "Does not model building-level impacts directly",
+      "Requires user input of transport patterns"
+    ],
+    "citation": "Mobitool (2025). https://www.mobitool.ch",
+    "source": {
+      "name": "SBB / BAFU",
+      "url": "https://www.mobitool.ch"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "CH"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 2,
+    "maturity": 8,
+    "approach": "quantitative",
     "inputs": [],
     "outputs": []
   }

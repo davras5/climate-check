@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ============================================================
 // Unsplash card images keyed by model id
 const CARD_IMG = {
-  'crrem-eu':    'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&h=300&fit=crop',
+  'crrem-eu':    'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&h=300&fit=crop',
   'crrem-na':    'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=300&fit=crop',
   'pcaf':        'https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&h=300&fit=crop',
   'sbti-crrem':  'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=600&h=300&fit=crop',
@@ -132,27 +132,27 @@ const CARD_IMG = {
   'eu-levels':   'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=300&fit=crop',
   'ashrae-beq':  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=300&fit=crop',
   'os-physrisk': 'https://images.unsplash.com/photo-1527482797697-8795b05a13fe?w=600&h=300&fit=crop',
-  'ifc-bri':     'https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?w=600&h=300&fit=crop',
+  'ifc-bri':     'https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=600&h=300&fit=crop',
   'energy-star': 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=600&h=300&fit=crop',
   'ngfs':        'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=600&h=300&fit=crop',
   'nabers':      'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=600&h=300&fit=crop',
   'ifc-edge':    'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=300&fit=crop',
   'crrem-apac':  'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=300&fit=crop',
   'bafu-co2':    'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&h=300&fit=crop',
-  'climada':     'https://images.unsplash.com/photo-1509803874385-db7c23652552?w=600&h=300&fit=crop',
-  'openquake':   'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&h=300&fit=crop',
+  'climada':     'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=300&fit=crop',
+  'openquake':   'https://images.unsplash.com/photo-1580974852861-c381510bc98a?w=600&h=300&fit=crop',
   'better':      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=300&fit=crop',
   'tabula-episcope':'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600&h=300&fit=crop',
   'sfincs':      'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop',
-  'wri-aqueduct':'https://images.unsplash.com/photo-1468421870903-4df1664ac249?w=600&h=300&fit=crop',
+  'wri-aqueduct':'https://images.unsplash.com/photo-1504567961542-e24d9439a724?w=600&h=300&fit=crop',
   'climate-bonds':'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=600&h=300&fit=crop',
   'elca-oekobaudat':'https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=600&h=300&fit=crop',
   'sri':         'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=300&fit=crop',
-  'dgnb':        'https://images.unsplash.com/photo-1518005068251-37900150dfca?w=600&h=300&fit=crop',
+  'dgnb':        'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=300&fit=crop',
   'breeam':      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=300&fit=crop',
   'hazus-fast':  'https://images.unsplash.com/photo-1559060017-445fb9722f2a?w=600&h=300&fit=crop',
   'jrc-flood-maps':'https://images.unsplash.com/photo-1446824505046-e43605ffb17f?w=600&h=300&fit=crop',
-  'eiopa-climada':'https://images.unsplash.com/photo-1561484930-998b6a7b22e8?w=600&h=300&fit=crop',
+  'eiopa-climada':'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=300&fit=crop',
   'oasis-lmf':   'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop',
   'cbe-comfort': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=300&fit=crop',
   'reopt':       'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop',
@@ -161,6 +161,17 @@ const CARD_IMG = {
   'resstock-comstock':'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&h=300&fit=crop',
   'der-vet':     'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=300&fit=crop',
   'snbs':        'https://images.unsplash.com/photo-1527576539890-dfa815648363?w=600&h=300&fit=crop',
+  'geoadmin-hazards':'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600&h=300&fit=crop',
+  'geodienste-gefahren':'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=300&fit=crop',
+  'erm-ch23':    'https://images.unsplash.com/photo-1544427920-c49ccfb85579?w=600&h=300&fit=crop',
+  'sonnendach':  'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop',
+  'nccs-ch2025': 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=300&fit=crop',
+  'naturgefahren-check':'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=300&fit=crop',
+  'kbob-lca':    'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=300&fit=crop',
+  'pacta-ch':    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&h=300&fit=crop',
+  'ssrei':       'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=600&h=300&fit=crop',
+  'madaster-ch': 'https://images.unsplash.com/photo-1558522195-e1201b090344?w=600&h=300&fit=crop',
+  'mobitool':    'https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=600&h=300&fit=crop',
 };
 
 function addFilter(grp, val) {
@@ -212,7 +223,7 @@ function viewToggleHtml() {
 }
 
 function galleryCard(m) {
-  const img = CARD_IMG[m.id] || m.image;
+  const img = m.cardImage || CARD_IMG[m.id] || m.image;
   const cats = (m.categories||[]);
   return `<div class="Box model-card" data-href="#/models/${m.id}">
     <div class="model-card-img-wrap">
@@ -531,7 +542,7 @@ function showApiDocs() {
 
   let h = `
   <nav class="breadcrumb mb-3" aria-label="Breadcrumb">
-    <a href="#/">Models</a>
+    <a href="#/">${ICON.back} Models</a>
     <span class="breadcrumb-sep" aria-hidden="true">/</span>
     <span class="fgColor-muted">API Documentation</span>
   </nav>
@@ -938,7 +949,7 @@ async function showModel(id) {
   const app = $('#app');
   const live = model.status === 'live';
   const cov = model.coverage || {};
-  const img = CARD_IMG[model.id] || model.image;
+  const img = model.cardImage || CARD_IMG[model.id] || model.image;
 
   // Tabs: always show all three
   const tabs = [
@@ -950,25 +961,20 @@ async function showModel(id) {
 
   let h = `
   <nav class="breadcrumb mb-3" aria-label="Breadcrumb">
-    <a href="${galleryHref()}">Models</a>
+    <a href="${galleryHref()}">${ICON.back} Models</a>
     <span class="breadcrumb-sep" aria-hidden="true">/</span>
     <span class="fgColor-muted">${model.name}</span>
   </nav>
 
   <div class="model-header mb-4">
     <div class="d-flex gap-4 flex-items-start">
-      <div class="model-header-img-wrap"><img src="${img}" alt="${model.name}" class="model-header-img"></div>
+      <div class="model-header-img-wrap"><img src="${img}" alt="${model.name}" class="model-header-img" loading="lazy"></div>
       <div style="flex:1;min-width:0">
-        <div class="d-flex flex-justify-between flex-items-start gap-3">
-          <div>
-            <div class="d-flex flex-items-center gap-2 mb-1 flex-wrap">
-              <h1 class="f2">${model.name}</h1>
-              ${model.version?`<span class="f6 fgColor-muted">v${model.version}</span>`:''}
-            </div>
-            <p class="fgColor-muted mb-2">${model.description}</p>
-          </div>
-          <a href="${galleryHref()}" class="btn btn-sm flex-shrink-0" aria-label="Back to models">${ICON.back} Back</a>
+        <div class="d-flex flex-items-center gap-2 mb-1 flex-wrap">
+          <h1 class="f2">${model.name}</h1>
+          ${model.version?`<span class="f6 fgColor-muted">v${model.version}</span>`:''}
         </div>
+        <p class="fgColor-muted mb-2">${model.description}</p>
         <div class="d-flex flex-wrap gap-2 mb-2">
           ${statusDot(model.status)}
           ${model.tags.map(t=>`<span class="IssueLabel tag-click tag-nav" data-g="tags" data-v="${t}">${humanize(t)}</span>`).join('')}
@@ -1029,8 +1035,8 @@ async function showModel(id) {
 
   const detailRows = [];
   if (model.version) detailRows.push(['Version', model.version]);
-  if (model.source && model.source.url) detailRows.push(['Project', `<a href="${model.source.url}" target="_blank" rel="noopener">${model.source.url.replace(/^https?:\/\/(www\.)?/,'')}</a>`]);
-  if (model.source && model.source.methodology) detailRows.push(['Methodology', `<a href="${model.source.methodology}" target="_blank" rel="noopener">Documentation \u2197</a>`]);
+  if (model.source && model.source.url) detailRows.push(['Project', `<a href="${model.source.url}" target="_blank" rel="noopener">${model.source.url.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'')}</a>`]);
+  if (model.source && model.source.methodology) detailRows.push(['Methodology', `<a href="${model.source.methodology}" target="_blank" rel="noopener">${model.source.methodology.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'')}</a>`]);
   if (model.author) detailRows.push(['Author', model.author]);
   if (model.scenario) detailRows.push(['Scenario', model.scenario]);
   if (model.scope) detailRows.push(['Scope', model.scope]);

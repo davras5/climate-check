@@ -335,7 +335,7 @@ input:focus-visible,
   font-size: var(--text-base);
   display: flex; align-items: center; gap: var(--space-2);
 }
-.breadcrumb a { color: var(--fg-muted); font-weight: 500; text-decoration: none; }
+.breadcrumb a { color: var(--fg-muted); font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: var(--space-1); }
 .breadcrumb a:hover { color: var(--accent-fg); text-decoration: none; }
 .breadcrumb-sep { color: var(--fg-faint); }
 
