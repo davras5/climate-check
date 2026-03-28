@@ -59,7 +59,8 @@
       "Bash(\"c:/Users/DavidRasner/Documents/GitHub/climate-check/models/snbs/card.svg\":*)",
       "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/**)",
       "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/=== HARDCODED WIDTHS/**)",
-      "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/css/**)"
+      "Read(//c/Users/DavidRasner/Documents/GitHub/climate-check/css/**)",
+      "Bash(grep -n \"#[0-9a-fA-F]\\\\{3,6\\\\}\" \"c:/Users/DavidRasner/Documents/GitHub/climate-check/css/style.css\")"
     ]
   }
 }
