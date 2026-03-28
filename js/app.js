@@ -417,12 +417,42 @@ async function injectWorldSvg(el, ariaLabel) {
   return svg;
 }
 
-function highlightCountries(svg, codes) {
+function getMapTooltip() {
+  let tip = $('#map-tooltip');
+  if (!tip) {
+    tip = document.createElement('div');
+    tip.id = 'map-tooltip';
+    tip.className = 'map-tooltip';
+    document.body.appendChild(tip);
+  }
+  return tip;
+}
+
+function addMapHover(paths, name, detail) {
+  const tip = getMapTooltip();
+  paths.forEach(p => {
+    p.addEventListener('mouseenter', () => {
+      tip.innerHTML = '<strong>' + name + '</strong>' + (detail ? '<br><span class="f6 fgColor-muted">' + detail + '</span>' : '');
+      tip.style.display = 'block';
+    });
+    p.addEventListener('mousemove', e => {
+      tip.style.left = (e.pageX + 12) + 'px';
+      tip.style.top = (e.pageY - 10) + 'px';
+    });
+    p.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  });
+}
+
+function highlightCountries(svg, codes, countryDetails) {
   codes.forEach(code => {
-    const country = svg.querySelector('#' + code.toLowerCase());
+    const lc = code.toLowerCase();
+    const country = svg.querySelector('#' + lc);
     if (!country) return;
     const paths = country.tagName === 'g' ? country.querySelectorAll('path') : [country];
     paths.forEach(p => p.classList.add('map-active'));
+    const name = COUNTRY_NAMES[lc] || code.toUpperCase();
+    const detail = countryDetails ? countryDetails[lc] : null;
+    addMapHover(paths, name, detail);
   });
 }
 
@@ -690,10 +720,13 @@ async function loadWorldMap() {
   return _worldMapSvg;
 }
 
-async function renderCoverageMap(el, codes) {
+async function renderCoverageMap(el, codes, modelName) {
   if (!el || !codes || !codes.length) return;
   const svg = await injectWorldSvg(el, codes.length + ' covered jurisdictions');
-  if (svg) highlightCountries(svg, codes);
+  if (!svg) return;
+  const details = {};
+  if (modelName) codes.forEach(c => { details[c.toLowerCase()] = modelName; });
+  highlightCountries(svg, codes, details);
 }
 
 async function showModel(id) {
@@ -760,11 +793,15 @@ async function showModel(id) {
     return `<div class="detail-slider">
       <div class="detail-slider-label">${label}</div>
       <div class="detail-slider-track-wrap">
-        <span class="detail-slider-end f6">${leftLab}</span>
-        <div class="detail-slider-track"><div class="detail-slider-dot" style="left:${pct}%"></div></div>
-        <span class="detail-slider-end f6">${rightLab}</span>
+        <span class="detail-slider-end">${leftLab}</span>
+        <div class="detail-slider-track">
+          <div class="detail-slider-fill" style="width:${pct}%"></div>
+          <div class="detail-slider-mid"></div>
+          <div class="detail-slider-dot" style="left:${pct}%"></div>
+        </div>
+        <span class="detail-slider-end">${rightLab}</span>
       </div>
-      <div class="detail-slider-value f6 fgColor-muted">${valueLab}</div>
+      <div class="detail-slider-value fgColor-muted">${valueLab}</div>
     </div>`;
   };
   const approachMap = { qualitative: 0, mixed: 50, quantitative: 100 };
@@ -776,11 +813,15 @@ async function showModel(id) {
     slidersHtml += `<div class="detail-slider">
       <div class="detail-slider-label">Approach</div>
       <div class="detail-slider-track-wrap">
-        <span class="detail-slider-end f6">Qualitative</span>
-        <div class="detail-slider-track"><div class="detail-slider-dot" style="left:${aPct}%"></div></div>
-        <span class="detail-slider-end f6">Quantitative</span>
+        <span class="detail-slider-end">Qualitative</span>
+        <div class="detail-slider-track">
+          <div class="detail-slider-fill" style="width:${aPct}%"></div>
+          <div class="detail-slider-mid"></div>
+          <div class="detail-slider-dot" style="left:${aPct}%"></div>
+        </div>
+        <span class="detail-slider-end">Quantitative</span>
       </div>
-      <div class="detail-slider-value f6 fgColor-muted">${model.approach}</div>
+      <div class="detail-slider-value fgColor-muted">${model.approach}</div>
     </div>`;
   }
 
