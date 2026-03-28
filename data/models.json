@@ -13,8 +13,8 @@
     "tags": [
       "stranding",
       "carbon-intensity",
-      "financial-risk",
-      "energy",
+      "pathway-alignment",
+      "portfolio",
       "both"
     ],
     "region": [
@@ -305,8 +305,8 @@
     "tags": [
       "stranding",
       "carbon-intensity",
-      "financial-risk",
-      "energy",
+      "pathway-alignment",
+      "portfolio",
       "both"
     ],
     "region": [
@@ -391,8 +391,8 @@
     "tags": [
       "stranding",
       "carbon-intensity",
-      "financial-risk",
-      "energy",
+      "pathway-alignment",
+      "portfolio",
       "both"
     ],
     "region": [
@@ -481,8 +481,8 @@
     "tags": [
       "financed-emissions",
       "scope-3",
-      "financial-risk",
-      "data-quality-scoring",
+      "attribution",
+      "data-quality",
       "portfolio"
     ],
     "region": [
@@ -554,9 +554,8 @@
       "target-setting"
     ],
     "tags": [
-      "stranding",
-      "carbon-intensity",
       "net-zero",
+      "pathway-alignment",
       "whole-building",
       "portfolio"
     ],
@@ -619,13 +618,12 @@
     "description": "Building energy benchmarking against zero-carbon targets. Normalizes by climate, space type, size, occupancy, and schedule using CBECS baselines.",
     "longDescription": "The Zero Tool by Architecture 2030 calculates a building's energy consumption baseline and target, producing a score where 0 equals a Zero Net Carbon building. It normalizes performance using climate zone, building type, gross area, occupancy levels, and operating schedule. Baseline data comes from CBECS 2003, and the tool aligns with the Zero Energy Performance Index (zEPI) and HERS Index. A free API and portfolio bulk upload are available.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "zero-carbon",
       "eui",
       "baseline",
-      "zEPI",
       "building"
     ],
     "region": [
@@ -688,7 +686,6 @@
     "tags": [
       "epd",
       "materials",
-      "lifecycle",
       "construction",
       "building"
     ],
@@ -746,15 +743,15 @@
     "description": "European Commission framework with 16 sustainability indicators across carbon, energy, water, materials, health, comfort, and climate resilience for buildings.",
     "longDescription": "Level(s) is the European Commission's voluntary framework for sustainable buildings, developed by the Joint Research Centre. It defines 16 indicators across 6 macro-objectives: greenhouse gas emissions, resource efficiency (energy, water, materials), health and comfort, climate resilience, and life cycle cost. Each indicator can be assessed at three levels of detail, from simple design-stage estimates to as-built verified performance. Level(s) is referenced in the EU Taxonomy for sustainable activities and supports compliance with CSRD and the Energy Performance of Buildings Directive (EPBD).",
     "categories": [
-      "energy-benchmarking",
-      "embodied-carbon"
+      "energy-performance",
+      "embodied-carbon",
+      "multi-criteria"
     ],
     "tags": [
       "lifecycle",
-      "sustainability-indicators",
+      "sustainability",
       "water",
       "health",
-      "materials",
       "building"
     ],
     "region": [
@@ -819,13 +816,12 @@
     "description": "Building energy performance scoring using metered data or ASHRAE 90.1 simulation. Compares actual EUI against Standard 100 baselines.",
     "longDescription": "ASHRAE Building EQ (Energy Quotient) benchmarks building energy performance using two methods: 'In Operation' compares actual metered energy data against ASHRAE Standard 100 baselines or Architecture 2030 Zero Tool references; 'As Designed' uses ASHRAE 90.1 Appendix G simulation to rate design-stage performance. The scoring formula is straightforward: (EUI_actual / EUI_baseline) × 100, making it easily implementable as a web calculator.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "eui",
-      "ashrae",
-      "metered-data",
       "scoring",
+      "metered-data",
       "building"
     ],
     "region": [
@@ -955,7 +951,6 @@
       "resilience",
       "adaptation",
       "hazards",
-      "emerging-markets",
       "building"
     ],
     "region": [
@@ -1009,13 +1004,13 @@
     "description": "US EPA tool that benchmarks building energy performance against national averages. Produces a 1–100 score where 50 is the median for similar buildings.",
     "longDescription": "ENERGY STAR Portfolio Manager is the US EPA's free online tool for benchmarking building energy and water performance. It compares a building's actual utility data against the national median for similar building types derived from CBECS, producing a 1–100 score where 50 represents the median. Buildings scoring 75 or above qualify for ENERGY STAR certification. The tool calculates Site EUI, Source EUI, and weather-normalized metrics. A full RESTful web services API enables data exchange with third-party platforms.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "eui",
       "scoring",
       "utility-data",
-      "epa",
+      "building",
       "both"
     ],
     "region": [
@@ -1102,7 +1097,6 @@
     ],
     "tags": [
       "scenarios",
-      "central-banks",
       "stress-testing",
       "macro",
       "portfolio"
@@ -1160,13 +1154,12 @@
     "description": "Australian government rating system measuring operational environmental performance of buildings using actual utility data. 0–6 star scale.",
     "longDescription": "NABERS (National Australian Built Environment Rating System) is the Australian government's rating system for measuring the operational environmental performance of buildings. It uses actual utility consumption data to produce a 0–6 star rating normalized for climate zone, hours of operation, and building type. NABERS covers energy, water, waste, and indoor environment quality. The energy rating methodology is well-documented with clear normalization formulas, and NABERS ratings are mandatory for commercial office buildings over 1,000 m² in Australia under the Commercial Building Disclosure program.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "star-rating",
       "operational",
       "utility-data",
-      "mandatory-disclosure",
       "building"
     ],
     "region": [
@@ -1237,14 +1230,13 @@
     "description": "Free web app that calculates resource-efficient building design strategies for energy, water, and embodied carbon. Targets 20%+ savings in 170+ countries.",
     "longDescription": "EDGE (Excellence in Design for Greater Efficiencies), developed by the IFC (World Bank Group) and certified by GBCI, is a free web application for calculating optimal resource-efficient building design. It compares energy, water, and embodied carbon performance against country-specific baselines, targeting a minimum 20% improvement. EDGE covers 170+ countries with localized climate and construction data, making it the leading green building tool for emerging markets. Three certification levels are available: EDGE Certified (20%), EDGE Advanced (40%), and Zero Carbon.",
     "categories": [
-      "energy-benchmarking",
+      "energy-performance",
       "embodied-carbon"
     ],
     "tags": [
       "green-building",
-      "design-optimization",
+      "design",
       "emerging-markets",
-      "certification",
       "building"
     ],
     "region": [
@@ -1315,15 +1307,13 @@
     "longDescription": "The CO2-Rechner Gebäude is an interactive tool developed for the Swiss Federal Office for the Environment (BAFU/FOEN) that provides climate and energy-relevant information for every residential building in Switzerland. It calculates CO2 emissions under standard conditions based on data from the Federal Register of Buildings and Dwellings (GWR), incorporating heating system type, energy source, building use, heated area, year of construction, altitude, and topographical location. Calculations follow SIA Norm 380/1 (2016). Users can simulate how a change of energy source (e.g., from gas to heat pump) or an energy-efficient renovation would improve the CO2 value. The 2024 expanded version extends coverage to Scope 2 emissions and provides rough estimates of embodied carbon from building materials. Deployed as part of the PACTA Climate Test for Swiss financial institutions.",
     "categories": [
       "carbon-accounting",
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "building-emissions",
       "SIA-380-1",
-      "GWR",
-      "retrofit-simulation",
-      "PACTA",
-      "net-zero-2050",
+      "retrofit",
+      "building",
       "both"
     ],
     "region": [
@@ -1396,7 +1386,7 @@
     "tags": [
       "multi-hazard",
       "catastrophe",
-      "adaptation",
+      "probabilistic",
       "insurance",
       "portfolio"
     ],
@@ -1455,8 +1445,7 @@
     "tags": [
       "earthquake",
       "seismic",
-      "catastrophe",
-      "insurance",
+      "probabilistic",
       "building"
     ],
     "region": [
@@ -1511,7 +1500,7 @@
     "description": "Open-source tool identifying cost-effective energy efficiency measures for buildings with ranked retrofit recommendations.",
     "longDescription": "BETTER (Building Efficiency Targeting Tool for Energy Retrofits) by LBNL identifies cost-effective energy efficiency measures using readily available building and energy data. Calculates savings potential, ranks measures by cost-effectiveness, and generates actionable recommendations.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "retrofit",
@@ -1571,7 +1560,7 @@
     "description": "Residential building typologies for 20 European countries with energy data for typical, standard, and advanced refurbishment states.",
     "longDescription": "TABULA/EPISCOPE provides harmonized residential building typology database for 20 European countries under the EU IEE programme. Web tool calculates heating demand, energy consumption, and CO2 emissions based on building age, type, and country-specific archetypes.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "residential",
@@ -1638,7 +1627,7 @@
       "flood",
       "coastal",
       "compound",
-      "adaptation",
+      "open-source",
       "building"
     ],
     "region": [
@@ -1698,6 +1687,7 @@
     "tags": [
       "drought",
       "water-stress",
+      "open-data",
       "portfolio"
     ],
     "region": [
@@ -1821,7 +1811,7 @@
       "lca",
       "epd",
       "materials",
-      "construction",
+      "open-source",
       "building"
     ],
     "region": [
@@ -1882,7 +1872,7 @@
     "description": "Official EU metric rating building smart readiness across 9 technical domains for energy optimization and grid flexibility.",
     "longDescription": "The SRI rates buildings across 9 domains (heating, cooling, DHW, ventilation, lighting, envelope, electricity, EV charging, monitoring) per EU Delegated Regulation 2020/2155 and EPBD 2024 recast.",
     "categories": [
-      "energy-benchmarking"
+      "energy-performance"
     ],
     "tags": [
       "smart-building",
@@ -1943,8 +1933,9 @@
     "longDescription": "DGNB System evaluates buildings across 29 criteria in 6 areas: environmental, economic, sociocultural, technical, process, and site quality. International version covers 30+ countries. Aligned with EU Taxonomy.",
     "categories": [
       "carbon-accounting",
-      "energy-benchmarking",
-      "embodied-carbon"
+      "energy-performance",
+      "embodied-carbon",
+      "multi-criteria"
     ],
     "tags": [
       "certification",
@@ -2010,9 +2001,10 @@
     "description": "World’s most widely used sustainability assessment. V7 maps to EU Taxonomy. Pass through Outstanding.",
     "longDescription": "BREEAM evaluates management, energy, water, transport, health, materials, waste, pollution, land use, and ecology. V7 (2024) maps to EU Taxonomy. Used in 100+ countries.",
     "categories": [
-      "energy-benchmarking",
+      "energy-performance",
       "carbon-accounting",
-      "embodied-carbon"
+      "embodied-carbon",
+      "multi-criteria"
     ],
     "tags": [
       "certification",
@@ -2082,7 +2074,7 @@
       "flood",
       "hurricane",
       "earthquake",
-      "insurance",
+      "open-source",
       "building"
     ],
     "region": [
@@ -2265,7 +2257,7 @@
       "catastrophe",
       "insurance",
       "platform",
-      "multi-hazard",
+      "open-source",
       "portfolio"
     ],
     "region": [
@@ -2306,6 +2298,388 @@
     "lifecycleStages": [],
     "complexity": 8,
     "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "cbe-comfort",
+    "name": "CBE Thermal Comfort Tool",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/cbe-comfort/card.svg",
+    "description": "Free online thermal comfort calculator implementing ASHRAE 55, ISO 7730, and EN 16798. Calculates PMV/PPD, adaptive comfort, and SET.",
+    "longDescription": "The CBE Thermal Comfort Tool from UC Berkeley calculates thermal comfort indices from ASHRAE 55-2023, ISO 7730:2005, and EN 16798-1:2022. Provides PMV/PPD, adaptive comfort, Standard Effective Temperature, local discomfort, and SolarCal calculations with psychrometric chart visualizations. ~50,000 annual users.",
+    "categories": [
+      "indoor-environment"
+    ],
+    "tags": [
+      "thermal-comfort",
+      "ASHRAE-55",
+      "health",
+      "overheating",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Center for the Built Environment (CBE), UC Berkeley",
+    "license": {
+      "type": "open-source",
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/CenterForTheBuiltEnvironment/comfort_tool/blob/master/LICENSE"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (comfort assessment)",
+    "scope": "Thermal comfort: PMV, PPD, adaptive comfort, SET, UTCI, local discomfort",
+    "adoptedBy": [
+      "ASHRAE 55",
+      "ISO 7730",
+      "EN 16798"
+    ],
+    "limitations": [
+      "Steady-state models only (no transient response)",
+      "Single-zone calculation (no room-level spatial variation)",
+      "Requires measured environmental parameters as input"
+    ],
+    "citation": "Tartarini, F. et al. (2020). CBE Thermal Comfort Tool. SoftwareX, 12, 100563.",
+    "source": {
+      "name": "CBE, UC Berkeley",
+      "url": "https://comfort.cbe.berkeley.edu/",
+      "methodology": "https://github.com/CenterForTheBuiltEnvironment/comfort_tool"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Current"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 3,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "reopt",
+    "name": "REopt",
+    "version": "3.0",
+    "status": "coming-soon",
+    "image": "models/reopt/card.svg",
+    "description": "Techno-economic optimization platform for solar, battery, wind, and CHP at buildings and campuses. Calculates optimal sizing, dispatch, and financial returns.",
+    "longDescription": "REopt by NREL uses mixed-integer linear programming to optimize the mix of solar PV, wind, battery storage, CHP, and thermal storage for buildings and campuses. Calculates dispatch strategies, net present value, payback period, and grid outage resilience. Supported 260+ MW of renewable energy decisions.",
+    "categories": [
+      "grid-optimization"
+    ],
+    "tags": [
+      "solar",
+      "battery",
+      "storage",
+      "renewable",
+      "building"
+    ],
+    "region": [
+      "US"
+    ],
+    "sector": [
+      "commercial"
+    ],
+    "author": "National Renewable Energy Laboratory (NREL), US DOE",
+    "license": {
+      "type": "open-source",
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/NREL/REopt.jl/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-06-01",
+    "scenario": "N/A (techno-economic optimization)",
+    "scope": "Optimal DER sizing, dispatch, NPV, payback, resilience, emissions reduction",
+    "adoptedBy": [
+      "US DOE",
+      "US Army",
+      "GSA"
+    ],
+    "limitations": [
+      "US-focused utility rate structures and incentive databases",
+      "Requires detailed load profile data",
+      "Linear programming may not capture all real-world constraints"
+    ],
+    "citation": "NREL (2025). REopt: Renewable Energy Integration and Optimization. https://reopt.nrel.gov/",
+    "source": {
+      "name": "NREL",
+      "url": "https://reopt.nrel.gov/tool",
+      "methodology": "https://github.com/NREL/REopt.jl"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "US"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Project lifetime (25-30yr)"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 5,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "pybuildingenergy",
+    "name": "pyBuildingEnergy",
+    "version": "1.0",
+    "status": "coming-soon",
+    "image": "models/pybuildingenergy/card.svg",
+    "description": "Open-source Python library implementing ISO 52016-1:2018 for EPBD-compliant building energy performance calculation.",
+    "longDescription": "pyBuildingEnergy by EURAC Research implements the ISO 52016-1:2018 standard for building energy performance assessment aligned with EPBD requirements. Calculates energy need for heating/cooling (hourly and monthly), internal temperature profiles, and sensible heating/cooling loads. Future modules planned for ventilation, renewables, and building systems.",
+    "categories": [
+      "energy-performance"
+    ],
+    "tags": [
+      "EPBD",
+      "ISO-52016",
+      "heating",
+      "cooling",
+      "building"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "EURAC Research, Institute for Renewable Energy (Bolzano, Italy)",
+    "license": {
+      "type": "open-source",
+      "name": "Open source",
+      "url": "https://github.com/EURAC-EEBgroup/pyBuildingEnergy"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (standardized energy calculation)",
+    "scope": "Energy need for heating/cooling per ISO 52016-1, internal temperatures, loads",
+    "adoptedBy": [
+      "EPBD implementation"
+    ],
+    "limitations": [
+      "Heating/cooling only (no ventilation, renewables, or systems yet)",
+      "Academic origin, limited production testing",
+      "Requires detailed building geometry and construction input"
+    ],
+    "citation": "EURAC Research (2024). pyBuildingEnergy. https://github.com/EURAC-EEBgroup/pyBuildingEnergy",
+    "source": {
+      "name": "EURAC Research",
+      "url": "https://github.com/EURAC-EEBgroup/pyBuildingEnergy"
+    },
+    "coverage": {
+      "jurisdictionCount": 27,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual/Hourly"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 6,
+    "maturity": 5,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "flexmeasures",
+    "name": "FlexMeasures",
+    "version": "0.24",
+    "status": "coming-soon",
+    "image": "models/flexmeasures/card.svg",
+    "description": "Open-source energy management system for optimizing behind-the-meter flexibility. Schedules batteries, heat pumps, EVs, and industrial processes.",
+    "longDescription": "FlexMeasures, contributed to LF Energy (Linux Foundation), turns energy data into optimized schedules for batteries, heat pumps, EVs, and flexible processes. Handles forecasting, scheduling, and real-time dispatch. Well-documented REST API and CLI, extensible via plugins.",
+    "categories": [
+      "grid-optimization"
+    ],
+    "tags": [
+      "flexibility",
+      "demand-response",
+      "battery",
+      "heat-pump",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial"
+    ],
+    "author": "Seita Energy Flexibility / LF Energy (Linux Foundation)",
+    "license": {
+      "type": "open-source",
+      "name": "Apache License 2.0",
+      "url": "https://github.com/FlexMeasures/flexmeasures/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-06-01",
+    "scenario": "N/A (real-time optimization)",
+    "scope": "Optimal dispatch schedules for flexible assets, flexibility value quantification",
+    "adoptedBy": [
+      "LF Energy"
+    ],
+    "limitations": [
+      "Requires real-time or forecast data feeds",
+      "Primarily behind-the-meter focus",
+      "Complex setup for full deployment"
+    ],
+    "citation": "FlexMeasures (2025). https://flexmeasures.io/",
+    "source": {
+      "name": "LF Energy",
+      "url": "https://flexmeasures.io/",
+      "methodology": "https://github.com/FlexMeasures/flexmeasures"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Real-time"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 7,
+    "maturity": 6,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "resstock-comstock",
+    "name": "ResStock / ComStock",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/resstock-comstock/card.svg",
+    "description": "Large-scale US building stock energy modeling with retrofit cost data. ResStock covers residential, ComStock covers commercial. Open source.",
+    "longDescription": "ResStock and ComStock by NREL use OpenStudio/EnergyPlus to simulate energy use and retrofit scenarios across the entire US building stock. Include cost data for energy efficiency measures. ResStock has identified $49 billion in potential annual utility bill savings. Results available at state and county level.",
+    "categories": [
+      "energy-performance"
+    ],
+    "tags": [
+      "building-stock",
+      "retrofit",
+      "cost-benefit",
+      "both"
+    ],
+    "region": [
+      "US"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "National Renewable Energy Laboratory (NREL), US DOE",
+    "license": {
+      "type": "open-source",
+      "name": "Open source",
+      "url": "https://github.com/NREL/resstock"
+    },
+    "lastUpdated": "2024-12-01",
+    "scenario": "N/A (building stock simulation)",
+    "scope": "Building stock energy use, retrofit measure costs and savings, utility bill impacts",
+    "adoptedBy": [
+      "US DOE",
+      "Weatherization Assistance Program"
+    ],
+    "limitations": [
+      "US only (CBECS/RECS building stock)",
+      "Simulated, not measured performance",
+      "Aggregate results, not individual building assessment"
+    ],
+    "citation": "Wilson, E. et al. (2022). ResStock. NREL. https://resstock.nrel.gov/",
+    "source": {
+      "name": "NREL",
+      "url": "https://resstock.nrel.gov/",
+      "methodology": "https://comstock.nrel.gov/"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "US"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 6,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "der-vet",
+    "name": "DER-VET",
+    "version": "1.2",
+    "status": "coming-soon",
+    "image": "models/der-vet/card.svg",
+    "description": "Open-source tool for optimizing sizing and dispatch of battery storage, solar, wind, and other DERs. Evaluates grid service revenue streams.",
+    "longDescription": "DER-VET (Distributed Energy Resource Value Estimation Tool) by EPRI optimizes the sizing and dispatch of battery storage, solar PV, wind, demand response, EV charging, CHP, and other DERs. Evaluates benefits and costs across grid services including demand charge reduction, time-of-use arbitrage, frequency regulation, and capacity markets.",
+    "categories": [
+      "grid-optimization"
+    ],
+    "tags": [
+      "battery",
+      "solar",
+      "storage",
+      "demand-response",
+      "building"
+    ],
+    "region": [
+      "US"
+    ],
+    "sector": [
+      "commercial"
+    ],
+    "author": "Electric Power Research Institute (EPRI)",
+    "license": {
+      "type": "open-source",
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/epri-dev/DER-VET/blob/master/LICENSE"
+    },
+    "lastUpdated": "2024-09-01",
+    "scenario": "N/A (techno-economic optimization)",
+    "scope": "DER sizing, dispatch, revenue from grid services, cost-benefit analysis",
+    "adoptedBy": [
+      "EPRI members",
+      "US utilities"
+    ],
+    "limitations": [
+      "US market structures and tariffs",
+      "Requires detailed tariff and load data",
+      "Linear optimization may simplify real dispatch"
+    ],
+    "citation": "EPRI (2024). DER-VET. https://www.der-vet.com/",
+    "source": {
+      "name": "EPRI",
+      "url": "https://www.der-vet.com/",
+      "methodology": "https://github.com/epri-dev/DER-VET"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "US"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Project lifetime"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 6,
+    "maturity": 7,
     "approach": "quantitative",
     "inputs": [],
     "outputs": []

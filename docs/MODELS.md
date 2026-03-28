@@ -1,6 +1,6 @@
 # Climate Check — Model Directory Meta-Model
 
-> 31 models for climate risk assessment in real estate.
+> 37 models for climate risk assessment in real estate.
 > Last updated: 2026-03-28.
 
 ---
@@ -149,14 +149,17 @@ Each model in `data/models.json` has the following schema:
 
 ### `categories` (enum, multi-select)
 
-| Value | Description |
-|-------|-------------|
-| `transition-risk` | Carbon stranding, pathway misalignment, policy exposure |
-| `physical-risk` | Climate hazard damage, loss estimation, resilience |
-| `carbon-accounting` | GHG measurement, reporting, attribution |
-| `energy-benchmarking` | Operational energy performance rating/scoring |
-| `embodied-carbon` | Materials, construction, lifecycle carbon |
-| `target-setting` | Science-based target alignment and validation |
+| Value | Description | Count |
+|-------|-------------|-------|
+| `energy-performance` | Operational energy performance rating, scoring, simulation | 14 |
+| `physical-risk` | Climate hazard damage, loss estimation, resilience, insurance | 11 |
+| `carbon-accounting` | GHG measurement, reporting, attribution | 6 |
+| `embodied-carbon` | Materials, construction, lifecycle carbon | 6 |
+| `transition-risk` | Carbon stranding, pathway misalignment, policy exposure | 5 |
+| `multi-criteria` | Holistic sustainability certification across multiple dimensions | 3 |
+| `grid-optimization` | DER sizing, demand flexibility, storage, renewable optimization | 3 |
+| `target-setting` | Science-based target alignment and validation | 2 |
+| `indoor-environment` | Thermal comfort, air quality, occupant health | 1 |
 
 ### `region` (enum, multi-select)
 
@@ -248,35 +251,62 @@ Each model in `data/models.json` has the following schema:
 
 **EIOPA CLIMADA-App** wraps CLIMADA in a GUI for European insurers and supervisors to run NatCat loss scenarios without coding.
 
+### Indoor Environment
+
+**CBE Thermal Comfort Tool** (UC Berkeley) is the standard free online calculator for ASHRAE 55, ISO 7730, and EN 16798 thermal comfort assessment, with ~50,000 annual users. Open source (BSD). Calculates PMV/PPD, adaptive comfort, SET, and local discomfort.
+
+### Grid Optimization
+
+**REopt** (NREL) is the leading open-source platform for optimizing solar, battery, wind, and CHP sizing and dispatch at buildings. Web tool with API. Has supported 260+ MW of renewable energy decisions.
+
+**FlexMeasures** (LF Energy) optimizes behind-the-meter flexibility for batteries, heat pumps, and EVs. API-first design, Apache 2.0 licensed.
+
+**DER-VET** (EPRI) estimates value of distributed energy resources across grid service revenue streams.
+
+### Retrofit Planning
+
+**BETTER** (LBNL) identifies cost-effective energy efficiency measures with ranked retrofit recommendations. Open-source Python engine.
+
+**ResStock/ComStock** (NREL) simulates energy use and retrofit costs across the entire US building stock. Open source, results at state/county level. ResStock identified $49B in potential annual savings.
+
+### EPBD Compliance
+
+**pyBuildingEnergy** (EURAC Research) implements ISO 52016-1:2018 in Python for EPBD-compliant energy performance calculation. Open source, wrappable as a web API.
+
 ---
 
 ## Coverage Gaps
 
-Based on expert assessment, the directory is missing or underrepresents:
+Gaps addressed in this release:
+- Indoor environment: **CBE Thermal Comfort Tool** added
+- Grid optimization: **REopt**, **FlexMeasures**, **DER-VET** added
+- Retrofit planning: **BETTER**, **ResStock/ComStock** added
+- EPBD compliance: **pyBuildingEnergy** added
 
-1. **Retrofit cost estimation** — BETTER covers energy efficiency measures, but there is no dedicated tool for deep renovation cost modeling (labor, materials, disruption costs by building type and jurisdiction).
+Remaining gaps:
 
-2. **Insurance pricing models** — We have cat models (CLIMADA, Oasis, HAZUS) but no tools for translating hazard into insurance premium impact or protection gap quantification at building level.
+1. **Deep renovation cost modeling** — ResStock/ComStock and BETTER cover efficiency measures, but no tool estimates full renovation costs (labor, materials, disruption) by building type and EU jurisdiction.
 
-3. **Regulatory compliance checkers** — No EU Taxonomy screening tool, no EPBD/MEES compliance calculator, no EPC rating estimator.
+2. **Insurance pricing impact** — Cat models (CLIMADA, Oasis, HAZUS) estimate losses but no tool translates hazard into premium impact or building-level insurability assessment.
 
-4. **Climate-adjusted valuation** — No model connects climate risk directly to property valuation (cap rate adjustment, green premium/brown discount).
+3. **EU Taxonomy screening calculator** — The EC provides guidance but no open web calculator for building-specific Taxonomy alignment checking.
 
-5. **Scope 3 supply chain** — No tool covers tenant emissions or supply chain carbon beyond PCAF's financial attribution.
+4. **Climate-adjusted property valuation** — No open model connects climate risk to property values (cap rate adjustment, green premium/brown discount). DuPa 2.0 (Netherlands) is the closest but not yet open.
 
-6. **Indoor environmental quality** — EU Level(s) includes IEQ indicators but no dedicated tool models health/comfort impacts of climate change on building occupants.
+5. **Scope 3 tenant emissions** — GRESB/PCAF/CRREM provide methodology for landlord-tenant splitting but no dedicated calculator exists.
 
-7. **Grid interaction** — SRI covers smart readiness but no model quantifies demand-side flexibility value or renewable self-consumption optimization.
+6. **EPC rating estimator** — UK SAP/RdSAP methodology is published but no open web implementation exists for estimating EPC ratings from building characteristics.
 
 ---
 
 ## Statistics
 
-- **31 models** total (1 live, 30 coming-soon)
-- **16 regions** represented (Global most common at 16 models)
-- **6 categories** with energy-benchmarking (12) and physical-risk (11) most populated
-- **6 license types** — 9 open-source, 7 free, 5 free-open-methodology
+- **37 models** total (1 live, 36 coming-soon)
+- **9 categories** — energy-performance (14) and physical-risk (11) most populated
+- **3 new categories** added: multi-criteria (3), grid-optimization (3), indoor-environment (1)
+- **85 unique tags** for fine-grained filtering
+- **6 license types** — 12 open-source, 7 free, 5 free-open-methodology
 - **Complexity range**: 2-8 (median 5)
 - **Maturity range**: 4-9 (median 7.5)
-- **24 quantitative**, 6 mixed, 1 qualitative
-- **19 of 31** cover the Operation phase; only 2 cover Circularity
+- **30 quantitative**, 6 mixed, 1 qualitative
+- **25 of 37** cover the Operation phase; only 2 cover Circularity

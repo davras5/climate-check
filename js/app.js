@@ -143,6 +143,12 @@ const CARD_IMG = {
   'jrc-flood-maps':'https://images.unsplash.com/photo-1446824505046-e43605ffb17f?w=600&h=300&fit=crop',
   'eiopa-climada':'https://images.unsplash.com/photo-1561484930-998b6a7b22e8?w=600&h=300&fit=crop',
   'oasis-lmf':   'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop',
+  'cbe-comfort': 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=300&fit=crop',
+  'reopt':       'https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&h=300&fit=crop',
+  'pybuildingenergy':'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=300&fit=crop',
+  'flexmeasures':'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=300&fit=crop',
+  'resstock-comstock':'https://images.unsplash.com/photo-1449844908441-8829872d2607?w=600&h=300&fit=crop',
+  'der-vet':     'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&h=300&fit=crop',
 };
 
 function addFilter(grp, val) {
