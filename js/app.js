@@ -14,6 +14,7 @@ const ICON = {
   list: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="2" width="14" height="2" rx="0.5"/><rect x="1" y="7" width="14" height="2" rx="0.5"/><rect x="1" y="12" width="14" height="2" rx="0.5"/></svg>',
   map: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="8" cy="8" rx="3" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.1"/></svg>',
   back: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"/></svg>',
+  scatter: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="4" cy="5" r="2"/><circle cx="10" cy="3" r="2"/><circle cx="7" cy="10" r="2"/><circle cx="13" cy="8" r="2"/><line x1="1" y1="15" x2="1" y2="1" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="1" y1="15" x2="15" y2="15" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>',
 };
 
 const $ = s => document.querySelector(s);
@@ -21,6 +22,15 @@ const $$ = s => document.querySelectorAll(s);
 const fmt = v => v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'K':v.toFixed(0);
 const eur = v => '\u20AC'+fmt(v);
 const humanize = s => s.replace(/-/g, ' ');
+const COUNTRY_NAMES = {
+  at:'Austria',au:'Australia',be:'Belgium',bg:'Bulgaria',br:'Brazil',ca:'Canada',ch:'Switzerland',
+  cn:'China',cy:'Cyprus',cz:'Czech Republic',de:'Germany',dk:'Denmark',ee:'Estonia',es:'Spain',
+  fi:'Finland',fr:'France',gb:'United Kingdom',gr:'Greece',hk:'Hong Kong',hr:'Croatia',hu:'Hungary',
+  ie:'Ireland',in:'India',it:'Italy',jp:'Japan',kr:'South Korea',lt:'Lithuania',lu:'Luxembourg',
+  lv:'Latvia',mt:'Malta',my:'Malaysia',nl:'Netherlands',no:'Norway',nz:'New Zealand',ph:'Philippines',
+  pl:'Poland',pt:'Portugal',ro:'Romania',se:'Sweden',sg:'Singapore',si:'Slovenia',sk:'Slovakia',
+  us:'United States'
+};
 const LIFECYCLE_PHASES = ['Planning','Production','Construction','Operation','End of life','Circularity'];
 function riskTier(r) { if(!r.strandingYear) return 'low'; const d=r.strandingYear-r.reportingYear; return d<=5?'high':d<=15?'med':'low'; }
 function riskName(t) { return {high:'High',med:'Medium',low:'Low'}[t]; }
@@ -196,7 +206,7 @@ function cacheModelData() {
 // View toggle HTML
 function viewToggleHtml() {
   const btn = (id, icon, label) => `<button class="view-btn${viewMode===id?' view-btn-active':''}" data-view="${id}" aria-label="${label}" title="${label}">${icon}</button>`;
-  return `<div class="view-toggle" role="group" aria-label="View mode">${btn('gallery',ICON.grid,'Gallery view')}${btn('list',ICON.list,'List view')}${btn('map',ICON.map,'Map view')}</div>`;
+  return `<div class="view-toggle" role="group" aria-label="View mode">${btn('gallery',ICON.grid,'Gallery view')}${btn('list',ICON.list,'List view')}${btn('map',ICON.map,'Map view')}${btn('scatter',ICON.scatter,'Scatter plot')}</div>`;
 }
 
 function galleryCard(m) {
@@ -223,11 +233,11 @@ function galleryCard(m) {
 
 function listRow(m) {
   return `<tr class="border-bottom clickable-row" data-href="#/models/${m.id}" tabindex="0">
-    <td class="py-2 px-3 text-bold">${m.name}</td>
+    <td class="py-2 px-3 text-bold" style="white-space:nowrap">${m.name}</td>
     <td class="py-2 px-3">${statusDot(m.status)}</td>
-    <td class="py-2 px-3">${(m.categories||[]).map(c=>`<span class="IssueLabel tag-click" data-g="categories" data-v="${c}">${humanize(c)}</span>`).join(' ')}</td>
-    <td class="py-2 px-3">${m.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</td>
-    <td class="py-2 px-3 fgColor-muted line-clamp-2">${m.description}</td>
+    <td class="py-2 px-3"><div class="d-flex flex-wrap gap-1">${(m.categories||[]).map(c=>`<span class="IssueLabel tag-click" data-g="categories" data-v="${c}">${humanize(c)}</span>`).join('')}</div></td>
+    <td class="py-2 px-3"><div class="d-flex flex-wrap gap-1">${m.region.map(r=>`<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="region" data-v="${r}">${r}</span>`).join('')}</div></td>
+    <td class="py-2 px-3 fgColor-muted f6">${m.description}</td>
   </tr>`;
 }
 
@@ -326,12 +336,22 @@ function showGallery() {
   if (vis.length === 0) {
     h += `<div class="gallery-empty"><p class="f3">No models match your filters</p><p class="f6 fgColor-muted">Try removing some filters or clearing the search</p></div>`;
   } else if (viewMode === 'list') {
-    h += `<div class="Box" class="overflow-x"><table class="f6" class="width-full" aria-label="Models list">
+    h += `<div class="Box overflow-x"><table class="f6 width-full list-table" aria-label="Models list">
       <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Name</th><th class="py-2 px-3 text-left label-xs">Status</th><th class="py-2 px-3 text-left label-xs">Category</th><th class="py-2 px-3 text-left label-xs">Region</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead>
       <tbody>${vis.map(m => listRow(m)).join('')}</tbody>
     </table></div>`;
   } else if (viewMode === 'map') {
     h += `<div id="galleryMap" class="coverage-map gallery-map-view"></div>`;
+  } else if (viewMode === 'scatter') {
+    h += `<div class="scatter-wrap" id="scatterWrap">
+      <div class="scatter-toolbar">
+        <button class="scatter-btn" id="scZoomIn" title="Zoom in">+</button>
+        <button class="scatter-btn" id="scZoomOut" title="Zoom out">\u2212</button>
+        <button class="scatter-btn" id="scReset" title="Reset view">\u2302</button>
+        <button class="scatter-btn" id="scFullscreen" title="Fullscreen">\u26F6</button>
+      </div>
+      <canvas id="scatterChart"></canvas>
+    </div>`;
   } else {
     h += `<div class="model-grid">${vis.map(m => galleryCard(m)).join('')}</div>`;
   }
@@ -344,7 +364,19 @@ function showGallery() {
 
   // Render map view
   if (viewMode === 'map') {
-    renderGalleryMap();
+    renderGalleryMap(vis);
+  } else if (viewMode === 'scatter') {
+    renderScatterPlot(vis);
+    const zi=$('#scZoomIn'),zo=$('#scZoomOut'),rs=$('#scReset'),fs=$('#scFullscreen');
+    if (zi) zi.addEventListener('click', () => { if(_scatterChart) _scatterChart.zoom(1.3); });
+    if (zo) zo.addEventListener('click', () => { if(_scatterChart) _scatterChart.zoom(0.7); });
+    if (rs) rs.addEventListener('click', () => { if(_scatterChart) _scatterChart.resetZoom(); });
+    if (fs) fs.addEventListener('click', () => {
+      const wrap = $('#scatterWrap');
+      if (!wrap) return;
+      if (document.fullscreenElement) { document.exitFullscreen(); }
+      else { wrap.requestFullscreen(); }
+    });
   }
 
   const fp = $('.filter-panel-title');
@@ -394,22 +426,236 @@ function highlightCountries(svg, codes) {
   });
 }
 
-async function renderGalleryMap() {
+async function renderGalleryMap(filteredModels) {
   const el = $('#galleryMap');
   if (!el) return;
   const svg = await injectWorldSvg(el, 'World map \u2014 click a highlighted country to filter by region');
   if (!svg) return;
-  const crMap = _countryRegionMap;
-  Object.entries(crMap).forEach(([code, region]) => {
+
+  // Build country → {region, models[]} from filtered models
+  const countryInfo = {};
+  (filteredModels || models).forEach(mod => {
+    const codes = mod.coverage && mod.coverage.jurisdictionCodes;
+    if (codes) codes.forEach(c => {
+      const lc = c.toLowerCase();
+      if (!countryInfo[lc]) countryInfo[lc] = { region: mod.region[0], models: [] };
+      countryInfo[lc].models.push(mod.name);
+    });
+  });
+
+  // Create tooltip
+  let tooltip = $('#map-tooltip');
+  if (!tooltip) {
+    tooltip = document.createElement('div');
+    tooltip.id = 'map-tooltip';
+    tooltip.className = 'map-tooltip';
+    document.body.appendChild(tooltip);
+  }
+
+  Object.entries(countryInfo).forEach(([code, info]) => {
     const country = svg.querySelector('#' + code);
     if (!country) return;
     const paths = country.tagName === 'g' ? country.querySelectorAll('path') : [country];
+    const name = COUNTRY_NAMES[code] || code.toUpperCase();
+    const modelList = info.models.length <= 3
+      ? info.models.join(', ')
+      : info.models.slice(0,3).join(', ') + ' +' + (info.models.length-3) + ' more';
+
     paths.forEach(p => {
       p.classList.add('map-active');
       p.style.cursor = 'pointer';
-      p.addEventListener('click', () => { viewMode = 'gallery'; addFilter('region', region); });
+      p.addEventListener('click', () => { viewMode = 'gallery'; addFilter('region', info.region); });
+      p.addEventListener('mouseenter', e => {
+        tooltip.innerHTML = '<strong>' + name + '</strong><br><span class="f6 fgColor-muted">' + modelList + '</span>';
+        tooltip.style.display = 'block';
+      });
+      p.addEventListener('mousemove', e => {
+        tooltip.style.left = (e.pageX + 12) + 'px';
+        tooltip.style.top = (e.pageY - 10) + 'px';
+      });
+      p.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
     });
   });
+}
+
+const CAT_COLORS = {
+  'transition-risk':'#cf222e','physical-risk':'#0969da','carbon-accounting':'#1a7f37',
+  'energy-performance':'#bf8700','embodied-carbon':'#6e40c9','target-setting':'#d29922',
+  'multi-criteria':'#0550ae','grid-optimization':'#1f883d','indoor-environment':'#9a6700'
+};
+
+let _scatterChart = null;
+function renderScatterPlot(filteredModels) {
+  const canvas = $('#scatterChart');
+  if (!canvas) return;
+  if (_scatterChart) _scatterChart.destroy();
+
+  // Jitter: count occupants per grid cell, offset to avoid overlap
+  const cellMap = {};
+  filteredModels.forEach(m => {
+    const key = (m.complexity||5) + ',' + (m.maturity||5);
+    if (!cellMap[key]) cellMap[key] = [];
+    cellMap[key].push(m);
+  });
+
+  // Group by primary category with jittered positions
+  const groups = {};
+  Object.values(cellMap).forEach(ms => {
+    const n = ms.length;
+    ms.forEach((m, i) => {
+      const cat = (m.categories||[])[0] || 'other';
+      if (!groups[cat]) groups[cat] = [];
+      // Spiral jitter for overlapping dots
+      const angle = (i / n) * Math.PI * 2;
+      const dist = n > 1 ? 0.25 + (i * 0.08) : 0;
+      groups[cat].push({
+        x: (m.complexity||5) + Math.cos(angle) * dist,
+        y: (m.maturity||5) + Math.sin(angle) * dist,
+        r: Math.max(6, Math.min(14, (m.lifecycleStages||[]).length * 2.5 + 5)),
+        model: m
+      });
+    });
+  });
+
+  const datasets = Object.entries(groups).map(([cat, pts]) => ({
+    label: humanize(cat),
+    data: pts,
+    backgroundColor: (CAT_COLORS[cat] || '#8b949e') + '99',
+    borderColor: CAT_COLORS[cat] || '#8b949e',
+    borderWidth: 1.5,
+    hoverBorderWidth: 3,
+    hoverBackgroundColor: CAT_COLORS[cat] || '#8b949e',
+  }));
+
+  const labelPlugin = {
+    id: 'bubbleLabels',
+    afterDatasetsDraw(chart) {
+      const ctx = chart.ctx;
+      const { left, right, top, bottom } = chart.chartArea;
+      const cx = (left + right) / 2, cy = (top + bottom) / 2;
+      ctx.save();
+
+      // Quadrant labels
+      ctx.font = '10px sans-serif';
+      ctx.fillStyle = 'rgba(128,128,128,0.3)';
+      ctx.textAlign = 'center';
+      ctx.fillText('Easy & Established', (left+cx)/2, top + 16);
+      ctx.fillText('Expert & Established', (cx+right)/2, top + 16);
+      ctx.fillText('Easy & Emerging', (left+cx)/2, bottom - 20);
+      ctx.fillText('Expert & Emerging', (cx+right)/2, bottom - 20);
+      ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(cx, top); ctx.lineTo(cx, bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(left, cy); ctx.lineTo(right, cy); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Collect bubble positions
+      const pts = [];
+      chart.data.datasets.forEach((ds, di) => {
+        const meta = chart.getDatasetMeta(di);
+        if (meta.hidden) return;
+        meta.data.forEach((el, pi) => {
+          const raw = ds.data[pi];
+          if (!raw || !raw.model) return;
+          pts.push({ px: el.x, py: el.y, r: el.options.radius || 6, name: raw.model.name, color: ds.borderColor });
+        });
+      });
+
+      // Place labels avoiding collisions
+      ctx.font = '9px sans-serif';
+      const placed = [];
+      const pad = 3;
+      const dirs = [[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[2,-1],[2,1],[-2,-1],[-2,1]];
+
+      pts.forEach(p => {
+        const tw = ctx.measureText(p.name).width;
+        const th = 10;
+        const gap = p.r + 10;
+        let lx, ly, rect, found = false;
+
+        for (const [dx, dy] of dirs) {
+          lx = p.px + dx * gap + (dx > 0 ? 2 : dx < 0 ? -tw - 2 : -tw/2);
+          ly = p.py + dy * gap + (dy > 0 ? th : dy < 0 ? -2 : th/2);
+          rect = { x: lx - pad, y: ly - th - pad, w: tw + pad*2, h: th + pad*2 };
+          if (rect.x < left || rect.x + rect.w > right || rect.y < top || rect.y + rect.h > bottom) continue;
+          if (placed.some(r => rect.x < r.x+r.w && rect.x+rect.w > r.x && rect.y < r.y+r.h && rect.y+rect.h > r.y)) continue;
+          found = true;
+          break;
+        }
+
+        if (found) {
+          placed.push(rect);
+          ctx.strokeStyle = 'rgba(100,100,100,0.45)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(p.px, p.py);
+          ctx.lineTo(lx + (lx > p.px ? -1 : tw + 1), ly - 4);
+          ctx.stroke();
+          ctx.fillStyle = 'rgba(30,30,30,0.75)';
+          ctx.textAlign = 'left';
+          ctx.fillText(p.name, lx, ly);
+        }
+      });
+
+      ctx.restore();
+    }
+  };
+
+  _scatterChart = new Chart(canvas.getContext('2d'), {
+    type: 'bubble',
+    data: { datasets },
+    plugins: [labelPlugin],
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 8 } },
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true, pointStyle: 'circle',
+            font: { size: 10 }, padding: 8,
+            boxWidth: 8, boxHeight: 8
+          }
+        },
+        tooltip: {
+          callbacks: {
+            title: ctx => ctx[0].raw.model.name,
+            label: ctx => {
+              const m = ctx.raw.model;
+              return [
+                'Complexity: ' + m.complexity + '/10  |  Maturity: ' + m.maturity + '/10',
+                'Approach: ' + (m.approach||''),
+                'Lifecycle: ' + ((m.lifecycleStages||[]).join(', ') || 'N/A')
+              ];
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 0, max: 11,
+          title: { display: true, text: 'Complexity \u2192', font: { size: 11, weight: 600 } },
+          ticks: { stepSize: 1, font: { size: 10 }, callback: v => v === 0 || v === 11 ? '' : v },
+          grid: { color: 'rgba(128,128,128,0.08)' }
+        },
+        y: {
+          min: 0, max: 11,
+          title: { display: true, text: 'Maturity \u2192', font: { size: 11, weight: 600 } },
+          ticks: { stepSize: 1, font: { size: 10 }, callback: v => v === 0 || v === 11 ? '' : v },
+          grid: { color: 'rgba(128,128,128,0.1)' }
+        }
+      },
+      onClick: (e, elements) => {
+        if (elements.length) {
+          const m = elements[0].element.$context.raw.model;
+          location.hash = '#/models/' + m.id;
+        }
+      }
+    }
+  });
+
 }
 
 // ============================================================

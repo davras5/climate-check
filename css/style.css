@@ -395,6 +395,14 @@ input:focus-visible,
   background: var(--accent-muted) !important;
 }
 
+/* ---- List view table ---- */
+.list-table { table-layout: fixed; }
+.list-table td:nth-child(1) { width: 160px; }
+.list-table td:nth-child(2) { width: 100px; }
+.list-table td:nth-child(3) { width: 200px; }
+.list-table td:nth-child(4) { width: 80px; }
+.list-table td:nth-child(5) { width: auto; }
+
 /* ---- Collapsible sections ---- */
 details > summary { list-style: none; cursor: pointer; }
 details > summary::-webkit-details-marker { display: none; }
@@ -514,6 +522,22 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
 }
 .map-active { fill: var(--accent) !important; opacity: 0.85; }
 .map-active:hover { opacity: 1; cursor: pointer; }
+
+/* Map tooltip */
+.map-tooltip {
+  display: none;
+  position: absolute;
+  z-index: 200;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  font-size: 13px;
+  line-height: 1.4;
+  pointer-events: none;
+  max-width: 260px;
+}
 
 /* ---- Schema sections ---- */
 .schema-section { margin-bottom: var(--space-1); }
@@ -725,6 +749,17 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   transition: color var(--duration-fast), border-color var(--duration-fast);
 }
 .filter-reset:hover { color: var(--danger-fg); border-color: var(--danger); }
+
+/* ---- Scatter plot view ---- */
+.scatter-wrap {
+  position: relative;
+  height: 500px;
+  background: var(--bg);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+.scatter-wrap canvas { width: 100% !important; height: 100% !important; }
 
 /* ---- Gallery map view ---- */
 .gallery-map-view { min-height: 300px; max-height: 500px; overflow: hidden; }
