@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python3:*)",
+      "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" log --oneline)",
+      "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" ls-files)",
+      "Bash(git -C \"c:\\\\Users\\\\DavidRasner\\\\Documents\\\\GitHub\\\\climate-check\" status)"
+    ]
+  }
+}
