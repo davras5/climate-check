@@ -1376,5 +1376,934 @@
     "complexity": 3,
     "maturity": 6,
     "approach": "quantitative"
+  },
+  {
+    "id": "climada",
+    "name": "CLIMADA",
+    "version": "6.1",
+    "status": "coming-soon",
+    "image": "models/climada/card.svg",
+    "description": "Open-source probabilistic multi-hazard climate risk platform. Models tropical cyclones, floods, droughts, heat, windstorms, and wildfire with economic damage estimation.",
+    "longDescription": "CLIMADA (CLIMate ADAptation) is an open-source probabilistic risk assessment framework developed by ETH Zurich. It integrates hazard, exposure, and vulnerability data to estimate economic damages from natural catastrophes and evaluate adaptation options. Covers tropical cyclones, European windstorms, river floods, wildfire, hail, and coastal flooding. Used by EIOPA for EU insurance supervision. A data API provides global hazard layers at ~4km resolution.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "multi-hazard",
+      "catastrophe",
+      "adaptation",
+      "insurance",
+      "portfolio"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Weather and Climate Risks Group, ETH Zurich",
+    "license": {
+      "type": "open-source",
+      "name": "GNU GPL v3",
+      "url": "https://github.com/CLIMADA-project/climada_python/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-06-01",
+    "scenario": "Current climate + CMIP6 projections (SSP scenarios)",
+    "scope": "Economic damage from natural hazards: wind, flood, drought, heat, wildfire",
+    "adoptedBy": [
+      "EIOPA",
+      "UNDRR"
+    ],
+    "limitations": [
+      "Python library requires backend service for web use",
+      "4km default resolution may miss local effects",
+      "Damage functions are generalized, not building-specific"
+    ],
+    "citation": "Aznar-Siguan, G. and Bresch, D.N. (2019). CLIMADA v1. Geosci. Model Dev., 12, 3085-3097.",
+    "source": {
+      "name": "ETH Zurich",
+      "url": "https://climada.ethz.ch/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2100"
+    },
+    "lifecycleStages": [],
+    "complexity": 8,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "openquake",
+    "name": "OpenQuake Engine",
+    "version": "3.19",
+    "status": "coming-soon",
+    "image": "models/openquake/card.svg",
+    "description": "Gold-standard open-source engine for probabilistic seismic hazard and risk assessment at building level.",
+    "longDescription": "OpenQuake is the benchmark open-source software for earthquake risk assessment by the GEM Foundation. Computes ground shaking hazard maps, building damage, and economic losses. Includes Global Exposure Model (200+ countries), Global Vulnerability Model (3,500+ typologies), and Global Seismic Hazard Map.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "earthquake",
+      "seismic",
+      "catastrophe",
+      "insurance",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Global Earthquake Model (GEM) Foundation",
+    "license": {
+      "type": "open-source",
+      "name": "AGPL-3.0",
+      "url": "https://github.com/gem/oq-engine/blob/master/LICENSE"
+    },
+    "lastUpdated": "2025-03-01",
+    "scenario": "Probabilistic seismic hazard (multiple return periods)",
+    "scope": "Seismic hazard curves, building damage, economic loss, loss exceedance curves",
+    "adoptedBy": [
+      "World Bank",
+      "GFDRR"
+    ],
+    "limitations": [
+      "Earthquake-only",
+      "Requires seismic source models per region",
+      "Complex vulnerability function setup"
+    ],
+    "citation": "Pagani, M. et al. (2014). OpenQuake Engine. Seismological Research Letters, 85(3), 692-702.",
+    "source": {
+      "name": "GEM Foundation",
+      "url": "https://www.globalquakemodel.org/product/openquake-engine",
+      "methodology": "https://docs.openquake.org/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Probabilistic"
+    },
+    "lifecycleStages": [],
+    "complexity": 8,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "better",
+    "name": "BETTER",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/better/card.svg",
+    "description": "Open-source tool identifying cost-effective energy efficiency measures for buildings with ranked retrofit recommendations.",
+    "longDescription": "BETTER (Building Efficiency Targeting Tool for Energy Retrofits) by LBNL identifies cost-effective energy efficiency measures using readily available building and energy data. Calculates savings potential, ranks measures by cost-effectiveness, and generates actionable recommendations.",
+    "categories": [
+      "energy-benchmarking"
+    ],
+    "tags": [
+      "retrofit",
+      "cost-benefit",
+      "energy-efficiency",
+      "building",
+      "both"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial"
+    ],
+    "author": "Lawrence Berkeley National Laboratory (LBNL), US DOE",
+    "license": {
+      "type": "open-source",
+      "name": "Open source (GitHub)",
+      "url": "https://github.com/LBNL-ETA/BETTER"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (retrofit cost-benefit analysis)",
+    "scope": "Operational energy savings potential, retrofit measure ranking",
+    "adoptedBy": [
+      "US DOE",
+      "UNEP"
+    ],
+    "limitations": [
+      "US-focused cost defaults",
+      "Commercial buildings only",
+      "No embodied carbon of retrofits"
+    ],
+    "citation": "LBNL (2024). BETTER. https://better.lbl.gov/",
+    "source": {
+      "name": "LBNL",
+      "url": "https://better.lbl.gov/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 4,
+    "maturity": 7,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "tabula-episcope",
+    "name": "TABULA/EPISCOPE",
+    "version": "2016",
+    "status": "coming-soon",
+    "image": "models/tabula-episcope/card.svg",
+    "description": "Residential building typologies for 20 European countries with energy data for typical, standard, and advanced refurbishment states.",
+    "longDescription": "TABULA/EPISCOPE provides harmonized residential building typology database for 20 European countries under the EU IEE programme. Web tool calculates heating demand, energy consumption, and CO2 emissions based on building age, type, and country-specific archetypes.",
+    "categories": [
+      "energy-benchmarking"
+    ],
+    "tags": [
+      "residential",
+      "typology",
+      "refurbishment",
+      "building"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "residential"
+    ],
+    "author": "Institut Wohnen und Umwelt (IWU), Germany",
+    "license": {
+      "type": "free",
+      "name": "Free — EU-funded open access",
+      "url": "https://episcope.eu/"
+    },
+    "lastUpdated": "2016-12-01",
+    "scenario": "N/A (building typology database)",
+    "scope": "Heating demand, energy use, CO2 emissions for residential archetypes",
+    "adoptedBy": [
+      "EU Member States",
+      "EPBD implementation"
+    ],
+    "limitations": [
+      "Residential only",
+      "Data from 2016",
+      "20 EU countries (not all 27)"
+    ],
+    "citation": "Loga, T. et al. (2016). TABULA building typologies. Energy and Buildings, 132, 4-12.",
+    "source": {
+      "name": "IWU / EU IEE",
+      "url": "https://webtool.building-typology.eu/",
+      "methodology": "https://episcope.eu/"
+    },
+    "coverage": {
+      "jurisdictionCount": 20,
+      "propertyTypeCount": 0,
+      "timeRange": "Annual"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 3,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "sfincs",
+    "name": "SFINCS",
+    "version": "2.3",
+    "status": "coming-soon",
+    "image": "models/sfincs/card.svg",
+    "description": "Fast compound flooding model from Deltares. Simulates coastal surge, riverine, and rainfall flooding 100–1000x faster than full hydrodynamic models.",
+    "longDescription": "SFINCS (Super-Fast INundation of CoastS) by Deltares simulates compound flooding from coastal surge, riverine overflow, and rainfall. Runs 100–1000x faster than full 2D models. Validated globally, integrated with FloodAdapt.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "flood",
+      "coastal",
+      "compound",
+      "adaptation",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Deltares (Netherlands)",
+    "license": {
+      "type": "open-source",
+      "name": "GNU GPL v3",
+      "url": "https://github.com/Deltares/SFINCS/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "User-defined (SLR, rainfall, surge)",
+    "scope": "Flood inundation depth and extent from compound flooding",
+    "adoptedBy": [
+      "Deltares FloodAdapt",
+      "World Bank"
+    ],
+    "limitations": [
+      "Reduced complexity vs full 2D models",
+      "Requires DEM data",
+      "No built-in damage functions"
+    ],
+    "citation": "Leijnse, T. et al. (2021). SFINCS. Coastal Engineering, 163, 103796.",
+    "source": {
+      "name": "Deltares",
+      "url": "https://github.com/Deltares/SFINCS",
+      "methodology": "https://sfincs.readthedocs.io/"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Event-based"
+    },
+    "lifecycleStages": [],
+    "complexity": 6,
+    "maturity": 7,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "wri-aqueduct",
+    "name": "WRI Aqueduct",
+    "version": "4.0",
+    "status": "coming-soon",
+    "image": "models/wri-aqueduct/card.svg",
+    "description": "Global water risk atlas mapping 13 indicators including water stress, drought risk, and groundwater depletion with CMIP6 projections.",
+    "longDescription": "WRI Aqueduct maps 13 water risk indicators using PCR-GLOBWB 2 hydrological model with CMIP6 projections to 2080. Standard tool for TCFD water risk disclosure.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "drought",
+      "water-stress",
+      "portfolio"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "World Resources Institute + Utrecht University",
+    "license": {
+      "type": "free-open-methodology",
+      "name": "CC BY 4.0",
+      "url": "https://www.wri.org/aqueduct"
+    },
+    "lastUpdated": "2023-08-01",
+    "scenario": "CMIP6 SSP1-2.6, SSP3-7.0, SSP5-8.5",
+    "scope": "Water stress, drought risk, groundwater depletion",
+    "adoptedBy": [
+      "TCFD",
+      "CDP Water",
+      "GRESB"
+    ],
+    "limitations": [
+      "Sub-basin resolution, not property-level",
+      "No building-level impact modeling"
+    ],
+    "citation": "Hofste, R.W. et al. (2019). Aqueduct 3.0. WRI Technical Note.",
+    "source": {
+      "name": "WRI",
+      "url": "https://www.wri.org/aqueduct"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2080"
+    },
+    "lifecycleStages": [],
+    "complexity": 3,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "climate-bonds",
+    "name": "Climate Bonds Buildings Criteria",
+    "version": "2023",
+    "status": "coming-soon",
+    "image": "models/climate-bonds/card.svg",
+    "description": "Green bond certification screening for buildings with free CO2 calculators. Top-15% carbon intensity targets per city.",
+    "longDescription": "Climate Bonds Initiative defines carbon performance thresholds for green bond certification. Targets represent top 15% per city/typology with zero-carbon 2050 trajectory. Free CO2 calculators. Aligned with EU Taxonomy.",
+    "categories": [
+      "target-setting",
+      "carbon-accounting"
+    ],
+    "tags": [
+      "green-bonds",
+      "certification",
+      "net-zero",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Climate Bonds Initiative (CBI)",
+    "license": {
+      "type": "free",
+      "name": "Free criteria and calculators",
+      "url": "https://www.climatebonds.net/"
+    },
+    "lastUpdated": "2023-12-01",
+    "scenario": "1.5°C (top 15% to zero carbon by 2050)",
+    "scope": "Building carbon intensity screening for green bond eligibility",
+    "adoptedBy": [
+      "Green bond issuers",
+      "EU Taxonomy"
+    ],
+    "limitations": [
+      "Screening only, not building-level calculation",
+      "City-specific targets incomplete",
+      "Certification is paid"
+    ],
+    "citation": "CBI (2023). Buildings Criteria. https://www.climatebonds.net/",
+    "source": {
+      "name": "CBI",
+      "url": "https://www.climatebonds.net/our-expertise/climate-bonds-standard-and-certification-scheme/sector-criteria/buildings"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2050"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 3,
+    "maturity": 7,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "elca-oekobaudat",
+    "name": "eLCA + ÖKOBAUDAT",
+    "version": "2025",
+    "status": "coming-soon",
+    "image": "models/elca-oekobaudat/card.svg",
+    "description": "Free open-source building LCA tool using Germany’s standardized EPD database. Whole-lifecycle impacts per EN 15978.",
+    "longDescription": "eLCA is a free open-source online building LCA tool by BBSR using the ÖKOBAUDAT EPD database. Calculates GWP, AP, EP, ODP, POCP per EN 15978. Mandatory for German BNB federal buildings.",
+    "categories": [
+      "embodied-carbon",
+      "carbon-accounting"
+    ],
+    "tags": [
+      "lca",
+      "epd",
+      "materials",
+      "construction",
+      "building"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "BBSR (Germany)",
+    "license": {
+      "type": "open-source",
+      "name": "Free — public sector",
+      "url": "https://www.bauteileditor.de"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "N/A (lifecycle assessment)",
+    "scope": "Whole-lifecycle environmental impacts per EN 15978",
+    "adoptedBy": [
+      "BNB",
+      "QNG"
+    ],
+    "limitations": [
+      "German-focused EPD data",
+      "Interface in German",
+      "Requires detailed material input"
+    ],
+    "citation": "BBSR (2025). eLCA. https://www.bauteileditor.de",
+    "source": {
+      "name": "BBSR",
+      "url": "https://www.bauteileditor.de",
+      "methodology": "https://www.oekobaudat.de/en.html"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Production",
+      "Construction",
+      "Operation",
+      "End of life"
+    ],
+    "complexity": 7,
+    "maturity": 7,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "sri",
+    "name": "Smart Readiness Indicator (SRI)",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/sri/card.svg",
+    "description": "Official EU metric rating building smart readiness across 9 technical domains for energy optimization and grid flexibility.",
+    "longDescription": "The SRI rates buildings across 9 domains (heating, cooling, DHW, ventilation, lighting, envelope, electricity, EV charging, monitoring) per EU Delegated Regulation 2020/2155 and EPBD 2024 recast.",
+    "categories": [
+      "energy-benchmarking"
+    ],
+    "tags": [
+      "smart-building",
+      "grid-flexibility",
+      "EPBD",
+      "building"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "European Commission / Fraunhofer IBP / VITO",
+    "license": {
+      "type": "free-open-methodology",
+      "name": "Free — EU regulation",
+      "url": "https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/smart-readiness-indicator_en"
+    },
+    "lastUpdated": "2024-01-01",
+    "scenario": "N/A (readiness assessment)",
+    "scope": "Smart readiness scoring across 9 technical domains",
+    "adoptedBy": [
+      "EPBD 2024 recast"
+    ],
+    "limitations": [
+      "Optional for member states",
+      "Methodology still evolving",
+      "No direct energy measurement"
+    ],
+    "citation": "EC (2020). Delegated Regulation (EU) 2020/2155.",
+    "source": {
+      "name": "European Commission",
+      "url": "https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/smart-readiness-indicator_en"
+    },
+    "coverage": {
+      "jurisdictionCount": 27,
+      "propertyTypeCount": 0,
+      "timeRange": "Current"
+    },
+    "lifecycleStages": [
+      "Operation"
+    ],
+    "complexity": 5,
+    "maturity": 5,
+    "approach": "mixed",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "dgnb",
+    "name": "DGNB System",
+    "version": "2020",
+    "status": "coming-soon",
+    "image": "models/dgnb/card.svg",
+    "description": "German multi-criteria sustainability certification. 38 criteria, 6 quality areas, Bronze–Platinum ratings, full lifecycle.",
+    "longDescription": "DGNB System evaluates buildings across 38 criteria in 6 areas: environmental, economic, sociocultural, technical, process, and site quality. International version covers 30+ countries. Aligned with EU Taxonomy.",
+    "categories": [
+      "carbon-accounting",
+      "energy-benchmarking",
+      "embodied-carbon"
+    ],
+    "tags": [
+      "certification",
+      "lifecycle",
+      "sustainability",
+      "building"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Deutsche Gesellschaft für Nachhaltiges Bauen (DGNB)",
+    "license": {
+      "type": "free-open-access",
+      "name": "Proprietary certification — criteria public",
+      "url": "https://www.dgnb.de/en/certification/buildings"
+    },
+    "lastUpdated": "2020-01-01",
+    "scenario": "N/A (multi-criteria assessment)",
+    "scope": "38 criteria across 6 quality areas",
+    "adoptedBy": [
+      "German government",
+      "EU Taxonomy alignment"
+    ],
+    "limitations": [
+      "Requires licensed auditor",
+      "German-origin",
+      "Full scoring needs DGNB tools"
+    ],
+    "citation": "DGNB (2020). DGNB System International.",
+    "source": {
+      "name": "DGNB",
+      "url": "https://www.dgnb.de/en/certification/buildings"
+    },
+    "coverage": {
+      "jurisdictionCount": 30,
+      "propertyTypeCount": 0,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Production",
+      "Construction",
+      "Operation",
+      "End of life",
+      "Circularity"
+    ],
+    "complexity": 8,
+    "maturity": 8,
+    "approach": "mixed",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "breeam",
+    "name": "BREEAM",
+    "version": "7.0",
+    "status": "coming-soon",
+    "image": "models/breeam/card.svg",
+    "description": "World’s most widely used sustainability assessment. V7 maps to EU Taxonomy. Pass through Outstanding.",
+    "longDescription": "BREEAM evaluates management, energy, water, transport, health, materials, waste, pollution, land use, and ecology. V7 (2024) maps to EU Taxonomy. Used in 100+ countries.",
+    "categories": [
+      "energy-benchmarking",
+      "carbon-accounting",
+      "embodied-carbon"
+    ],
+    "tags": [
+      "certification",
+      "sustainability",
+      "eu-taxonomy",
+      "building"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "BRE Group (UK)",
+    "license": {
+      "type": "free-open-access",
+      "name": "Proprietary — scheme docs available",
+      "url": "https://breeam.com/"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "N/A (multi-criteria assessment)",
+    "scope": "10 categories including energy, materials, water, health, ecology",
+    "adoptedBy": [
+      "UK Government",
+      "EU Taxonomy (V7)",
+      "GRESB"
+    ],
+    "limitations": [
+      "Requires licensed assessor",
+      "Scheme docs for purchase",
+      "Different schemes per building stage"
+    ],
+    "citation": "BRE (2024). BREEAM V7. https://breeam.com/",
+    "source": {
+      "name": "BRE Group",
+      "url": "https://breeam.com/"
+    },
+    "coverage": {
+      "jurisdictionCount": 100,
+      "propertyTypeCount": 0,
+      "timeRange": "Lifecycle"
+    },
+    "lifecycleStages": [
+      "Planning",
+      "Construction",
+      "Operation"
+    ],
+    "complexity": 7,
+    "maturity": 9,
+    "approach": "mixed",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "hazus-fast",
+    "name": "FEMA HAZUS / FAST",
+    "version": "6.1",
+    "status": "coming-soon",
+    "image": "models/hazus-fast/card.svg",
+    "description": "US multi-hazard loss estimation. FAST is open-source Python for building-level flood damage at ~10,000 structures/second.",
+    "longDescription": "HAZUS estimates building damages and economic losses from floods, hurricanes, earthquakes. FAST is the open-source Python tool calculating building-specific flood losses using depth-damage functions.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "flood",
+      "hurricane",
+      "earthquake",
+      "insurance",
+      "building"
+    ],
+    "region": [
+      "US"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "FEMA / National Institute of Building Sciences",
+    "license": {
+      "type": "free",
+      "name": "Public domain (FAST is open-source)",
+      "url": "https://github.com/nhrap-hazus/FAST"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Scenario-based or probabilistic",
+    "scope": "Building damage, economic loss from flood/hurricane/earthquake",
+    "adoptedBy": [
+      "FEMA",
+      "US Army Corps of Engineers"
+    ],
+    "limitations": [
+      "US only",
+      "Full HAZUS requires ArcGIS",
+      "Default inventory is census-tract level"
+    ],
+    "citation": "FEMA (2025). Hazus. https://www.fema.gov/flood-maps/products-tools/hazus",
+    "source": {
+      "name": "FEMA",
+      "url": "https://www.fema.gov/flood-maps/products-tools/hazus",
+      "methodology": "https://github.com/nhrap-hazus/FAST"
+    },
+    "coverage": {
+      "jurisdictionCodes": [
+        "US"
+      ],
+      "jurisdictionCount": 1,
+      "propertyTypeCount": 0,
+      "timeRange": "Event-based"
+    },
+    "lifecycleStages": [],
+    "complexity": 5,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "jrc-flood-maps",
+    "name": "JRC Flood Hazard Maps",
+    "version": "2.1",
+    "status": "coming-soon",
+    "image": "models/jrc-flood-maps/card.svg",
+    "description": "Pre-computed flood maps for 10–500yr return periods. 25m EU, 90m global. Open data from Copernicus.",
+    "longDescription": "JRC Global and European River Flood Hazard Maps provide inundation extent and depth for return periods from 10 to 500 years. Derived from LISFLOOD model. Available via Copernicus EMS and Google Earth Engine.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "flood",
+      "open-data",
+      "copernicus",
+      "portfolio"
+    ],
+    "region": [
+      "EU",
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "European Commission Joint Research Centre (JRC)",
+    "license": {
+      "type": "free-open-methodology",
+      "name": "Open data — Copernicus licence",
+      "url": "https://data.jrc.ec.europa.eu/"
+    },
+    "lastUpdated": "2024-01-01",
+    "scenario": "Return periods (10, 20, 50, 100, 200, 500 years)",
+    "scope": "Riverine flood inundation extent and depth",
+    "adoptedBy": [
+      "Copernicus EMS",
+      "EU Taxonomy physical risk screening"
+    ],
+    "limitations": [
+      "Riverine only, no pluvial/coastal",
+      "No climate change projections",
+      "90m global resolution"
+    ],
+    "citation": "Dottori, F. et al. (2022). JRC Global River Flood Hazard Maps.",
+    "source": {
+      "name": "JRC / Copernicus",
+      "url": "https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp50y-tif"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Return periods"
+    },
+    "lifecycleStages": [],
+    "complexity": 2,
+    "maturity": 9,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "eiopa-climada",
+    "name": "EIOPA CLIMADA-App",
+    "version": "2024",
+    "status": "coming-soon",
+    "image": "models/eiopa-climada/card.svg",
+    "description": "GUI wrapper around CLIMADA for European insurers. Run NatCat loss scenarios for 30 countries without coding.",
+    "longDescription": "EIOPA CLIMADA-App is a GUI built on CLIMADA by EIOPA and ETH Zurich for non-technical users to run probabilistic NatCat scenarios for European countries without Python.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "insurance",
+      "natcat",
+      "EIOPA",
+      "portfolio"
+    ],
+    "region": [
+      "EU"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "EIOPA + ETH Zurich",
+    "license": {
+      "type": "open-source",
+      "name": "GNU GPL v3",
+      "url": "https://www.eiopa.europa.eu/tools-and-data/open-source-tools-modelling-and-management-climate-change-risks_en"
+    },
+    "lastUpdated": "2024-06-01",
+    "scenario": "Current + CMIP6 projections",
+    "scope": "NatCat loss scenarios for European insurance portfolios",
+    "adoptedBy": [
+      "EIOPA",
+      "EU insurance supervisors"
+    ],
+    "limitations": [
+      "Europe only (30 countries)",
+      "Simplified vs full CLIMADA",
+      "Inherits CLIMADA resolution limits"
+    ],
+    "citation": "EIOPA (2024). Open-Source Climate Tools.",
+    "source": {
+      "name": "EIOPA",
+      "url": "https://www.eiopa.europa.eu/tools-and-data/open-source-tools-modelling-and-management-climate-change-risks_en"
+    },
+    "coverage": {
+      "jurisdictionCount": 30,
+      "propertyTypeCount": 0,
+      "timeRange": "Current–2100"
+    },
+    "lifecycleStages": [],
+    "complexity": 4,
+    "maturity": 6,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
+  },
+  {
+    "id": "oasis-lmf",
+    "name": "Oasis Loss Modelling Framework",
+    "version": "2.5",
+    "status": "coming-soon",
+    "image": "models/oasis-lmf/card.svg",
+    "description": "Open-source cat modelling platform. 100+ models from 21+ providers. Industry standard for insurers and reinsurers.",
+    "longDescription": "Oasis LMF is the open-source catastrophe modelling platform with standardized API, data formats, and Monte Carlo engine. 100+ models from 21+ providers. Web UI, REST API, Docker deployment.",
+    "categories": [
+      "physical-risk"
+    ],
+    "tags": [
+      "catastrophe",
+      "insurance",
+      "platform",
+      "multi-hazard",
+      "portfolio"
+    ],
+    "region": [
+      "Global"
+    ],
+    "sector": [
+      "commercial",
+      "residential"
+    ],
+    "author": "Oasis LMF Ltd (insurance consortium)",
+    "license": {
+      "type": "open-source",
+      "name": "BSD 3-Clause",
+      "url": "https://github.com/OasisLMF/OasisLMF/blob/main/LICENSE"
+    },
+    "lastUpdated": "2025-01-01",
+    "scenario": "Model-dependent (probabilistic event sets)",
+    "scope": "Cat model execution: ground-up loss, insured loss, reinsurance loss",
+    "adoptedBy": [
+      "Insurance industry"
+    ],
+    "limitations": [
+      "Platform only — peril models licensed separately",
+      "Insurance-focused data structures",
+      "Complex setup"
+    ],
+    "citation": "Oasis LMF (2025). https://oasislmf.org/",
+    "source": {
+      "name": "Oasis LMF",
+      "url": "https://oasislmf.org/",
+      "methodology": "https://github.com/OasisLMF"
+    },
+    "coverage": {
+      "jurisdictionCount": 0,
+      "propertyTypeCount": 0,
+      "timeRange": "Probabilistic"
+    },
+    "lifecycleStages": [],
+    "complexity": 8,
+    "maturity": 8,
+    "approach": "quantitative",
+    "inputs": [],
+    "outputs": []
   }
 ]

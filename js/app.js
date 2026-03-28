@@ -128,6 +128,21 @@ const CARD_IMG = {
   'ifc-edge':    'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=300&fit=crop',
   'crrem-apac':  'https://images.unsplash.com/photo-1480796927426-f609979314bd?w=600&h=300&fit=crop',
   'bafu-co2':    'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600&h=300&fit=crop',
+  'climada':     'https://images.unsplash.com/photo-1509803874385-db7c23652552?w=600&h=300&fit=crop',
+  'openquake':   'https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&h=300&fit=crop',
+  'better':      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=300&fit=crop',
+  'tabula-episcope':'https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600&h=300&fit=crop',
+  'sfincs':      'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop',
+  'wri-aqueduct':'https://images.unsplash.com/photo-1581092160607-ee67df31e635?w=600&h=300&fit=crop',
+  'climate-bonds':'https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=600&h=300&fit=crop',
+  'elca-oekobaudat':'https://images.unsplash.com/photo-1590274853856-f22d5ee3d228?w=600&h=300&fit=crop',
+  'sri':         'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=300&fit=crop',
+  'dgnb':        'https://images.unsplash.com/photo-1518005068251-37900150dfca?w=600&h=300&fit=crop',
+  'breeam':      'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=300&fit=crop',
+  'hazus-fast':  'https://images.unsplash.com/photo-1583245826824-27b5e2edd832?w=600&h=300&fit=crop',
+  'jrc-flood-maps':'https://images.unsplash.com/photo-1446824505046-e43605ffb17f?w=600&h=300&fit=crop',
+  'eiopa-climada':'https://images.unsplash.com/photo-1561484930-998b6a7b22e8?w=600&h=300&fit=crop',
+  'oasis-lmf':   'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=300&fit=crop',
 };
 
 function addFilter(grp, val) {
