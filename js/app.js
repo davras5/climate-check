@@ -473,37 +473,25 @@ async function renderGalleryMap(filteredModels) {
     });
   });
 
-  // Create tooltip
-  let tooltip = $('#map-tooltip');
-  if (!tooltip) {
-    tooltip = document.createElement('div');
-    tooltip.id = 'map-tooltip';
-    tooltip.className = 'map-tooltip';
-    document.body.appendChild(tooltip);
-  }
+  // Build detail strings and highlight
+  const details = {};
+  const allCodes = Object.keys(countryInfo);
+  allCodes.forEach(code => {
+    const info = countryInfo[code];
+    const ms = info.models;
+    details[code] = ms.length <= 3 ? ms.join(', ') : ms.slice(0,3).join(', ') + ' +' + (ms.length-3) + ' more';
+  });
+  highlightCountries(svg, allCodes, details);
 
-  Object.entries(countryInfo).forEach(([code, info]) => {
+  // Add click handlers for region filtering
+  allCodes.forEach(code => {
+    const info = countryInfo[code];
     const country = svg.querySelector('#' + code);
     if (!country) return;
     const paths = country.tagName === 'g' ? country.querySelectorAll('path') : [country];
-    const name = COUNTRY_NAMES[code] || code.toUpperCase();
-    const modelList = info.models.length <= 3
-      ? info.models.join(', ')
-      : info.models.slice(0,3).join(', ') + ' +' + (info.models.length-3) + ' more';
-
     paths.forEach(p => {
-      p.classList.add('map-active');
       p.style.cursor = 'pointer';
       p.addEventListener('click', () => { viewMode = 'gallery'; addFilter('region', info.region); });
-      p.addEventListener('mouseenter', e => {
-        tooltip.innerHTML = '<strong>' + name + '</strong><br><span class="f6 fgColor-muted">' + modelList + '</span>';
-        tooltip.style.display = 'block';
-      });
-      p.addEventListener('mousemove', e => {
-        tooltip.style.left = (e.pageX + 12) + 'px';
-        tooltip.style.top = (e.pageY - 10) + 'px';
-      });
-      p.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
     });
   });
 }
@@ -955,7 +943,7 @@ async function showModel(id) {
   }));
 
   if (cov.jurisdictionCodes) {
-    renderCoverageMap($('#coverageMap'), cov.jurisdictionCodes);
+    renderCoverageMap($('#coverageMap'), cov.jurisdictionCodes, model.name);
   }
 
   if (live && model.engine) {
