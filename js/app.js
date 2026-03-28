@@ -345,10 +345,10 @@ function showGallery() {
   } else if (viewMode === 'scatter') {
     h += `<div class="scatter-wrap" id="scatterWrap">
       <div class="scatter-toolbar">
+        <button class="scatter-btn" id="scFullscreen" title="Fullscreen">\u26F6</button>
         <button class="scatter-btn" id="scZoomIn" title="Zoom in">+</button>
         <button class="scatter-btn" id="scZoomOut" title="Zoom out">\u2212</button>
-        <button class="scatter-btn" id="scReset" title="Reset view">\u2302</button>
-        <button class="scatter-btn" id="scFullscreen" title="Fullscreen">\u26F6</button>
+        <button class="scatter-btn" id="scReset" title="Reset view (Scroll=zoom, Shift+drag=pan, Ctrl+drag=zoom area)">\u2302</button>
       </div>
       <canvas id="scatterChart"></canvas>
     </div>`;
@@ -631,6 +631,15 @@ function renderScatterPlot(filteredModels) {
               ];
             }
           }
+        },
+        zoom: {
+          pan: { enabled: true, mode: 'xy', modifierKey: 'shift' },
+          zoom: {
+            wheel: { enabled: true, speed: 0.1 },
+            pinch: { enabled: true },
+            drag: { enabled: true, modifierKey: 'ctrl' },
+            mode: 'xy'
+          }
         }
       },
       scales: {
@@ -653,7 +662,8 @@ function renderScatterPlot(filteredModels) {
           location.hash = '#/models/' + m.id;
         }
       }
-    }
+    },
+    plugins: [labelPlugin]
   });
 
 }

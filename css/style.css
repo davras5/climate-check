@@ -759,7 +759,45 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   border-radius: var(--radius-md);
   padding: var(--space-3);
 }
+.scatter-wrap:fullscreen {
+  height: 100vh;
+  border: none;
+  border-radius: 0;
+  padding: var(--space-4);
+}
 .scatter-wrap canvas { width: 100% !important; height: 100% !important; }
+.scatter-toolbar {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.scatter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  background: var(--bg);
+  border: none;
+  border-bottom: 1px solid var(--border-muted);
+  cursor: pointer;
+  transition: background var(--duration-fast), color var(--duration-fast);
+}
+.scatter-btn:last-child { border-bottom: none; }
+.scatter-btn:hover { background: var(--bg-muted); color: var(--fg); }
 
 /* ---- Gallery map view ---- */
 .gallery-map-view { min-height: 300px; max-height: 500px; overflow: hidden; }
