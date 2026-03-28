@@ -490,22 +490,19 @@ function renderScatterPlot(filteredModels) {
   if (!canvas) return;
   if (_scatterChart) _scatterChart.destroy();
 
-  // Jitter: count occupants per grid cell, offset to avoid overlap
+  // Jitter overlapping dots
   const cellMap = {};
   filteredModels.forEach(m => {
     const key = (m.complexity||5) + ',' + (m.maturity||5);
     if (!cellMap[key]) cellMap[key] = [];
     cellMap[key].push(m);
   });
-
-  // Group by primary category with jittered positions
   const groups = {};
   Object.values(cellMap).forEach(ms => {
     const n = ms.length;
     ms.forEach((m, i) => {
       const cat = (m.categories||[])[0] || 'other';
       if (!groups[cat]) groups[cat] = [];
-      // Spiral jitter for overlapping dots
       const angle = (i / n) * Math.PI * 2;
       const dist = n > 1 ? 0.25 + (i * 0.08) : 0;
       groups[cat].push({
@@ -527,30 +524,46 @@ function renderScatterPlot(filteredModels) {
     hoverBackgroundColor: CAT_COLORS[cat] || '#8b949e',
   }));
 
-  const labelPlugin = {
-    id: 'bubbleLabels',
+  // Data midpoint for crosshair (5.5, 5.5)
+  const MID = 5.5;
+
+  const overlayPlugin = {
+    id: 'scatterOverlay',
     afterDatasetsDraw(chart) {
       const ctx = chart.ctx;
       const { left, right, top, bottom } = chart.chartArea;
-      const cx = (left + right) / 2, cy = (top + bottom) / 2;
+      const xScale = chart.scales.x, yScale = chart.scales.y;
+
+      // Convert data midpoint to pixel coordinates
+      const midPx = xScale.getPixelForValue(MID);
+      const midPy = yScale.getPixelForValue(MID);
+
       ctx.save();
 
-      // Quadrant labels
+      // Crosshair at data midpoint (moves with zoom/pan)
+      ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(midPx, top); ctx.lineTo(midPx, bottom); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(left, midPy); ctx.lineTo(right, midPy); ctx.stroke();
+
+      // Quadrant labels (positioned relative to data midpoint)
       ctx.font = '10px sans-serif';
       ctx.fillStyle = 'rgba(128,128,128,0.3)';
       ctx.textAlign = 'center';
-      ctx.fillText('Easy & Established', (left+cx)/2, top + 16);
-      ctx.fillText('Expert & Established', (cx+right)/2, top + 16);
-      ctx.fillText('Easy & Emerging', (left+cx)/2, bottom - 20);
-      ctx.fillText('Expert & Emerging', (cx+right)/2, bottom - 20);
-      ctx.strokeStyle = 'rgba(0,0,0,0.25)';
-      ctx.lineWidth = 1.5;
-      ctx.setLineDash([]);
-      ctx.beginPath(); ctx.moveTo(cx, top); ctx.lineTo(cx, bottom); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(left, cy); ctx.lineTo(right, cy); ctx.stroke();
-      ctx.setLineDash([]);
+      if (midPx > left + 60 && midPy > top + 20) {
+        ctx.fillText('Easy & Established', (left + midPx) / 2, top + 16);
+      }
+      if (midPx < right - 60 && midPy > top + 20) {
+        ctx.fillText('Expert & Established', (midPx + right) / 2, top + 16);
+      }
+      if (midPx > left + 60 && midPy < bottom - 20) {
+        ctx.fillText('Easy & Emerging', (left + midPx) / 2, bottom - 16);
+      }
+      if (midPx < right - 60 && midPy < bottom - 20) {
+        ctx.fillText('Expert & Emerging', (midPx + right) / 2, bottom - 16);
+      }
 
-      // Collect bubble positions
+      // Collect bubble pixel positions
       const pts = [];
       chart.data.datasets.forEach((ds, di) => {
         const meta = chart.getDatasetMeta(di);
@@ -558,36 +571,33 @@ function renderScatterPlot(filteredModels) {
         meta.data.forEach((el, pi) => {
           const raw = ds.data[pi];
           if (!raw || !raw.model) return;
-          pts.push({ px: el.x, py: el.y, r: el.options.radius || 6, name: raw.model.name, color: ds.borderColor });
+          pts.push({ px: el.x, py: el.y, r: el.options.radius || 6, name: raw.model.name });
         });
       });
 
-      // Place labels avoiding collisions
+      // Place labels with collision avoidance
       ctx.font = '9px sans-serif';
       const placed = [];
       const pad = 3;
       const dirs = [[1,0],[1,-1],[0,-1],[-1,-1],[-1,0],[-1,1],[0,1],[1,1],[2,-1],[2,1],[-2,-1],[-2,1]];
 
       pts.forEach(p => {
+        if (p.px < left || p.px > right || p.py < top || p.py > bottom) return;
         const tw = ctx.measureText(p.name).width;
-        const th = 10;
-        const gap = p.r + 10;
+        const th = 10, gap = p.r + 10;
         let lx, ly, rect, found = false;
-
         for (const [dx, dy] of dirs) {
           lx = p.px + dx * gap + (dx > 0 ? 2 : dx < 0 ? -tw - 2 : -tw/2);
           ly = p.py + dy * gap + (dy > 0 ? th : dy < 0 ? -2 : th/2);
           rect = { x: lx - pad, y: ly - th - pad, w: tw + pad*2, h: th + pad*2 };
           if (rect.x < left || rect.x + rect.w > right || rect.y < top || rect.y + rect.h > bottom) continue;
           if (placed.some(r => rect.x < r.x+r.w && rect.x+rect.w > r.x && rect.y < r.y+r.h && rect.y+rect.h > r.y)) continue;
-          found = true;
-          break;
+          found = true; break;
         }
-
         if (found) {
           placed.push(rect);
-          ctx.strokeStyle = 'rgba(100,100,100,0.45)';
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'rgba(100,100,100,0.4)';
+          ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.moveTo(p.px, p.py);
           ctx.lineTo(lx + (lx > p.px ? -1 : tw + 1), ly - 4);
@@ -605,7 +615,7 @@ function renderScatterPlot(filteredModels) {
   _scatterChart = new Chart(canvas.getContext('2d'), {
     type: 'bubble',
     data: { datasets },
-    plugins: [labelPlugin],
+    plugins: [overlayPlugin],
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -633,11 +643,12 @@ function renderScatterPlot(filteredModels) {
           }
         },
         zoom: {
+          limits: { x: { min: 0, max: 11 }, y: { min: 0, max: 11 } },
           pan: { enabled: true, mode: 'xy', modifierKey: 'shift' },
           zoom: {
             wheel: { enabled: true, speed: 0.1 },
             pinch: { enabled: true },
-            drag: { enabled: true, modifierKey: 'ctrl' },
+            drag: { enabled: true, modifierKey: 'ctrl', backgroundColor: 'rgba(9,105,218,0.1)', borderColor: 'rgba(9,105,218,0.3)', borderWidth: 1 },
             mode: 'xy'
           }
         }
@@ -653,7 +664,7 @@ function renderScatterPlot(filteredModels) {
           min: 0, max: 11,
           title: { display: true, text: 'Maturity \u2192', font: { size: 11, weight: 600 } },
           ticks: { stepSize: 1, font: { size: 10 }, callback: v => v === 0 || v === 11 ? '' : v },
-          grid: { color: 'rgba(128,128,128,0.1)' }
+          grid: { color: 'rgba(128,128,128,0.08)' }
         }
       },
       onClick: (e, elements) => {
@@ -662,10 +673,8 @@ function renderScatterPlot(filteredModels) {
           location.hash = '#/models/' + m.id;
         }
       }
-    },
-    plugins: [labelPlugin]
+    }
   });
-
 }
 
 // ============================================================
