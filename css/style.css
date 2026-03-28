@@ -351,7 +351,7 @@ input:focus-visible,
   display: inline-block;
   padding: var(--space-1) var(--space-2);
   font-size: var(--text-sm); font-weight: 600;
-  color: #fff;
+  color: var(--fgColor-onEmphasis);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: var(--radius-full);
@@ -966,7 +966,7 @@ th.sorted .sa { opacity: 1; }
 }
 .rbar > div {
   display: flex; align-items: center; justify-content: center;
-  font-size: var(--text-sm); font-weight: 700; color: #fff; min-width: 24px;
+  font-size: var(--text-sm); font-weight: 700; color: var(--fgColor-onEmphasis); min-width: 24px;
 }
 .rbar .rd { background: var(--danger-emphasis); }
 .rbar .ra { background: var(--attention-emphasis); }
