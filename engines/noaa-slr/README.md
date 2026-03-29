@@ -26,21 +26,23 @@ engines/noaa-slr/
 |---|---|---|---|---|
 | `latitude` | `number` |  | ✓ | WGS84 latitude (US coastal areas) |
 | `longitude` | `number` |  | ✓ | WGS84 longitude (US coastal areas) |
-| `slr_feet` | `number` | ft |  | [SLRScenario](#slrscenario) — SLR scenario in feet, 1-10 (default 3) (default: `3`) |
+| `slr_feet` | `enum` | ft |  | [SLRScenario](#slrscenario) — SLR scenario 1-10ft. If omitted, tests all levels. |
 
-## Outputs (3)
+## Outputs (5)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `inundated` | `boolean` |  | Whether the location is inundated at the given SLR scenario |
-| `depth_ft` | `number` | ft | Water depth at location if inundated |
-| `confidence` | `string` |  | High / Medium / Low based on DEM accuracy |
+| `inundated` | `boolean` |  | Whether location is inundated at the given scenario |
+| `depth` | `number` | ft | Water depth if inundated |
+| `confidence` | `string` |  | DEM accuracy confidence level |
+| `first_inundation_ft` | `number` | ft | Lowest SLR scenario causing inundation (all-scenarios mode) |
+| `scenarios` | `array` |  | Array of 10 scenario objects with inundated/depth/confidence per level (all-scenarios mode) |
 
 ## Reference Data
 
 ### SLRScenario
 
-Sea level rise scenario in feet above MHHW
+NOAA SLR scenarios in feet above MHHW
 
 - `1`
 - `2`
@@ -56,10 +58,7 @@ Sea level rise scenario in feet above MHHW
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., slr_feet: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

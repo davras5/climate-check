@@ -32,11 +32,11 @@ engines/geoadmin-hazards/
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `flood_hazard` | `string` |  | [HazardLevel](#hazardlevel) — Low / Medium / High / Very High or null |
-| `landslide_hazard` | `string` |  | [HazardLevel](#hazardlevel) — Low / Medium / High / Very High or null |
-| `avalanche_hazard` | `string` |  | [HazardLevel](#hazardlevel) — Low / Medium / High / Very High or null |
-| `rockfall_hazard` | `string` |  | [HazardLevel](#hazardlevel) — Low / Medium / High / Very High or null |
-| `debris_flow_hazard` | `string` |  | [HazardLevel](#hazardlevel) — Low / Medium / High / Very High or null |
+| `landslide_hazard` | `string` |  | [HazardLevel](#hazardlevel) — From ch.bafu.gefahren-rutschungen |
+| `avalanche_hazard` | `string` |  | [HazardLevel](#hazardlevel) — From ch.bafu.gefahren-lawinen |
+| `rockfall_hazard` | `string` |  | [HazardLevel](#hazardlevel) — From ch.bafu.gefahren-sturz |
+| `debris_flow_hazard` | `string` |  | [HazardLevel](#hazardlevel) — From ch.bafu.gefahren-murgaenge |
+| `seismic_ground_class` | `string` |  | [SoilClass](#soilclass) — From ch.bafu.gefahren-baugrundklassen (A-F) |
 | `source_layer` | `string` |  | GeoAdmin layer identifier |
 
 ## Reference Data
@@ -50,13 +50,23 @@ BAFU indicative hazard classification
 - `High`
 - `Very High`
 
+### SoilClass
+
+SIA 261 seismic ground class
+
+| Code | Value |
+|---|---|
+| `A` | Hard rock |
+| `B` | Soft rock |
+| `C` | Dense soil |
+| `D` | Loose soil |
+| `E` | Soft layer on rock |
+| `F` | Special study needed |
+
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., tolerance: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

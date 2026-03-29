@@ -20,37 +20,35 @@ engines/ice-database/
   README.md    # This file
 ```
 
-## Inputs (2)
+## Inputs (4)
 
 | Field | Type | Unit | Req | Description |
 |---|---|---|---|---|
-| `material_name` | `string` |  | ✓ | Material search term (e.g. 'concrete', 'steel', 'timber', 'glass') |
-| `material_category` | `string` |  |  | [MaterialCategory](#materialcategory) — ICE category filter (e.g. 'Concrete', 'Steel', 'Timber') |
+| `material_name` | `string` |  | ✓ | Material search term (e.g. 'concrete', 'steel') |
+| `material_category` | `enum` |  |  | [MaterialCategory](#materialcategory) — ICE category filter |
+| `quantity_kg` | `number` | kg |  | Mass quantity for total EC/EE calculation |
+| `quantity_m3` | `number` | m3 |  | Volume quantity (converted via density) |
 
-## Outputs (6)
+## Outputs (10)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `material` | `string` |  | Full material name from ICE database |
-| `ec_kgco2e_per_kg` | `number` |  | Cradle-to-gate embodied carbon coefficient |
-| `ec_kgco2e_per_m3` | `number` |  | Volumetric embodied carbon if density available |
-| `density_kg_m3` | `number` |  | Material density |
-| `data_quality` | `string` |  | [DataQuality](#dataquality) — Good / Fair / Poor based on ICE data rating |
-| `source_count` | `number` |  | Number of source studies |
+| `material_name` | `string` |  | Full ICE material name |
+| `category` | `string` |  | ICE material category |
+| `ec_kgco2e_per_kg` | `number` | kgCO2e/kg | Embodied carbon per kilogram |
+| `ec_kgco2e_per_m3` | `number` | kgCO2e/m3 | Embodied carbon per cubic metre |
+| `ee_mj_per_kg` | `number` | MJ/kg | Embodied energy per kilogram |
+| `ee_mj_per_m3` | `number` | MJ/m3 | Embodied energy per cubic metre |
+| `density_kg_m3` | `number` | kg/m3 | Material density |
+| `total_ec_kgco2e` | `number` | kgCO2e | Total embodied carbon (when quantity provided) |
+| `total_ee_mj` | `number` | MJ | Total embodied energy (when quantity provided) |
+| `data_quality` | `string` |  | [DataQuality](#dataquality) — Good / Fair / Poor |
 
 ## Reference Data
 
-### DataQuality
-
-ICE data quality rating based on source studies
-
-- `Good`
-- `Fair`
-- `Poor`
-
 ### MaterialCategory
 
-ICE v3.0 material category
+ICE v3.0 material categories
 
 - `Concrete`
 - `Cement`
@@ -58,20 +56,24 @@ ICE v3.0 material category
 - `Timber`
 - `Aluminium`
 - `Glass`
-- `Bricks`
+- `Masonry`
 - `Insulation`
-- `Plasterboard`
-- `Copper`
+- `Finishes`
+- `Metals`
 - `Plastics`
-- `Aggregates`
+
+### DataQuality
+
+ICE data quality rating
+
+- `Good`
+- `Fair`
+- `Poor`
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
-const result = await engine.calculate({ material_name: ..., material_category: ... });
-
-// Batch: process all rows from a CSV file
+const result = await engine.calculate({ material_name: ..., material_category: ..., quantity_kg: ... });
 const results = await engine.runBatch(csvText);
 ```

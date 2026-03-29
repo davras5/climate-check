@@ -26,45 +26,41 @@ engines/naturgefahren-check/
 |---|---|---|---|---|
 | `latitude` | `number` |  | ✓ | WGS84 latitude |
 | `longitude` | `number` |  | ✓ | WGS84 longitude |
-| `address` | `string` |  |  | Swiss address (alternative to lat/lon) |
+| `tolerance` | `number` | px |  | GeoAdmin identify tolerance (default 50) (default: `50`) |
 
-## Outputs (6)
+## Outputs (12)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `overall_risk` | `string` |  | [RiskLevel](#risklevel) — Low / Medium / High |
-| `flood_risk` | `string` |  | Hazard level + protection recommendations |
-| `hail_risk` | `string` |  | Hazard level |
-| `storm_risk` | `string` |  | Hazard level |
-| `earthquake_zone` | `string` |  | [SeismicZone](#seismiczone) — SIA zone classification |
+| `flood_hazard` | `string` |  | [HazardLevel](#hazardlevel) — From BAFU/geodienste |
+| `landslide_hazard` | `string` |  | [HazardLevel](#hazardlevel) —  |
+| `avalanche_hazard` | `string` |  | [HazardLevel](#hazardlevel) —  |
+| `rockfall_hazard` | `string` |  | [HazardLevel](#hazardlevel) —  |
+| `debris_flow_hazard` | `string` |  | [HazardLevel](#hazardlevel) —  |
+| `hail_hazard` | `string` |  | [HazardLevel](#hazardlevel) —  |
+| `hail_details` | `string` |  | Hail size at 50yr/100yr return periods |
+| `earthquake_risk` | `string` |  | Seismic risk classification |
+| `earthquake_details` | `string` |  | Seismic zone, PGA |
+| `overall_risk` | `string` |  | [HazardLevel](#hazardlevel) — Worst hazard level across all types |
+| `dominated_by` | `string` |  | Which hazard type dominates |
 | `protection_measures` | `array` |  | Recommended building protection measures |
 
 ## Reference Data
 
-### RiskLevel
+### HazardLevel
 
-VKF overall natural hazard risk level
+VKF hazard level classification
 
 - `Low`
 - `Medium`
 - `High`
-
-### SeismicZone
-
-SIA 261 earthquake zone for Switzerland
-
-- `Z1`
-- `Z2`
-- `Z3a`
-- `Z3b`
+- `Very High`
+- `Residual`
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
-const result = await engine.calculate({ latitude: ..., longitude: ..., address: ... });
-
-// Batch: process all rows from a CSV file
+const result = await engine.calculate({ latitude: ..., longitude: ..., tolerance: ... });
 const results = await engine.runBatch(csvText);
 ```

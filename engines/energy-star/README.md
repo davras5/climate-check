@@ -6,7 +6,7 @@
 |---|---|
 | **Status** | `live` |
 | **Category** | energy-performance |
-| **Region** | north-america (US, CA) |
+| **Region** | north-america (CA, US) |
 | **License** | Free â€” US government program with public API |
 | **Source** | [US EPA](https://www.energystar.gov/buildings/benchmark) |
 | **Author** | US Environmental Protection Agency (EPA) |
@@ -20,30 +20,33 @@ engines/energy-star/
   README.md    # This file
 ```
 
-## Inputs (2)
+## Inputs (3)
 
 | Field | Type | Unit | Req | Description |
 |---|---|---|---|---|
 | `property_id` | `integer` |  | ✓ | ENERGY STAR Portfolio Manager property ID |
 | `year` | `integer` |  |  | Metrics reporting year (default: latest) |
+| `month` | `integer` |  |  | Metrics reporting month 1-12 (default: 12) (default: `12`) |
 
-## Outputs (5)
+## Outputs (10)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `energy_star_score` | `number` |  | Percentile-based energy performance score |
-| `site_eui_kbtu_ft2` | `number` |  | Site energy use intensity |
-| `source_eui_kbtu_ft2` | `number` |  | Source energy use intensity |
-| `total_ghg_emissions_mtco2e` | `number` |  | Total direct + indirect GHG emissions |
-| `property_type` | `string` |  | Building use type |
+| `energy_star_score` | `number` |  | Percentile-based energy performance score (1-100) |
+| `site_eui_kbtu_ft2` | `number` | kBtu/ft2 | Site energy use intensity |
+| `source_eui_kbtu_ft2` | `number` | kBtu/ft2 | Source energy use intensity |
+| `total_ghg_emissions_mtco2e` | `number` | MtCO2e | Total direct + indirect GHG emissions |
+| `direct_ghg_mtco2e` | `number` | MtCO2e | Direct GHG emissions |
+| `indirect_ghg_mtco2e` | `number` | MtCO2e | Indirect GHG emissions |
+| `electricity_use_kbtu` | `number` | kBtu | Grid electricity consumption |
+| `natural_gas_use_kbtu` | `number` | kBtu | Natural gas consumption |
+| `property_type` | `string` |  | Building primary function |
+| `gross_floor_area_ft2` | `number` | ft2 | Property gross floor area |
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
-const result = await engine.calculate({ property_id: ..., year: ... });
-
-// Batch: process all rows from a CSV file
+const result = await engine.calculate({ property_id: ..., year: ..., month: ... });
 const results = await engine.runBatch(csvText);
 ```

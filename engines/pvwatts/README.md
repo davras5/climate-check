@@ -20,27 +20,33 @@ engines/pvwatts/
   README.md    # This file
 ```
 
-## Inputs (8)
+## Inputs (12)
 
 | Field | Type | Unit | Req | Description |
 |---|---|---|---|---|
 | `latitude` | `number` |  | ✓ | WGS84 latitude |
 | `longitude` | `number` |  | ✓ | WGS84 longitude |
-| `system_capacity_kw` | `number` | kW | ✓ | Nameplate DC capacity of the PV system in kW |
-| `module_type` | `enum` |  |  | [ModuleType](#moduletype) — 0=Standard, 1=Premium, 2=Thin film (default 0) (default: `0`) |
-| `array_type` | `enum` |  |  | [ArrayType](#arraytype) — 0=Fixed open rack, 1=Fixed roof mount, 2=1-axis, 3=Backtracking, 4=2-axis (default 1) (default: `1`) |
-| `tilt` | `number` | deg |  | Tilt angle in degrees (default = latitude) (default: `latitude`) |
-| `azimuth` | `number` | deg |  | Azimuth angle (180=south, default 180) (default: `180`) |
-| `losses` | `number` | % |  | Total system losses in percent (default 14.08) (default: `14.08`) |
+| `system_capacity_kw` | `number` | kW | ✓ | Nameplate DC capacity (0.05-500000) |
+| `module_type` | `enum` |  |  | [ModuleType](#moduletype) —  (default: `0`) |
+| `array_type` | `enum` |  |  | [ArrayType](#arraytype) —  (default: `1`) |
+| `tilt` | `number` | deg |  | Panel tilt angle (0-90) (default: `latitude`) |
+| `azimuth` | `number` | deg |  | Panel azimuth (0-360, 180=south) (default: `180`) |
+| `losses` | `number` | % |  | Total system losses (-5 to 99) (default: `14.08`) |
+| `dc_ac_ratio` | `number` |  |  | DC to AC size ratio (default: `1.2`) |
+| `gcr` | `number` |  |  | Ground coverage ratio (0.01-0.99) (default: `0.4`) |
+| `inv_eff` | `number` | % |  | Inverter efficiency (90-99.5) (default: `96`) |
+| `dataset` | `enum` |  |  | [Dataset](#dataset) — Solar resource dataset (default: `nsrdb`) |
 
-## Outputs (5)
+## Outputs (7)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
 | `ac_annual_kwh` | `number` | kWh/yr | Total annual AC energy production |
-| `ac_monthly_kwh` | `array` | kWh/mo | 12-element array of monthly AC energy production |
-| `solrad_annual` | `number` | kWh/m2/day | Annual plane-of-array solar irradiance |
-| `solrad_monthly` | `array` |  | 12-element array of monthly solar irradiance |
+| `ac_monthly_kwh` | `array` | kWh/mo | 12-element array of monthly AC production |
+| `dc_monthly_kwh` | `array` | kWh/mo | 12-element array of monthly DC production |
+| `poa_monthly` | `array` | kWh/m2 | 12-element monthly plane-of-array irradiance |
+| `solrad_annual` | `number` | kWh/m2/day | Annual average daily solar irradiance |
+| `solrad_monthly` | `array` | kWh/m2/day | 12-element monthly solar irradiance |
 | `capacity_factor` | `number` | % | AC capacity factor |
 
 ## Reference Data
@@ -57,7 +63,7 @@ PV module technology
 
 ### ArrayType
 
-PV array mounting configuration
+Array mounting configuration
 
 | Code | Value |
 |---|---|
@@ -67,13 +73,19 @@ PV array mounting configuration
 | `3` | 1-axis backtracking |
 | `4` | 2-axis tracking |
 
+### Dataset
+
+Solar resource weather dataset
+
+- `nsrdb`
+- `tmy2`
+- `tmy3`
+- `intl`
+
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., system_capacity_kw: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

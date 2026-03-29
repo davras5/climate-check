@@ -24,29 +24,50 @@ engines/ec3/
 
 | Field | Type | Unit | Req | Description |
 |---|---|---|---|---|
-| `material_category` | `string` |  | ✓ | EC3 category (e.g. 'ReadyMix', 'Steel', 'Aluminum', 'Insulation') |
+| `material_category` | `enum` |  |  | [MaterialCategory](#materialcategory) — openEPD top-level category |
+| `material_name` | `string` |  |  | Free-text search term (alternative to category) |
 | `country` | `string` |  |  | ISO 2-letter country code filter |
 | `postal_code` | `string` |  |  | Postal code for proximity search |
-| `max_distance_km` | `number` |  |  | Maximum supplier distance in km |
 
-## Outputs (6)
+## Outputs (8)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
 | `epd_count` | `number` |  | Number of EPDs matching the query |
-| `gwp_median_kgco2e` | `number` |  | Median embodied carbon across matching EPDs |
-| `gwp_20th_pctile` | `number` |  | 20th percentile for achievable targets |
-| `gwp_80th_pctile` | `number` |  | 80th percentile (industry average baseline) |
+| `gwp_median` | `number` | kgCO2e/unit | Median embodied carbon across matching EPDs |
+| `gwp_20th` | `number` | kgCO2e/unit | 20th percentile for achievable targets |
+| `gwp_80th` | `number` | kgCO2e/unit | 80th percentile (industry average) |
+| `gwp_min` | `number` | kgCO2e/unit | Lowest GWP across matching EPDs |
+| `gwp_max` | `number` | kgCO2e/unit | Highest GWP across matching EPDs |
 | `unit` | `string` |  | EPD declared unit (kg, m3, m2, etc.) |
-| `best_practice_gwp` | `number` |  | Lowest available GWP in the category |
+| `best_practice` | `number` | kgCO2e/unit | 20th percentile as achievable target |
+
+## Reference Data
+
+### MaterialCategory
+
+openEPD top-level material categories
+
+- `Concrete`
+- `Steel`
+- `Aluminum`
+- `Wood`
+- `Insulation`
+- `Carpet`
+- `Cladding`
+- `Gypsum`
+- `Masonry`
+- `Glass`
+- `CeilingPanel`
+- `Conduit`
+- `HvacDucts`
+- `Plaster`
+- `PrecastConcrete`
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
-const result = await engine.calculate({ material_category: ..., country: ..., postal_code: ... });
-
-// Batch: process all rows from a CSV file
+const result = await engine.calculate({ material_category: ..., material_name: ..., country: ... });
 const results = await engine.runBatch(csvText);
 ```

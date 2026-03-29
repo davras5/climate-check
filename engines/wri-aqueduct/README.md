@@ -40,13 +40,62 @@ engines/wri-aqueduct/
 | `groundwater_decline` | `number` |  | Average decline in cm/year |
 | `regulatory_risk` | `number` |  | Combined regulatory/reputational score (0-5) |
 
+## Reference Data
+
+### WaterRiskLevel
+
+Aqueduct 4.0 risk categories
+
+| Code | Value |
+|---|---|
+| `0` | Low (0-1) |
+| `1` | Low-Medium (1-2) |
+| `2` | Medium-High (2-3) |
+| `3` | High (3-4) |
+| `4` | Extremely High (4-5) |
+| `-1` | No Data |
+
+### Scenario
+
+Climate projection scenarios
+
+| Code | Value |
+|---|---|
+| `opt` | Optimistic (SSP1 RCP2.6) |
+| `bau` | Business as Usual (SSP3 RCP7.0) |
+| `pes` | Pessimistic (SSP5 RCP8.5) |
+
+### ProjectionYear
+
+Future projection time periods
+
+| Code | Value |
+|---|---|
+| `30` | 2030 (window 2015-2045) |
+| `50` | 2050 (window 2035-2065) |
+| `80` | 2080 (window 2065-2095) |
+
+### WeightingScheme
+
+Industry-specific risk weighting
+
+| Code | Value |
+|---|---|
+| `def` | Default |
+| `agr` | Agriculture |
+| `che` | Chemicals |
+| `con` | Construction |
+| `elp` | Electric Power |
+| `fnb` | Food & Beverage |
+| `min` | Mining |
+| `ong` | Oil & Gas |
+| `smc` | Semiconductor |
+| `tex` | Textile |
+
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., scenario: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

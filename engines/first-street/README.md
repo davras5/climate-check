@@ -58,10 +58,7 @@ First Street 30-year forward-looking risk score
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., address: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

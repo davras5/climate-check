@@ -20,17 +20,19 @@ engines/reopt/
   README.md    # This file
 ```
 
-## Inputs (5)
+## Inputs (7)
 
 | Field | Type | Unit | Req | Description |
 |---|---|---|---|---|
 | `latitude` | `number` |  | ✓ | WGS84 latitude |
 | `longitude` | `number` |  | ✓ | WGS84 longitude |
-| `annual_kwh` | `number` | kWh/yr | ✓ | Annual electricity consumption in kWh |
-| `roof_area_sqft` | `number` | sqft |  | Available roof area for PV in square feet |
-| `urdb_rate_id` | `string` |  |  | URDB utility rate label (US only) |
+| `annual_kwh` | `number` | kWh/yr |  | Annual electricity consumption (one of annual_kwh or doe_reference_name required) |
+| `doe_reference_name` | `enum` |  |  | [DOEReferenceBuilding](#doereferencebuilding) — DOE reference building for load profile |
+| `roof_area_sqft` | `number` | sqft |  | Available roof area for PV |
+| `blended_annual_rate` | `number` | $/kWh |  | Blended annual energy rate (when URDB not available) |
+| `urdb_rate_id` | `string` |  |  | URDB utility rate label |
 
-## Outputs (6)
+## Outputs (9)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
@@ -39,15 +41,39 @@ engines/reopt/
 | `battery_size_kwh` | `number` | kWh | Recommended battery energy capacity |
 | `npv_usd` | `number` | USD | Financial NPV of optimal system |
 | `annual_savings_usd` | `number` | USD/yr | Year 1 bill savings |
-| `renewable_pct` | `number` | % | Percentage of load served by renewables |
+| `simple_payback_years` | `number` | years | Simple payback period |
+| `renewable_pct` | `number` | % | Fraction of load met by renewables |
+| `lifecycle_co2_tonnes` | `number` | tonnes | Total lifecycle CO2 emissions |
+| `annual_co2_tonnes` | `number` | tonnes | Year-1 CO2 emissions |
+
+## Reference Data
+
+### DOEReferenceBuilding
+
+DOE commercial reference building types for load profiles
+
+- `FullServiceRest`
+- `FastFoodRest`
+- `Hospital`
+- `LargeHotel`
+- `LargeOffice`
+- `MediumOffice`
+- `MidriseApartment`
+- `Outpatient`
+- `PrimarySchool`
+- `RetailStore`
+- `SecondarySchool`
+- `SmallHotel`
+- `SmallOffice`
+- `StripMall`
+- `Supermarket`
+- `Warehouse`
+- `FlatLoad`
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., annual_kwh: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Status** | `live` |
-| **Category** | energy-performance, carbon-accounting |
+| **Category** | carbon-accounting, energy-performance |
 | **Region** | switzerland (CH) |
 | **License** | Source available (R script, available on request from FOEN) |
 | **Source** | [BAFU / FOEN](https://www.bafu.admin.ch/en/calculator-co2-buildings) |
@@ -73,10 +73,7 @@ Primary heating system type from GWR
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., egid: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```

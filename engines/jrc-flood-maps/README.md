@@ -26,23 +26,37 @@ engines/jrc-flood-maps/
 |---|---|---|---|---|
 | `latitude` | `number` |  | ✓ | WGS84 latitude |
 | `longitude` | `number` |  | ✓ | WGS84 longitude |
-| `return_period` | `enum` | years |  | 10 / 20 / 50 / 100 / 200 / 500 (default 100) (default: `100`) |
+| `return_period` | `enum` | years |  | [ReturnPeriod](#returnperiod) — If omitted, queries all available periods |
 
-## Outputs (3)
+## Outputs (7)
 
 | Field | Type | Unit | Description |
 |---|---|---|---|
-| `flood_depth_m` | `number` |  | Modelled flood depth at location for the given return period |
-| `flooded` | `boolean` |  | Whether the location is within the modelled flood extent |
-| `dataset` | `string` |  | European (100m) or Global (1km) depending on location |
+| `flood_depth_10yr_m` | `number` | m | Flood depth for 10-year return period |
+| `flood_depth_100yr_m` | `number` | m | Flood depth for 100-year return period |
+| `flood_depth_500yr_m` | `number` | m | Flood depth for 500-year return period |
+| `flooded_10yr` | `boolean` |  | Inundated at 10-year return period |
+| `flooded_100yr` | `boolean` |  | Inundated at 100-year return period |
+| `flooded_500yr` | `boolean` |  | Inundated at 500-year return period |
+| `dataset_source` | `string` |  | JRC European (100m) or GloFAS Global (1km) |
+
+## Reference Data
+
+### ReturnPeriod
+
+Available return periods (years)
+
+- `10`
+- `20`
+- `50`
+- `100`
+- `200`
+- `500`
 
 ## Usage
 
 ```javascript
-// Loaded dynamically by the platform when a user opens this model
 await engine.init();
 const result = await engine.calculate({ latitude: ..., longitude: ..., return_period: ... });
-
-// Batch: process all rows from a CSV file
 const results = await engine.runBatch(csvText);
 ```
