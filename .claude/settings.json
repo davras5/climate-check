@@ -288,7 +288,11 @@
       "Bash(du -sh *.jpg)",
       "Bash(du -ch *.jpg)",
       "Bash(rm *.jpg)",
-      "Bash(ls *.jpg)"
+      "Bash(ls *.jpg)",
+      "Bash(curl -s -L -o \"c:/tmp/test_unsplash.jpg\" \"https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=600&h=300&fit=crop\")",
+      "Bash(curl -s -L \"https://unsplash.com/photos/vvDUCfhiDpE\")",
+      "Bash(curl -s -L -o \"c:/tmp/test3.jpg\" \"https://images.unsplash.com/photo-1771902985060-6133bb4b2eb6?w=600&h=300&fit=crop\")",
+      "Bash(bash \"c:/tmp/download_images.sh\")"
     ],
     "additionalDirectories": [
       "c:\\Users\\DavidRasner\\Documents\\GitHub\\climate-check",
