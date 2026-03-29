@@ -870,6 +870,24 @@ function renderScatterPlot(filteredModels) {
             usePointStyle: true, pointStyle: 'circle',
             font: { size: 10 }, padding: 8,
             boxWidth: 8, boxHeight: 8
+          },
+          onClick(e, legendItem, legend) {
+            const ci = legend.chart;
+            const idx = legendItem.datasetIndex;
+            const meta = ci.getDatasetMeta(idx);
+            const allHidden = ci.data.datasets.every((ds, i) => i === idx || ci.getDatasetMeta(i).hidden);
+
+            if (allHidden) {
+              // All others are already hidden → restore all
+              ci.data.datasets.forEach((_, i) => { ci.getDatasetMeta(i).hidden = false; });
+            } else if (!meta.hidden) {
+              // This one is visible → isolate it (hide all others)
+              ci.data.datasets.forEach((_, i) => { ci.getDatasetMeta(i).hidden = i !== idx; });
+            } else {
+              // This one is hidden → also show it (additive selection)
+              meta.hidden = false;
+            }
+            ci.update();
           }
         },
         tooltip: {
