@@ -1,0 +1,6 @@
+asset_name,reporting_year,country_code,property_type_code,floor_area,vacant_area,gav,electricity_kwh,natural_gas_kwh,district_heating_kwh,fuel_oil_kwh,district_cooling_kwh,renewable_onsite_kwh,renewable_export_kwh
+Zurich Office Tower,2023,CH,OFF,12500,0,45000000,625000,0,312500,0,0,50000,0
+Berlin Residential,2023,DE,RMF,8200,400,18000000,164000,246000,0,0,0,0,0
+London Retail,2023,GB,RHS,3500,0,12000000,175000,87500,0,0,0,0,0
+Paris Hotel,2023,FR,HOT,15000,2000,55000000,1200000,450000,0,0,150000,75000,25000
+Amsterdam Logistics,2023,NL,DWW,25000,0,30000000,500000,0,0,375000,0,100000,0

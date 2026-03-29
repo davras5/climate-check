@@ -40,9 +40,10 @@ function badge(t) {
 }
 function strandTxt(r) { return r.strandingYear ? String(r.strandingYear) : 'Aligned'; }
 function statusDot(s) {
-  return s==='live'
-    ? '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live">Live</span>'
-    : '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon">Coming soon</span>';
+  if (s === 'live') return '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live">Live</span>';
+  if (s === 'reference') return '<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="status" data-v="reference">Reference</span>';
+  if (s === 'commercial') return '<span class="IssueLabel bgColor-done-muted fgColor-done tag-click" data-g="status" data-v="commercial">Commercial</span>';
+  return '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon">Coming soon</span>';
 }
 
 function debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; }
@@ -106,12 +107,74 @@ async function route() {
 // ============================================================
 // BOOT
 // ============================================================
+async function loadModelsFromDB() {
+  const SQL = await initSqlJs({
+    locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.11.0/${f}`
+  });
+  const buf = await fetch('data/models.db').then(r => {
+    if (!r.ok) throw new Error('Failed to load models.db');
+    return r.arrayBuffer();
+  });
+  const db = new SQL.Database(new Uint8Array(buf));
+
+  const q = (sql, params) => { const s = db.prepare(sql); if (params) s.bind(params); const rows = []; while (s.step()) rows.push(s.getAsObject()); s.free(); return rows; };
+  const qCol = (sql, params) => { const s = db.prepare(sql); if (params) s.bind(params); const v = []; while (s.step()) v.push(s.get()[0]); s.free(); return v; };
+
+  const raw = q('SELECT * FROM models ORDER BY name');
+  return raw.map(r => {
+    const jp = v => { try { return v ? JSON.parse(v) : []; } catch { return []; } };
+    const jo = v => { try { return v ? JSON.parse(v) : {}; } catch { return {}; } };
+    return {
+      id: r.id,
+      name: r.name,
+      version: r.version,
+      status: r.status,
+      description: r.description,
+      longDescription: r.long_description,
+      author: r.author,
+      scenario: r.scenario,
+      scope: r.scope,
+      citation: r.citation,
+      approach: r.approach,
+      complexity: r.complexity,
+      maturity: r.maturity,
+      lastUpdated: r.last_updated,
+      engine: r.engine,
+      testData: r.test_data,
+      database: r.database_path,
+      cardImage: r.card_image,
+      cardImageSource: r.card_image_source,
+      license: { type: r.license_type, name: r.license_name, url: r.license_url },
+      source: { name: r.source_name, url: r.source_url, documentation: r.source_docs, methodology: r.source_methodology },
+      coverage: {
+        mapRegion: r.map_region,
+        jurisdictionCount: r.jurisdiction_count,
+        propertyTypeCount: r.property_type_count,
+        timeRange: r.time_range,
+        jurisdictionCodes: jp(r.jurisdiction_codes),
+        propertyTypeList: jp(r.property_type_list),
+      },
+      categories: qCol('SELECT category_id FROM model_categories WHERE model_id=?', [r.id]),
+      region: qCol('SELECT region_id FROM model_regions WHERE model_id=?', [r.id]),
+      sector: qCol('SELECT sector_id FROM model_sectors WHERE model_id=?', [r.id]),
+      lifecycleStages: qCol('SELECT stage_id FROM model_lifecycle_stages WHERE model_id=?', [r.id]),
+      tags: qCol('SELECT tag FROM model_tags WHERE model_id=?', [r.id]),
+      adoptedBy: jp(r.adopted_by),
+      limitations: jp(r.limitations),
+      inputs: jp(r.inputs),
+      outputs: jp(r.outputs),
+      constraints: jo(r.constraints_def),
+    };
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    models = await fetch('data/models.json').then(r => { if (!r.ok) throw new Error('Failed to load'); return r.json(); });
+    models = await loadModelsFromDB();
     cacheModelData();
   } catch(e) {
-    $('#app').innerHTML = '<div class="gallery-empty"><p class="f3">Failed to load models</p><p class="f6 fgColor-muted">Check your connection and reload the page.</p></div>';
+    console.error('Failed to load models.db:', e);
+    $('#app').innerHTML = '<div class="gallery-empty"><p class="f3">Failed to load models</p><p class="f6 fgColor-muted">Could not load data/models.db. Check your connection and reload the page.</p></div>';
     return;
   }
   window.addEventListener('hashchange', route);
@@ -207,7 +270,7 @@ function cacheModelData() {
   _allLife.forEach(v => { _filterCounts['lifecycle:'+v] = countFor('lifecycle',v); });
   _allLic.forEach(v => { _filterCounts['license:'+v] = countFor('license',v); });
   _allReg.forEach(v => { _filterCounts['region:'+v] = countFor('region',v); });
-  ['live','coming-soon'].forEach(v => { _filterCounts['status:'+v] = countFor('status',v); });
+  ['live','coming-soon','reference','commercial'].forEach(v => { _filterCounts['status:'+v] = countFor('status',v); });
   _allTags.forEach(v => { _filterCounts['tags:'+v] = countFor('tags',v); });
   _countryRegionMap = {};
   models.forEach(mod => {
@@ -269,7 +332,7 @@ function showGallery() {
     return true;
   }).sort((a,b) => {
     if (gallerySort === 'updated') return (b.lastUpdated||'').localeCompare(a.lastUpdated||'');
-    if (gallerySort === 'status') return (a.status==='live'?0:1) - (b.status==='live'?0:1) || a.name.localeCompare(b.name);
+    if (gallerySort === 'status') { const o={live:0,'coming-soon':1,reference:2,commercial:3}; return (o[a.status]??9)-(o[b.status]??9) || a.name.localeCompare(b.name); }
     if (gallerySort === 'region') return (a.region[0]||'').localeCompare(b.region[0]||'') || a.name.localeCompare(b.name);
     return a.name.localeCompare(b.name);
   });
@@ -279,7 +342,7 @@ function showGallery() {
     ...filters.lifecycle.map(v => ({grp:'lifecycle', val:v, lab:v})),
     ...filters.license.map(v => ({grp:'license', val:v, lab:humanize(v)})),
     ...filters.region.map(v => ({grp:'region', val:v, lab:v})),
-    ...filters.status.map(v => ({grp:'status', val:v, lab:v==='live'?'Live':'Coming soon'})),
+    ...filters.status.map(v => ({grp:'status', val:v, lab:{live:'Live','coming-soon':'Coming soon',reference:'Reference',commercial:'Commercial'}[v]||v})),
     ...filters.tags.map(v => ({grp:'tags', val:v, lab:humanize(v)})),
   ];
   const hasFilters = activeFilters.length > 0;
@@ -299,6 +362,8 @@ function showGallery() {
       <summary class="filter-heading label-xs"><span class="chev"></span>Status</summary>
       ${cb('status', 'live', 'Live')}
       ${cb('status', 'coming-soon', 'Coming soon')}
+      ${cb('status', 'reference', 'Reference')}
+      ${cb('status', 'commercial', 'Commercial')}
     </details>
     <details class="filter-group" open>
       <summary class="filter-heading label-xs"><span class="chev"></span>Category</summary>
@@ -580,7 +645,7 @@ function showApiDocs() {
       ['q','string','Full-text search across name and description'],
       ['categories','string','Filter by category (comma-separated)'],
       ['region','string','Filter by region (comma-separated)'],
-      ['status','string','Filter: live, coming-soon'],
+      ['status','string','Filter: live, coming-soon, reference, commercial'],
       ['lifecycle','string','Filter by lifecycle phase'],
       ['license','string','Filter by license type'],
       ['tags','string','Filter by tags (comma-separated)'],
@@ -1111,15 +1176,48 @@ async function showModel(id) {
   // ---- Schema tab ----
   h += `<div class="tab-pane${modelTab==='schema'?' tab-pane-active':''}" data-pane="schema" id="pane-schema" role="tabpanel">`;
 
+  const refs = model.constraints || {};
+  const refKeys = Object.keys(refs);
+
+  // Render a constraint cell: if it's a named ref, link to the Reference Data section; otherwise inline
+  const constraintCell = (field) => {
+    const parts = [];
+    if (field.constraint) {
+      parts.push(`<a href="#ref-${field.constraint}" class="schema-ref-link">${field.constraint}</a>`);
+    }
+    if (field.default !== undefined && field.default !== null) parts.push('default: ' + field.default);
+    if (field.min !== undefined) parts.push('min: ' + field.min);
+    if (field.max !== undefined) parts.push('max: ' + field.max);
+    return parts.join(' · ');
+  };
+
+  // Shared table header renderer
+  const fieldTableHead = () => `<thead><tr class="bgColor-muted">
+    <th class="py-2 px-3 text-left label-xs">Field</th>
+    <th class="py-2 px-3 text-left label-xs">Label</th>
+    <th class="py-2 px-3 text-left label-xs">Type</th>
+    <th class="py-2 px-3 text-left label-xs">Unit</th>
+    <th class="py-2 px-3 text-left label-xs">Constraints</th>
+    <th class="py-2 px-3 text-left label-xs">Description</th>
+  </tr></thead>`;
+
   if (model.inputs.length) {
     let lastG = '';
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Inputs <span class="Counter ml-1">${model.inputs.length}</span></summary>
-      <div class="border rounded-2 mt-2 mb-4" class="overflow-x"><table class="f6" class="width-full" aria-label="Input fields">
-        <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Field</th><th class="py-2 px-3 label-xs"></th><th class="py-2 px-3 text-left label-xs">Type</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead><tbody>`;
+      <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Input fields">
+        ${fieldTableHead()}<tbody>`;
     model.inputs.forEach(inp => {
-      if (inp.group && inp.group !== lastG) { lastG = inp.group; h += `<tr class="bgColor-muted"><td colspan="4" class="py-1 px-3 text-bold label-xs">${inp.group}</td></tr>`; }
-      h += `<tr class="border-bottom"><td class="py-1 px-3"><code class="f6">${inp.field}</code></td><td class="py-1 px-3">${inp.required?'<span class="IssueLabel bgColor-open-muted fgColor-open">req</span>':''}</td><td class="py-1 px-3 fgColor-muted">${inp.type}${inp.unit?' ('+inp.unit+')':''}</td><td class="py-1 px-3 fgColor-muted">${inp.description}</td></tr>`;
+      if (inp.group && inp.group !== lastG) { lastG = inp.group; h += `<tr class="bgColor-muted"><td colspan="6" class="py-1 px-3 text-bold label-xs">${inp.group}</td></tr>`; }
+      const req = inp.required ? '<span class="IssueLabel bgColor-open-muted fgColor-open ml-1" style="font-size:10px">req</span>' : '';
+      h += `<tr class="border-bottom">
+        <td class="py-1 px-3"><code>${inp.field}</code>${req}</td>
+        <td class="py-1 px-3">${inp.label || ''}</td>
+        <td class="py-1 px-3 fgColor-muted"><code>${inp.type}</code></td>
+        <td class="py-1 px-3 fgColor-muted">${inp.unit || ''}</td>
+        <td class="py-1 px-3 fgColor-muted">${constraintCell(inp)}</td>
+        <td class="py-1 px-3 fgColor-muted">${inp.description}</td>
+      </tr>`;
     });
     h += '</tbody></table></div></details>';
   }
@@ -1127,10 +1225,63 @@ async function showModel(id) {
   if (model.outputs.length) {
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Outputs <span class="Counter ml-1">${model.outputs.length}</span></summary>
-      <div class="border rounded-2 mt-2" class="overflow-x"><table class="f6" class="width-full" aria-label="Output fields">
-        <thead><tr class="bgColor-muted"><th class="py-2 px-3 text-left label-xs">Output</th><th class="py-2 px-3 text-left label-xs">Unit</th><th class="py-2 px-3 text-left label-xs">Description</th></tr></thead><tbody>`;
+      <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Output fields">
+        ${fieldTableHead()}<tbody>`;
     model.outputs.forEach(o => {
-      h += `<tr class="border-bottom"><td class="py-1 px-3 text-bold">${o.label}</td><td class="py-1 px-3 fgColor-muted">${o.unit||o.type||''}</td><td class="py-1 px-3 fgColor-muted">${o.description}</td></tr>`;
+      h += `<tr class="border-bottom">
+        <td class="py-1 px-3"><code>${o.field}</code></td>
+        <td class="py-1 px-3">${o.label || ''}</td>
+        <td class="py-1 px-3 fgColor-muted"><code>${o.type}</code></td>
+        <td class="py-1 px-3 fgColor-muted">${o.unit || ''}</td>
+        <td class="py-1 px-3 fgColor-muted">${constraintCell(o)}</td>
+        <td class="py-1 px-3 fgColor-muted">${o.description}</td>
+      </tr>`;
+    });
+    h += '</tbody></table></div></details>';
+  }
+
+  if (refKeys.length) {
+    // Flatten all constraints into one long table: Constraint | Code | Value | Description
+    let totalValues = 0;
+    refKeys.forEach(k => {
+      const v = refs[k].values;
+      totalValues += Array.isArray(v) ? v.length : Object.keys(v).length;
+    });
+    h += `<details class="schema-section" open>
+      <summary class="schema-header"><span class="chev"></span>Reference Data <span class="Counter ml-1">${totalValues}</span></summary>
+      <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Reference data">
+        <thead><tr class="bgColor-muted">
+          <th class="py-2 px-3 text-left label-xs">Constraint</th>
+          <th class="py-2 px-3 text-left label-xs">Code</th>
+          <th class="py-2 px-3 text-left label-xs">Value</th>
+          <th class="py-2 px-3 text-left label-xs">Description</th>
+        </tr></thead><tbody>`;
+    refKeys.forEach(key => {
+      const ref = refs[key];
+      const values = ref.values || [];
+      const desc = ref.description || '';
+      let first = true;
+      if (Array.isArray(values)) {
+        values.forEach((v, i) => {
+          h += `<tr class="border-bottom" id="${first ? 'ref-' + key : ''}">
+            <td class="py-1 px-3">${first ? '<code class="text-bold">' + key + '</code>' : ''}</td>
+            <td class="py-1 px-3 fgColor-muted">${i}</td>
+            <td class="py-1 px-3">${v}</td>
+            <td class="py-1 px-3 fgColor-muted">${first ? desc : ''}</td>
+          </tr>`;
+          first = false;
+        });
+      } else if (typeof values === 'object') {
+        Object.entries(values).forEach(([k, v]) => {
+          h += `<tr class="border-bottom" id="${first ? 'ref-' + key : ''}">
+            <td class="py-1 px-3">${first ? '<code class="text-bold">' + key + '</code>' : ''}</td>
+            <td class="py-1 px-3"><code>${k}</code></td>
+            <td class="py-1 px-3">${v}</td>
+            <td class="py-1 px-3 fgColor-muted">${first ? desc : ''}</td>
+          </tr>`;
+          first = false;
+        });
+      }
     });
     h += '</tbody></table></div></details>';
   }
@@ -1145,19 +1296,37 @@ async function showModel(id) {
   h += `<div class="tab-pane${modelTab==='tryit'?' tab-pane-active':''}" data-pane="tryit" id="pane-tryit" role="tabpanel">`;
 
   if (live) {
-    h += `<div class="drop p-5 text-center mb-3" id="dropZone" role="button" tabindex="0" aria-label="Upload CSV file">
-        <p class="f5 mb-1"><strong>Drop CSV here</strong> or click to browse</p>
-        <p class="f6 fgColor-muted">Headers should match the Schema tab</p>
-        <input type="file" id="fileInput" accept=".csv">
+    const inputCount = model.inputs.length;
+    const inputSummary = model.inputs.filter(i => i.required).map(i => `<code>${i.field}</code>`).join(', ');
+    const hasTest = !!model.testData;
+    h += `<div class="tryit-layout">
+      <div class="tryit-left">
+        <div class="drop" id="dropZone" role="button" tabindex="0" aria-label="Upload CSV file">
+          <div class="drop-icon"><svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z" transform="rotate(180 8 8)"/></svg></div>
+          <p class="f5 mb-1"><strong>Drop CSV here</strong> or <span class="fgColor-accent">click to browse</span></p>
+          <p class="f6 fgColor-muted">Required columns: ${inputSummary || 'see Schema tab'}</p>
+          <input type="file" id="fileInput" accept=".csv">
+        </div>
+        <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>
       </div>
-      <div class="d-flex flex-justify-center gap-3 f6">
-        <button class="btn-link" id="dlTpl">Download template</button>
-        <span class="fgColor-muted">\u00b7</span>
-        <button class="btn-link" id="ldDemo">Load demo data</button>
+      <div class="tryit-right">
+        <div class="tryit-actions">
+          <button class="btn btn-sm" id="dlTpl"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-1"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"/></svg>Download template</button>
+          ${hasTest ? `<button class="btn btn-sm btn-primary" id="ldDemo"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-1"><path fill-rule="evenodd" d="M7.47.97a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 1 1-1.06 1.06L8.75 3.31V10a.75.75 0 0 1-1.5 0V3.31L4.78 5.78a.75.75 0 0 1-1.06-1.06L7.47.97ZM1 12.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75Z"/></svg>Load demo data</button>` : ''}
+        </div>
+        <div class="tryit-info mt-3">
+          <p class="f6 fgColor-muted mb-1"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
+          ${hasTest ? `<p class="f6 fgColor-muted">Demo data: <code>${model.testData}</code></p>` : ''}
+        </div>
       </div>
-      <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>`;
+    </div>`;
   } else {
-    h += '<div class="tab-empty"><p class="f5 fgColor-muted">Coming soon</p><p class="f6 fgColor-faint">This model is under development. The calculator will be available when the engine is ready.</p></div>';
+    const reason = model.status === 'reference'
+      ? 'This is a reference entry — standards, frameworks, and certifications are not interactive engines.'
+      : model.status === 'commercial'
+        ? 'This is a commercial tool. Visit the source website to use it directly.'
+        : 'This model is under development. The calculator will be available when the engine is ready.';
+    h += `<div class="tab-empty"><p class="f5 fgColor-muted">${model.status === 'coming-soon' ? 'Coming soon' : model.status === 'reference' ? 'Reference only' : 'External tool'}</p><p class="f6 fgColor-faint">${reason}</p></div>`;
   }
 
   h += '</div>';
@@ -1191,11 +1360,26 @@ async function showModel(id) {
 }
 
 async function initEngine(model) {
-  const map = { 'crrem-eu': 'CrremEU' };
-  currentEngine = window[map[model.id]];
+  // Map model ID to window global: kebab-case -> PascalCase, with known overrides
+  const overrides = { 'crrem-eu': 'CrremEU', 'bafu-co2': 'BafuCO2', 'ice-database': 'ICEDatabase', 'kbob-lca': 'KbobLCA', 'ec3': 'EC3', 'noaa-slr': 'NoaaSLR' };
+  const globalName = overrides[model.id] || model.id.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
+  currentEngine = window[globalName];
+  if (!currentEngine) {
+    // Try loading the engine script dynamically
+    try {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = model.engine;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+      currentEngine = window[globalName];
+    } catch(e) { console.warn('Engine load failed:', model.engine, e); }
+  }
   if (!currentEngine) return;
   if (!currentEngine._ready) {
-    await currentEngine.init(model.database);
+    await currentEngine.init(model.database || {});
     currentEngine._ready = true;
   }
 }

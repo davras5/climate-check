@@ -557,6 +557,37 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   font-size: var(--text-lg); font-weight: 600;
   cursor: pointer; color: var(--fg);
 }
+.schema-table {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+.schema-table th,
+.schema-table td {
+  vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.schema-table code {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace);
+  font-size: var(--text-sm);
+  background: none;
+  padding: 0;
+  white-space: nowrap;
+}
+.schema-ref-link {
+  color: var(--fg-accent);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--fg-accent);
+  cursor: pointer;
+}
+.schema-ref-link:hover { border-bottom-style: solid; }
+.schema-refs code {
+  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace);
+  font-size: var(--text-sm);
+}
 
 /* ---- Tab bar ---- */
 .tab-bar {
@@ -918,12 +949,37 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   margin: 0;
 }
 
+/* ---- Try It layout ---- */
+.tryit-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: var(--space-4);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .tryit-layout { grid-template-columns: 1fr; }
+}
+.tryit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.tryit-actions .btn { justify-content: center; }
+.tryit-info code {
+  font-size: var(--text-xs);
+  background: var(--bg-subtle);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
 /* ---- Upload drop zone ---- */
 .drop {
   border: 2px dashed var(--border);
   border-radius: var(--radius-lg);
   transition: all var(--duration-normal);
   cursor: pointer;
+  padding: var(--space-5);
+  text-align: center;
 }
 .drop:hover,
 .drop.dragover {
@@ -931,6 +987,11 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   background: var(--accent-muted);
   border-style: solid;
 }
+.drop-icon {
+  color: var(--fg-muted);
+  margin-bottom: var(--space-2);
+}
+.drop:hover .drop-icon { color: var(--accent); }
 .drop input[type=file] { display: none; }
 
 /* ---- KPI accents ---- */

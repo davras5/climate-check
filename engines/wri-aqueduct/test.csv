@@ -1,0 +1,6 @@
+latitude,longitude,scenario,year
+28.6139,77.2090,business_as_usual,2030
+-33.8688,151.2093,pessimistic,2050
+37.7749,-122.4194,business_as_usual,2030
+51.5074,-0.1278,optimistic,2030
+-23.5505,-46.6333,business_as_usual,2050
