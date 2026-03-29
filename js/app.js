@@ -15,6 +15,16 @@ const ICON = {
   map: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="8" cy="8" rx="3" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.1"/></svg>',
   back: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"/></svg>',
   scatter: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="4" cy="5" r="2"/><circle cx="10" cy="3" r="2"/><circle cx="7" cy="10" r="2"/><circle cx="13" cy="8" r="2"/><line x1="1" y1="15" x2="1" y2="1" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="1" y1="15" x2="15" y2="15" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>',
+  upload: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z" transform="rotate(180 8 8)"/></svg>',
+  download: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"/></svg>',
+  loadDemo: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.47.97a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 1 1-1.06 1.06L8.75 3.31V10a.75.75 0 0 1-1.5 0V3.31L4.78 5.78a.75.75 0 0 1-1.06-1.06L7.47.97ZM1 12.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75Z"/></svg>',
+};
+
+const STATUS_META = {
+  'live':        { label: 'Live',        order: 0, bg: 'bgColor-open-muted',      fg: 'fgColor-open',      tryItMsg: null },
+  'coming-soon': { label: 'Coming soon', order: 1, bg: 'bgColor-attention-muted', fg: 'fgColor-attention', tryItMsg: 'This model is under development. The calculator will be available when the engine is ready.' },
+  'reference':   { label: 'Reference',   order: 2, bg: 'bgColor-accent-muted',    fg: 'fgColor-accent',    tryItMsg: 'This is a reference entry \u2014 standards, frameworks, and certifications are not interactive engines.' },
+  'commercial':  { label: 'Commercial',  order: 3, bg: 'bgColor-danger-muted',    fg: 'fgColor-danger',    tryItMsg: 'This is a commercial tool. Visit the source website to use it directly.' },
 };
 
 const $ = s => document.querySelector(s);
@@ -40,10 +50,8 @@ function badge(t) {
 }
 function strandTxt(r) { return r.strandingYear ? String(r.strandingYear) : 'Aligned'; }
 function statusDot(s) {
-  if (s === 'live') return '<span class="IssueLabel bgColor-open-muted fgColor-open tag-click" data-g="status" data-v="live">Live</span>';
-  if (s === 'reference') return '<span class="IssueLabel bgColor-accent-muted fgColor-accent tag-click" data-g="status" data-v="reference">Reference</span>';
-  if (s === 'commercial') return '<span class="IssueLabel bgColor-done-muted fgColor-done tag-click" data-g="status" data-v="commercial">Commercial</span>';
-  return '<span class="IssueLabel bgColor-attention-muted fgColor-attention tag-click" data-g="status" data-v="coming-soon">Coming soon</span>';
+  const m = STATUS_META[s] || STATUS_META['coming-soon'];
+  return `<span class="IssueLabel ${m.bg} ${m.fg} tag-click" data-g="status" data-v="${s}">${m.label}</span>`;
 }
 
 function debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; }
@@ -117,14 +125,28 @@ async function loadModelsFromDB() {
   });
   const db = new SQL.Database(new Uint8Array(buf));
 
-  const q = (sql, params) => { const s = db.prepare(sql); if (params) s.bind(params); const rows = []; while (s.step()) rows.push(s.getAsObject()); s.free(); return rows; };
-  const qCol = (sql, params) => { const s = db.prepare(sql); if (params) s.bind(params); const v = []; while (s.step()) v.push(s.get()[0]); s.free(); return v; };
+  const q = (sql) => { const s = db.prepare(sql); const rows = []; while (s.step()) rows.push(s.getAsObject()); s.free(); return rows; };
+  const jp = v => { try { return v ? JSON.parse(v) : []; } catch { return []; } };
+  const jo = v => { try { return v ? JSON.parse(v) : {}; } catch { return {}; } };
+
+  // Bulk-load junction tables into Maps (6 queries total instead of 546)
+  const buildMap = (sql) => {
+    const map = new Map();
+    q(sql).forEach(r => {
+      const key = r.model_id;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(Object.values(r)[1]);
+    });
+    return map;
+  };
+  const catMap   = buildMap('SELECT model_id, category_id FROM model_categories');
+  const regMap   = buildMap('SELECT model_id, region_id FROM model_regions');
+  const secMap   = buildMap('SELECT model_id, sector_id FROM model_sectors');
+  const lcMap    = buildMap('SELECT model_id, stage_id FROM model_lifecycle_stages');
+  const tagMap   = buildMap('SELECT model_id, tag FROM model_tags');
 
   const raw = q('SELECT * FROM models ORDER BY name');
-  return raw.map(r => {
-    const jp = v => { try { return v ? JSON.parse(v) : []; } catch { return []; } };
-    const jo = v => { try { return v ? JSON.parse(v) : {}; } catch { return {}; } };
-    return {
+  return raw.map(r => ({
       id: r.id,
       name: r.name,
       version: r.version,
@@ -154,11 +176,11 @@ async function loadModelsFromDB() {
         jurisdictionCodes: jp(r.jurisdiction_codes),
         propertyTypeList: jp(r.property_type_list),
       },
-      categories: qCol('SELECT category_id FROM model_categories WHERE model_id=?', [r.id]),
-      region: qCol('SELECT region_id FROM model_regions WHERE model_id=?', [r.id]),
-      sector: qCol('SELECT sector_id FROM model_sectors WHERE model_id=?', [r.id]),
-      lifecycleStages: qCol('SELECT stage_id FROM model_lifecycle_stages WHERE model_id=?', [r.id]),
-      tags: qCol('SELECT tag FROM model_tags WHERE model_id=?', [r.id]),
+      categories: catMap.get(r.id) || [],
+      region: regMap.get(r.id) || [],
+      sector: secMap.get(r.id) || [],
+      lifecycleStages: lcMap.get(r.id) || [],
+      tags: tagMap.get(r.id) || [],
       adoptedBy: jp(r.adopted_by),
       limitations: jp(r.limitations),
       inputs: jp(r.inputs),
@@ -332,7 +354,7 @@ function showGallery() {
     return true;
   }).sort((a,b) => {
     if (gallerySort === 'updated') return (b.lastUpdated||'').localeCompare(a.lastUpdated||'');
-    if (gallerySort === 'status') { const o={live:0,'coming-soon':1,reference:2,commercial:3}; return (o[a.status]??9)-(o[b.status]??9) || a.name.localeCompare(b.name); }
+    if (gallerySort === 'status') return ((STATUS_META[a.status]||{}).order??9) - ((STATUS_META[b.status]||{}).order??9) || a.name.localeCompare(b.name);
     if (gallerySort === 'region') return (a.region[0]||'').localeCompare(b.region[0]||'') || a.name.localeCompare(b.name);
     return a.name.localeCompare(b.name);
   });
@@ -342,7 +364,7 @@ function showGallery() {
     ...filters.lifecycle.map(v => ({grp:'lifecycle', val:v, lab:v})),
     ...filters.license.map(v => ({grp:'license', val:v, lab:humanize(v)})),
     ...filters.region.map(v => ({grp:'region', val:v, lab:v})),
-    ...filters.status.map(v => ({grp:'status', val:v, lab:{live:'Live','coming-soon':'Coming soon',reference:'Reference',commercial:'Commercial'}[v]||v})),
+    ...filters.status.map(v => ({grp:'status', val:v, lab:(STATUS_META[v]||{}).label||v})),
     ...filters.tags.map(v => ({grp:'tags', val:v, lab:humanize(v)})),
   ];
   const hasFilters = activeFilters.length > 0;
@@ -1191,33 +1213,27 @@ async function showModel(id) {
     return parts.join(' · ');
   };
 
-  // Shared table header renderer
-  const fieldTableHead = () => `<thead><tr class="bgColor-muted">
-    <th class="py-2 px-3 text-left label-xs">Field</th>
-    <th class="py-2 px-3 text-left label-xs">Label</th>
-    <th class="py-2 px-3 text-left label-xs">Type</th>
-    <th class="py-2 px-3 text-left label-xs">Unit</th>
-    <th class="py-2 px-3 text-left label-xs">Constraints</th>
-    <th class="py-2 px-3 text-left label-xs">Description</th>
-  </tr></thead>`;
+  const SCHEMA_COLS = ['Field','Label','Type','Unit','Constraints','Description'];
+  const schemaHead = `<thead><tr class="bgColor-muted">${SCHEMA_COLS.map(c=>`<th class="py-2 px-3 text-left label-xs">${c}</th>`).join('')}</tr></thead>`;
+
+  const fieldRow = (f, showReq) => `<tr class="border-bottom">
+    <td class="py-1 px-3"><code>${f.field}</code>${showReq && f.required ? '<span class="IssueLabel bgColor-open-muted fgColor-open ml-1" style="font-size:10px">req</span>' : ''}</td>
+    <td class="py-1 px-3">${f.label || ''}</td>
+    <td class="py-1 px-3 fgColor-muted"><code>${f.type}</code></td>
+    <td class="py-1 px-3 fgColor-muted">${f.unit || ''}</td>
+    <td class="py-1 px-3 fgColor-muted">${constraintCell(f)}</td>
+    <td class="py-1 px-3 fgColor-muted">${f.description}</td>
+  </tr>`;
 
   if (model.inputs.length) {
     let lastG = '';
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Inputs <span class="Counter ml-1">${model.inputs.length}</span></summary>
       <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Input fields">
-        ${fieldTableHead()}<tbody>`;
+        ${schemaHead}<tbody>`;
     model.inputs.forEach(inp => {
       if (inp.group && inp.group !== lastG) { lastG = inp.group; h += `<tr class="bgColor-muted"><td colspan="6" class="py-1 px-3 text-bold label-xs">${inp.group}</td></tr>`; }
-      const req = inp.required ? '<span class="IssueLabel bgColor-open-muted fgColor-open ml-1" style="font-size:10px">req</span>' : '';
-      h += `<tr class="border-bottom">
-        <td class="py-1 px-3"><code>${inp.field}</code>${req}</td>
-        <td class="py-1 px-3">${inp.label || ''}</td>
-        <td class="py-1 px-3 fgColor-muted"><code>${inp.type}</code></td>
-        <td class="py-1 px-3 fgColor-muted">${inp.unit || ''}</td>
-        <td class="py-1 px-3 fgColor-muted">${constraintCell(inp)}</td>
-        <td class="py-1 px-3 fgColor-muted">${inp.description}</td>
-      </tr>`;
+      h += fieldRow(inp, true);
     });
     h += '</tbody></table></div></details>';
   }
@@ -1226,16 +1242,9 @@ async function showModel(id) {
     h += `<details class="schema-section" open>
       <summary class="schema-header"><span class="chev"></span>Outputs <span class="Counter ml-1">${model.outputs.length}</span></summary>
       <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Output fields">
-        ${fieldTableHead()}<tbody>`;
+        ${schemaHead}<tbody>`;
     model.outputs.forEach(o => {
-      h += `<tr class="border-bottom">
-        <td class="py-1 px-3"><code>${o.field}</code></td>
-        <td class="py-1 px-3">${o.label || ''}</td>
-        <td class="py-1 px-3 fgColor-muted"><code>${o.type}</code></td>
-        <td class="py-1 px-3 fgColor-muted">${o.unit || ''}</td>
-        <td class="py-1 px-3 fgColor-muted">${constraintCell(o)}</td>
-        <td class="py-1 px-3 fgColor-muted">${o.description}</td>
-      </tr>`;
+      h += fieldRow(o, false);
     });
     h += '</tbody></table></div></details>';
   }
@@ -1260,26 +1269,25 @@ async function showModel(id) {
       const ref = refs[key];
       const values = ref.values || [];
       const desc = ref.description || '';
-      let first = true;
+      const nameCell = (i) => i === 0 ? `<code class="text-bold">${key}</code>` : '';
+      const descCell = (i) => i === 0 ? desc : '';
       if (Array.isArray(values)) {
         values.forEach((v, i) => {
-          h += `<tr class="border-bottom" id="${first ? 'ref-' + key : ''}">
-            <td class="py-1 px-3">${first ? '<code class="text-bold">' + key + '</code>' : ''}</td>
+          h += `<tr class="border-bottom"${i === 0 ? ` id="ref-${key}"` : ''}>
+            <td class="py-1 px-3">${nameCell(i)}</td>
             <td class="py-1 px-3 fgColor-muted">${i}</td>
             <td class="py-1 px-3">${v}</td>
-            <td class="py-1 px-3 fgColor-muted">${first ? desc : ''}</td>
+            <td class="py-1 px-3 fgColor-muted">${descCell(i)}</td>
           </tr>`;
-          first = false;
         });
       } else if (typeof values === 'object') {
-        Object.entries(values).forEach(([k, v]) => {
-          h += `<tr class="border-bottom" id="${first ? 'ref-' + key : ''}">
-            <td class="py-1 px-3">${first ? '<code class="text-bold">' + key + '</code>' : ''}</td>
+        Object.entries(values).forEach(([k, v], i) => {
+          h += `<tr class="border-bottom"${i === 0 ? ` id="ref-${key}"` : ''}>
+            <td class="py-1 px-3">${nameCell(i)}</td>
             <td class="py-1 px-3"><code>${k}</code></td>
             <td class="py-1 px-3">${v}</td>
-            <td class="py-1 px-3 fgColor-muted">${first ? desc : ''}</td>
+            <td class="py-1 px-3 fgColor-muted">${descCell(i)}</td>
           </tr>`;
-          first = false;
         });
       }
     });
@@ -1302,7 +1310,7 @@ async function showModel(id) {
     h += `<div class="tryit-layout">
       <div class="tryit-left">
         <div class="drop" id="dropZone" role="button" tabindex="0" aria-label="Upload CSV file">
-          <div class="drop-icon"><svg width="32" height="32" viewBox="0 0 16 16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z" transform="rotate(180 8 8)"/></svg></div>
+          <div class="drop-icon">${ICON.upload.replace('width="16" height="16"', 'width="32" height="32"')}</div>
           <p class="f5 mb-1"><strong>Drop CSV here</strong> or <span class="fgColor-accent">click to browse</span></p>
           <p class="f6 fgColor-muted">Required columns: ${inputSummary || 'see Schema tab'}</p>
           <input type="file" id="fileInput" accept=".csv">
@@ -1311,8 +1319,8 @@ async function showModel(id) {
       </div>
       <div class="tryit-right">
         <div class="tryit-actions">
-          <button class="btn btn-sm" id="dlTpl"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-1"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"/></svg>Download template</button>
-          ${hasTest ? `<button class="btn btn-sm btn-primary" id="ldDemo"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" class="mr-1"><path fill-rule="evenodd" d="M7.47.97a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 1 1-1.06 1.06L8.75 3.31V10a.75.75 0 0 1-1.5 0V3.31L4.78 5.78a.75.75 0 0 1-1.06-1.06L7.47.97ZM1 12.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75Z"/></svg>Load demo data</button>` : ''}
+          <button class="btn btn-sm" id="dlTpl">${ICON.download} Download template</button>
+          ${hasTest ? `<button class="btn btn-sm btn-primary" id="ldDemo">${ICON.loadDemo} Load demo data</button>` : ''}
         </div>
         <div class="tryit-info mt-3">
           <p class="f6 fgColor-muted mb-1"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
@@ -1321,12 +1329,8 @@ async function showModel(id) {
       </div>
     </div>`;
   } else {
-    const reason = model.status === 'reference'
-      ? 'This is a reference entry — standards, frameworks, and certifications are not interactive engines.'
-      : model.status === 'commercial'
-        ? 'This is a commercial tool. Visit the source website to use it directly.'
-        : 'This model is under development. The calculator will be available when the engine is ready.';
-    h += `<div class="tab-empty"><p class="f5 fgColor-muted">${model.status === 'coming-soon' ? 'Coming soon' : model.status === 'reference' ? 'Reference only' : 'External tool'}</p><p class="f6 fgColor-faint">${reason}</p></div>`;
+    const sm = STATUS_META[model.status] || STATUS_META['coming-soon'];
+    h += `<div class="tab-empty"><p class="f5 fgColor-muted">${sm.label}</p><p class="f6 fgColor-faint">${sm.tryItMsg}</p></div>`;
   }
 
   h += '</div>';
@@ -1364,8 +1368,7 @@ async function initEngine(model) {
   const overrides = { 'crrem-eu': 'CrremEU', 'bafu-co2': 'BafuCO2', 'ice-database': 'ICEDatabase', 'kbob-lca': 'KbobLCA', 'ec3': 'EC3', 'noaa-slr': 'NoaaSLR' };
   const globalName = overrides[model.id] || model.id.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join('');
   currentEngine = window[globalName];
-  if (!currentEngine) {
-    // Try loading the engine script dynamically
+  if (!currentEngine && !document.querySelector(`script[src="${model.engine}"]`)) {
     try {
       await new Promise((resolve, reject) => {
         const s = document.createElement('script');
@@ -1480,7 +1483,7 @@ function renderDashboard() {
     <div class="Box-header d-flex flex-justify-between flex-items-center">
       <strong>Portfolio</strong><span class="f6 fgColor-muted">Click row to drill down</span>
     </div>
-    <div class="ptable-wrap"><table class="f6" class="width-full" aria-label="Portfolio assets">
+    <div class="ptable-wrap"><table class="f6 width-full" aria-label="Portfolio assets">
       <thead><tr class="bgColor-muted">${th('name','Asset')}${th('strandingYear','Stranding')}${th('ci','CI')}${th('excess','Excess (t)')}${th('npv','NPV')}<th class="py-2 px-3 label-xs">Risk</th></tr></thead>
       <tbody>`;
 
@@ -1532,7 +1535,7 @@ function showDetail(r) {
 
   h += `<div class="g2 mb-4"><div class="Box p-3"><div class="label-xs mb-2">Carbon Intensity</div><div class="cht"><canvas id="ch1"></canvas></div></div><div class="Box p-3"><div class="label-xs mb-2">Excess Costs</div><div class="cht"><canvas id="ch2"></canvas></div></div></div>`;
 
-  h += `<details><summary class="f5 text-bold" style="cursor:pointer">Year-by-year data</summary><div class="mt-3 border rounded-2" style="max-height:360px;overflow-y:auto"><table class="f6" class="width-full" aria-label="Year-by-year projections"><thead><tr class="bgColor-muted"><th class="py-1 px-3 text-left label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Year</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Asset CI</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Pathway</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Excess</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Cost</th></tr></thead><tbody>`;
+  h += `<details><summary class="f5 text-bold" style="cursor:pointer">Year-by-year data</summary><div class="mt-3 border rounded-2" style="max-height:360px;overflow-y:auto"><table class="f6 width-full" aria-label="Year-by-year projections"><thead><tr class="bgColor-muted"><th class="py-1 px-3 text-left label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Year</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Asset CI</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Pathway</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Excess</th><th class="py-1 px-3 text-right label-xs" style="position:sticky;top:0;background:var(--bgColor-muted)">Cost</th></tr></thead><tbody>`;
   for (let y=0;y<31;y++) {
     const x=Math.max(0,r.projectedCI[y]-r.carbonPathway[y]);
     h += `<tr class="border-bottom${x>0?' xr':''}"><td class="py-1 px-3">${YEARS[y]}</td><td class="py-1 px-3 text-right text-mono">${r.projectedCI[y].toFixed(2)}</td><td class="py-1 px-3 text-right text-mono">${r.carbonPathway[y].toFixed(2)}</td><td class="py-1 px-3 text-right text-mono${x>0?' fgColor-danger':''}">${x>0?x.toFixed(2):'\u2014'}</td><td class="py-1 px-3 text-right text-mono">${r.annualExcessCosts[y]>0?eur(r.annualExcessCosts[y]):'\u2014'}</td></tr>`;

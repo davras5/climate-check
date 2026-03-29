@@ -571,7 +571,6 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   line-height: 1.5;
 }
 .schema-table code {
-  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace);
   font-size: var(--text-sm);
   background: none;
   padding: 0;
@@ -584,10 +583,6 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   cursor: pointer;
 }
 .schema-ref-link:hover { border-bottom-style: solid; }
-.schema-refs code {
-  font-family: var(--fontStack-monospace, ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace);
-  font-size: var(--text-sm);
-}
 
 /* ---- Tab bar ---- */
 .tab-bar {
