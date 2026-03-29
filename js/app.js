@@ -186,8 +186,8 @@ async function loadModelsFromDB() {
       inputs: jp(r.inputs),
       outputs: jp(r.outputs),
       constraints: jo(r.constraints_def),
-    };
-  });
+    }));
+
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
