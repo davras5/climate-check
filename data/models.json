@@ -26,7 +26,7 @@
     "author": "CRREM Foundation / IIÖ Institut für Immobilienökonomie",
     "license": {
       "type": "free-non-commercial",
-      "name": "Proprietary — free for non-commercial use",
+      "name": "Proprietary — free for non-commercial use; commercial license required",
       "url": "https://www.crrem.eu/frequently-asked-questions/"
     },
     "lastUpdated": "2025-07-11",
@@ -319,7 +319,7 @@
     "author": "CRREM Foundation, Lawrence Berkeley National Laboratory (LBNL), ULI Greenprint",
     "license": {
       "type": "free-non-commercial",
-      "name": "Proprietary — free for non-commercial use",
+      "name": "Proprietary — free for non-commercial use; commercial license required",
       "url": "https://www.crrem.eu/frequently-asked-questions/"
     },
     "lastUpdated": "2025-07-11",
@@ -410,7 +410,7 @@
     "author": "CRREM Foundation / IIÖ Institut für Immobilienökonomie",
     "license": {
       "type": "free-non-commercial",
-      "name": "Proprietary — free for non-commercial use",
+      "name": "Proprietary — free for non-commercial use; commercial license required",
       "url": "https://www.crrem.eu/frequently-asked-questions/"
     },
     "lastUpdated": "2025-07-11",
@@ -500,8 +500,8 @@
     ],
     "author": "Partnership for Carbon Accounting Financials (PCAF)",
     "license": {
-      "type": "free-open-access",
-      "name": "Proprietary — freely accessible",
+      "type": "free",
+      "name": "Proprietary — freely accessible standard",
       "url": "https://carbonaccountingfinancials.com/standard"
     },
     "lastUpdated": "2025-12-02",
@@ -576,9 +576,9 @@
     ],
     "author": "Science Based Targets initiative (SBTi) — CDP, UNGC, WRI, WWF, We Mean Business Coalition",
     "license": {
-      "type": "free-open-access",
-      "name": "Proprietary — all rights reserved",
-      "url": "https://sciencebasedtargets.org/about-us/website-terms-of-use"
+      "type": "free-non-commercial",
+      "name": "Proprietary — all rights reserved; CRREM commercial license required for derived products",
+      "url": "https://www.crrem.eu/sbti-x-crrem/"
     },
     "lastUpdated": "2025-06-01",
     "scenario": "1.5°C (Sectoral Decarbonization Approach via IEA NZE / IPCC AR6)",
@@ -658,8 +658,8 @@
     ],
     "author": "Architecture 2030",
     "license": {
-      "type": "free-open-api",
-      "name": "Free — open API",
+      "type": "free",
+      "name": "Free web tool by Architecture 2030",
       "url": "https://www.zerotool.org/"
     },
     "lastUpdated": "2024-01-01",
@@ -741,9 +741,9 @@
     ],
     "author": "Building Transparency (501c3 nonprofit)",
     "license": {
-      "type": "free-open-api",
-      "name": "Free — open access, open API",
-      "url": "https://www.buildingtransparency.org/"
+      "type": "freemium",
+      "name": "Free open access with paid enterprise API tier",
+      "url": "https://www.buildingtransparency.org/tools/ec3/"
     },
     "lastUpdated": "2025-01-01",
     "scenario": "N/A (materials accounting, not scenario-based)",
@@ -807,9 +807,9 @@
     ],
     "author": "European Commission (Joint Research Centre)",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Free — open methodology",
-      "url": "https://green-forum.ec.europa.eu/green-business/levels_en"
+      "type": "free",
+      "name": "Free — EU public framework",
+      "url": "https://environment.ec.europa.eu/topics/circular-economy/levels_en"
     },
     "lastUpdated": "2021-01-01",
     "scenario": "EU Taxonomy alignment (NZEB pathway)",
@@ -907,9 +907,9 @@
     ],
     "author": "ASHRAE",
     "license": {
-      "type": "free",
-      "name": "Free (requires ASHRAE account)",
-      "url": "https://www.ashrae.org/technical-resources/building-eq"
+      "type": "freemium",
+      "name": "Freemium — free performance score; paid for official rating and reports",
+      "url": "https://buildingeq.ashrae.org/user/help"
     },
     "lastUpdated": "2024-06-01",
     "scenario": "N/A (benchmarking against baselines)",
@@ -977,7 +977,7 @@
     "author": "OS-Climate / Linux Foundation (FINOS), with contributions from BNP Paribas",
     "license": {
       "type": "open-source",
-      "name": "Apache 2.0",
+      "name": "Apache License 2.0",
       "url": "https://github.com/os-climate/physrisk/blob/main/LICENSE"
     },
     "lastUpdated": "2026-03-23",
@@ -1042,7 +1042,7 @@
     "author": "IFC (World Bank Group)",
     "license": {
       "type": "free",
-      "name": "Free web application",
+      "name": "Free web application (IFC/World Bank)",
       "url": "https://www.resilienceindex.org/"
     },
     "lastUpdated": "2025-07-01",
@@ -1110,9 +1110,9 @@
     ],
     "author": "US Environmental Protection Agency (EPA)",
     "license": {
-      "type": "free-open-api",
-      "name": "Free — public API",
-      "url": "https://www.energystar.gov/buildings/benchmark"
+      "type": "free",
+      "name": "Free — US government program with public API",
+      "url": "https://portfoliomanager.energystar.gov/webservices/home/"
     },
     "lastUpdated": "2026-02-24",
     "scenario": "N/A (benchmarking against peer buildings)",
@@ -1202,9 +1202,9 @@
     ],
     "author": "Network for Greening the Financial System (NGFS)",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Free — open access via IIASA",
-      "url": "https://www.ngfs.net/ngfs-scenarios-portal/"
+      "type": "free",
+      "name": "Free — CC-BY-style custom license via IIASA",
+      "url": "https://data.ene.iiasa.ac.at/ngfs/#/license"
     },
     "lastUpdated": "2024-11-05",
     "scenario": "Net Zero 2050, Low Demand, Below 2°C, Delayed Transition, Fragmented World, NDCs, Current Policies",
@@ -1266,7 +1266,7 @@
     "author": "NSW Government (DCCEEW) on behalf of Australian Government",
     "license": {
       "type": "free",
-      "name": "Government program — public methodology",
+      "name": "Government program — free methodology, paid assessor ratings",
       "url": "https://www.nabers.gov.au/"
     },
     "lastUpdated": "2025-01-01",
@@ -1346,8 +1346,8 @@
     ],
     "author": "IFC (World Bank Group), certified by GBCI",
     "license": {
-      "type": "free",
-      "name": "Free tool — certification is paid",
+      "type": "freemium",
+      "name": "Free tool — certification is paid ($349+)",
       "url": "https://edgebuildings.com/"
     },
     "lastUpdated": "2025-01-01",
@@ -1424,9 +1424,9 @@
     ],
     "author": "Swiss Federal Office for the Environment (BAFU/FOEN), developed by Wüest Partner AG",
     "license": {
-      "type": "source-available",
+      "type": "free",
       "name": "Source available (R script, available on request from FOEN)",
-      "url": "https://www.bafu.admin.ch/en/calculator-co2-buildings"
+      "url": "https://www.bafu.admin.ch/bafu/en/home/topics/climate/data/calculator-co2-buildings.html"
     },
     "lastUpdated": "2024-12-10",
     "scenario": "Swiss Net-Zero 2050 (Climate and Innovation Act / CO2 Act)",
@@ -1502,7 +1502,7 @@
     "author": "Weather and Climate Risks Group, ETH Zurich",
     "license": {
       "type": "open-source",
-      "name": "GNU GPL v3",
+      "name": "GNU General Public License v3.0",
       "url": "https://github.com/CLIMADA-project/climada_python/blob/main/LICENSE"
     },
     "lastUpdated": "2025-09-30",
@@ -1562,7 +1562,7 @@
     "author": "Global Earthquake Model (GEM) Foundation",
     "license": {
       "type": "open-source",
-      "name": "AGPL-3.0",
+      "name": "GNU Affero General Public License v3.0",
       "url": "https://github.com/gem/oq-engine/blob/master/LICENSE"
     },
     "lastUpdated": "2026-03-10",
@@ -1625,7 +1625,7 @@
     "license": {
       "type": "open-source",
       "name": "BSD-3-Clause-LBNL",
-      "url": "https://github.com/LBNL-ETA/better-lbnl-os"
+      "url": "https://github.com/LBNL-ETA/better-lbnl-os/blob/main/LICENSE"
     },
     "lastUpdated": "2024-06-01",
     "scenario": "N/A (retrofit cost-benefit analysis)",
@@ -1703,7 +1703,7 @@
     "author": "Institut Wohnen und Umwelt (IWU), Germany",
     "license": {
       "type": "free",
-      "name": "Free — EU-funded open access",
+      "name": "Free — EU-funded; attribution required",
       "url": "https://episcope.eu/"
     },
     "lastUpdated": "2016-12-01",
@@ -1797,7 +1797,7 @@
     "author": "Deltares (Netherlands)",
     "license": {
       "type": "open-source",
-      "name": "GNU GPL v3",
+      "name": "GNU General Public License v3.0",
       "url": "https://github.com/Deltares/SFINCS/blob/main/LICENSE"
     },
     "lastUpdated": "2025-11-19",
@@ -1858,9 +1858,9 @@
     ],
     "author": "World Resources Institute + Utrecht University",
     "license": {
-      "type": "free-open-methodology",
-      "name": "CC BY 4.0",
-      "url": "https://www.wri.org/aqueduct"
+      "type": "free",
+      "name": "Creative Commons Attribution 4.0 International",
+      "url": "https://www.wri.org/aqueduct/faq"
     },
     "lastUpdated": "2023-08-01",
     "scenario": "CMIP6 SSP1-2.6, SSP3-7.0, SSP5-8.5",
@@ -1920,8 +1920,8 @@
     "author": "Climate Bonds Initiative (CBI)",
     "license": {
       "type": "free",
-      "name": "Free criteria and calculators",
-      "url": "https://www.climatebonds.net/"
+      "name": "Free criteria (premium data requires partnership)",
+      "url": "https://www.climatebonds.net/standard/buildings"
     },
     "lastUpdated": "2023-12-01",
     "scenario": "1.5°C (top 15% to zero carbon by 2050)",
@@ -1989,9 +1989,9 @@
     ],
     "author": "BBSR (Germany)",
     "license": {
-      "type": "open-source",
-      "name": "AGPL-3.0 (eLCA) / Free public data (ÖKOBAUDAT)",
-      "url": "https://www.bauteileditor.de"
+      "type": "free",
+      "name": "Free public tool and data (BBSR government tool; no public source repo found)",
+      "url": "https://www.bauteileditor.de/"
     },
     "lastUpdated": "2024-10-02",
     "scenario": "N/A (lifecycle assessment)",
@@ -2060,8 +2060,8 @@
     ],
     "author": "European Commission / VITO / Waide Strategic Efficiency Europe",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Free — EU regulation",
+      "type": "free",
+      "name": "Free — EU regulation framework",
       "url": "https://energy.ec.europa.eu/topics/energy-efficiency/energy-performance-buildings/smart-readiness-indicator_en"
     },
     "lastUpdated": "2025-01-01",
@@ -2127,9 +2127,9 @@
     ],
     "author": "Deutsche Gesellschaft für Nachhaltiges Bauen (DGNB)",
     "license": {
-      "type": "free-non-commercial",
-      "name": "Proprietary certification — criteria public",
-      "url": "https://www.dgnb.de/en/certification/buildings"
+      "type": "commercial",
+      "name": "Proprietary certification system (criteria PDFs free, certification paid)",
+      "url": "https://www.dgnb.de/en/certification/important-facts-about-dgnb-certification"
     },
     "lastUpdated": "2023-07-01",
     "scenario": "N/A (multi-criteria assessment)",
@@ -2196,8 +2196,8 @@
     ],
     "author": "BRE Group (UK)",
     "license": {
-      "type": "proprietary",
-      "name": "Proprietary — scheme docs available for purchase",
+      "type": "commercial",
+      "name": "Proprietary certification system (BRE Global)",
       "url": "https://breeam.com/"
     },
     "lastUpdated": "2025-07-16",
@@ -2264,8 +2264,8 @@
     "author": "FEMA / National Institute of Building Sciences",
     "license": {
       "type": "free",
-      "name": "HAZUS: public domain; FAST: GPL-3.0",
-      "url": "https://github.com/nhrap-hazus/FAST"
+      "name": "HAZUS: Free government software (FEMA); FAST: GPL-3.0",
+      "url": "https://www.fema.gov/flood-maps/products-tools/hazus"
     },
     "lastUpdated": "2025-09-01",
     "scenario": "Scenario-based or probabilistic",
@@ -2339,9 +2339,9 @@
     ],
     "author": "European Commission Joint Research Centre (JRC)",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Open data — Copernicus licence",
-      "url": "https://data.jrc.ec.europa.eu/"
+      "type": "free",
+      "name": "Open data — Copernicus licence / CC BY 4.0",
+      "url": "https://data.jrc.ec.europa.eu/collection/id-0054"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "Return periods (10, 20, 50, 75, 100, 200, 500 years)",
@@ -2401,8 +2401,8 @@
     "author": "EIOPA + ETH Zurich",
     "license": {
       "type": "open-source",
-      "name": "GNU GPL v3",
-      "url": "https://www.eiopa.europa.eu/tools-and-data/open-source-tools-modelling-and-management-climate-change-risks_en"
+      "name": "GNU General Public License v3.0",
+      "url": "https://github.com/CLIMADA-project/climada_python/blob/main/LICENSE"
     },
     "lastUpdated": "2024-06-01",
     "scenario": "Current + CMIP6 projections",
@@ -2496,7 +2496,7 @@
     "author": "Oasis LMF Ltd (insurance consortium)",
     "license": {
       "type": "open-source",
-      "name": "BSD 3-Clause",
+      "name": "BSD 3-Clause License",
       "url": "https://github.com/OasisLMF/OasisLMF/blob/main/LICENSE"
     },
     "lastUpdated": "2026-02-27",
@@ -2558,7 +2558,7 @@
     "author": "Center for the Built Environment (CBE), UC Berkeley",
     "license": {
       "type": "open-source",
-      "name": "GPL-2.0",
+      "name": "GNU General Public License v2.0",
       "url": "https://github.com/CenterForTheBuiltEnvironment/comfort_tool/blob/master/LICENSE"
     },
     "lastUpdated": "2025-01-01",
@@ -2623,8 +2623,8 @@
     "author": "National Renewable Energy Laboratory (NREL), US DOE",
     "license": {
       "type": "open-source",
-      "name": "Apache-2.0",
-      "url": "https://github.com/NREL/REopt.jl/blob/master/LICENSE"
+      "name": "Apache License 2.0",
+      "url": "https://github.com/NREL/REopt.jl"
     },
     "lastUpdated": "2025-06-01",
     "scenario": "N/A (techno-economic optimization)",
@@ -2817,7 +2817,7 @@
     "author": "National Renewable Energy Laboratory (NREL), US DOE",
     "license": {
       "type": "open-source",
-      "name": "Custom BSD (NREL)",
+      "name": "Custom BSD (NREL/Alliance for Sustainable Energy)",
       "url": "https://github.com/NREL/resstock/blob/develop/LICENSE.md"
     },
     "lastUpdated": "2024-12-01",
@@ -3065,8 +3065,8 @@
     "author": "swisstopo / BAFU / BFE / MeteoSwiss",
     "license": {
       "type": "free",
-      "name": "Free — Swiss federal open data",
-      "url": "https://docs.geo.admin.ch/"
+      "name": "OGD — Swiss federal open data",
+      "url": "https://www.swisstopo.admin.ch/en/free-geodata-ogd"
     },
     "lastUpdated": "2025-01-01",
     "scenario": "Multiple return periods (50/100/250/500yr for flood, 10/20/50/100yr for hail)",
@@ -3137,8 +3137,8 @@
     "author": "Swiss Cantons via geodienste.ch (KGK/CGC)",
     "license": {
       "type": "free",
-      "name": "Free — cantonal government data",
-      "url": "https://www.geodienste.ch/services/gefahrenkarten"
+      "name": "Free — cantonal government data (terms vary by canton)",
+      "url": "https://geodienste.ch/terms-of-use"
     },
     "lastUpdated": "2025-01-01",
     "scenario": "Return period hazard zones (intensity × probability matrix)",
@@ -3282,8 +3282,8 @@
     ],
     "author": "BFE (Federal Office of Energy) / MeteoSwiss / swisstopo",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Free — open data (GitHub + opendata.swiss)",
+      "type": "free",
+      "name": "Free — Swiss federal open data (OGD)",
       "url": "https://www.sonnendach.ch"
     },
     "lastUpdated": "2025-01-01",
@@ -3353,9 +3353,9 @@
     ],
     "author": "NCCS (National Centre for Climate Services) / MeteoSwiss / ETH",
     "license": {
-      "type": "free-open-methodology",
+      "type": "free",
       "name": "CC BY 4.0",
-      "url": "https://www.nccs.admin.ch/"
+      "url": "https://www.nccs.admin.ch/nccs/en/home/climate-change-and-impacts/schweizer-klimaszenarien-ch2025.html"
     },
     "lastUpdated": "2025-01-01",
     "scenario": "Multiple Global Warming Levels (GWL 1.5°C, 2°C, 2.5°C, 3°C)",
@@ -3493,8 +3493,8 @@
     ],
     "author": "KBOB / ecobau / IPB (based on Ecoinvent)",
     "license": {
-      "type": "free-open-api",
-      "name": "Free — data download and API",
+      "type": "free",
+      "name": "Free — data download and API via lcadata.ch",
       "url": "https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich"
     },
     "lastUpdated": "2026-03-16",
@@ -3569,7 +3569,7 @@
     "author": "BAFU / SIF, developed by RMI + FPRE / Wüest Partner",
     "license": {
       "type": "free",
-      "name": "Free participation — core software open source (MIT)",
+      "name": "Free participation — core PACTA software MIT licensed",
       "url": "https://www.bafu.admin.ch/en/pacta-climate-test"
     },
     "lastUpdated": "2024-12-01",
@@ -3638,8 +3638,8 @@
     ],
     "author": "SSREI Association (verified by SQS)",
     "license": {
-      "type": "membership",
-      "name": "Assessment tool via membership",
+      "type": "restricted",
+      "name": "Assessment tool via membership / SQS verification",
       "url": "https://ssrei.ch"
     },
     "lastUpdated": "2024-06-01",
@@ -3847,7 +3847,7 @@
     ],
     "author": "Niko Heeren (Yale/NTNU) & Tomer Fishman (IDC Herzliya)",
     "license": {
-      "type": "free-open-methodology",
+      "type": "open-source",
       "name": "CC BY 4.0",
       "url": "https://github.com/nheeren/material_intensity_db"
     },
@@ -4204,7 +4204,7 @@
     "author": "Circular Ecology (originally University of Bath, Prof. Geoff Hammond & Dr. Craig Jones)",
     "license": {
       "type": "free",
-      "name": "Free (Educational: no registration; Advanced: registration required)",
+      "name": "Free (Educational: no registration; Advanced: free registration required)",
       "url": "https://circularecology.com/embodied-carbon-footprint-database.html"
     },
     "lastUpdated": "2025-10-29",
@@ -4271,9 +4271,9 @@
     ],
     "author": "Eurostat (Statistical Office of the European Union)",
     "license": {
-      "type": "free-open-methodology",
-      "name": "Eurostat open data (Commission Decision 2011/833/EU)",
-      "url": "https://ec.europa.eu/eurostat/web/waste/database"
+      "type": "free",
+      "name": "CC BY 4.0 (Commission reuse policy)",
+      "url": "https://ec.europa.eu/eurostat/help/copyright-notice"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (statistical reporting)",
@@ -4379,9 +4379,9 @@
     ],
     "author": "U.S. Department of Energy / NREL / LBNL",
     "license": {
-      "type": "free-open-source",
-      "name": "BSD 3-Clause License",
-      "url": "https://github.com/NREL/EnergyPlus/blob/develop/LICENSE"
+      "type": "open-source",
+      "name": "BSD-3-Clause",
+      "url": "https://github.com/NREL/EnergyPlus/blob/develop/LICENSE.txt"
     },
     "lastUpdated": "2024-09-01",
     "scenario": "N/A (simulation engine)",
@@ -4447,8 +4447,8 @@
     ],
     "author": "National Renewable Energy Laboratory (NREL)",
     "license": {
-      "type": "free-open-source",
-      "name": "BSD 3-Clause License",
+      "type": "open-source",
+      "name": "BSD-3-Clause",
       "url": "https://github.com/NREL/OpenStudio/blob/develop/LICENSE.md"
     },
     "lastUpdated": "2024-06-01",
@@ -4514,8 +4514,8 @@
     ],
     "author": "Ladybug Tools LLC (Mostapha Sadeghipour Roudsari)",
     "license": {
-      "type": "free-open-source",
-      "name": "AGPL-3.0 License",
+      "type": "open-source",
+      "name": "AGPL-3.0-or-later",
       "url": "https://github.com/ladybug-tools"
     },
     "lastUpdated": "2024-08-01",
@@ -4582,7 +4582,7 @@
     "author": "National Renewable Energy Laboratory (NREL)",
     "license": {
       "type": "free",
-      "name": "Free public web tool",
+      "name": "Free public web tool (underlying PVWatts model in SAM/SSC is BSD-3-Clause)",
       "url": "https://pvwatts.nrel.gov"
     },
     "lastUpdated": "2024-01-01",
@@ -4715,8 +4715,8 @@
     ],
     "author": "National Renewable Energy Laboratory (NREL) / LBNL",
     "license": {
-      "type": "free-open-source",
-      "name": "BSD 3-Clause License",
+      "type": "open-source",
+      "name": "BSD-3-Clause",
       "url": "https://github.com/urbanopt"
     },
     "lastUpdated": "2024-06-01",
@@ -4782,9 +4782,9 @@
     ],
     "author": "National Renewable Energy Laboratory (NREL) / Sandia National Laboratories",
     "license": {
-      "type": "free-open-source",
-      "name": "Mixed (desktop free, SSC library BSD)",
-      "url": "https://sam.nrel.gov/about-sam/sam-open-source.html"
+      "type": "open-source",
+      "name": "BSD-3-Clause (SAM desktop and SSC library)",
+      "url": "https://sam.nrel.gov/sam-open-source.html"
     },
     "lastUpdated": "2024-12-01",
     "scenario": "N/A (project-level simulation)",
@@ -4851,8 +4851,8 @@
     "author": "Natural Resources Canada (NRCan)",
     "license": {
       "type": "freemium",
-      "name": "Free Viewer mode; Professional mode subscription-based",
-      "url": "https://www.nrcan.gc.ca/maps-tools-and-publications/tools/modelling-tools/retscreen/7465"
+      "name": "Free Viewer mode; Professional mode $672 USD/year subscription",
+      "url": "https://natural-resources.canada.ca/maps-tools-and-publications/tools/modelling-tools/retscreen/7465"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (feasibility tool)",
@@ -4919,8 +4919,8 @@
     "author": "Fraunhofer Institute for Building Physics (IBP)",
     "license": {
       "type": "freemium",
-      "name": "WUFI Pro free for non-commercial use; WUFI Plus commercial license",
-      "url": "https://wufi.de/en/software/wufi-pro/"
+      "name": "WUFI ORNL free for non-commercial use; full Pro/Plus requires commercial license",
+      "url": "https://wufi.de/en/service/free-wufi-versions/"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (simulation tool)",
@@ -4987,8 +4987,8 @@
     "author": "London Energy Transformation Initiative (LETI)",
     "license": {
       "type": "free",
-      "name": "Free download (Creative Commons)",
-      "url": "https://www.leti.uk/embodiedcarbon"
+      "name": "Free download (CC BY-ND elements)",
+      "url": "https://www.leti.uk/ecp"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (benchmark/target framework)",
@@ -5063,8 +5063,8 @@
     "author": "CIBSE (Chartered Institution of Building Services Engineers)",
     "license": {
       "type": "free",
-      "name": "Free download (CIBSE members and non-members)",
-      "url": "https://www.cibse.org/knowledge-research/knowledge-portal/tm65-embodied-carbon-in-building-services"
+      "name": "Free download (members and non-members)",
+      "url": "https://www.cibse.org/tm65"
     },
     "lastUpdated": "2021-09-01",
     "scenario": "N/A (calculation methodology)",
@@ -5129,7 +5129,7 @@
     "author": "Athena Sustainable Materials Institute (Canada)",
     "license": {
       "type": "free",
-      "name": "Free (registration required)",
+      "name": "Free (registration required for download)",
       "url": "https://www.athenasmi.org/our-software-data/impact-estimator/"
     },
     "lastUpdated": "2024-01-01",
@@ -5203,8 +5203,8 @@
     "author": "Royal Institute of British Architects (RIBA)",
     "license": {
       "type": "free",
-      "name": "Free download",
-      "url": "https://www.architecture.com/about/policy/climate-action/2030-climate-challenge"
+      "name": "Free download (targets are open source per RIBA)",
+      "url": "https://www.architecture.com/campaigns/climate-action/2030-climate-challenge"
     },
     "lastUpdated": "2023-01-01",
     "scenario": "N/A (target framework)",
@@ -5278,7 +5278,7 @@
     "author": "Structural Engineering Institute (SEI) / ASCE",
     "license": {
       "type": "free",
-      "name": "Free (SE 2050 signatory firms)",
+      "name": "Free (ECOM calculator open to all)",
       "url": "https://se2050.org"
     },
     "lastUpdated": "2024-01-01",
@@ -5345,8 +5345,8 @@
     ],
     "author": "GreenDelta GmbH (Berlin)",
     "license": {
-      "type": "free-open-source",
-      "name": "Mozilla Public License 2.0",
+      "type": "open-source",
+      "name": "MPL-2.0",
       "url": "https://github.com/GreenDelta/olca-app"
     },
     "lastUpdated": "2024-06-01",
@@ -5630,7 +5630,7 @@
     "author": "Institut Bauen und Umwelt e.V. (IBU), Germany",
     "license": {
       "type": "free",
-      "name": "Free public access",
+      "name": "Free public access (registration required for XML downloads)",
       "url": "https://ibu-epd.com/en/published-epds/"
     },
     "lastUpdated": "2024-01-01",
@@ -5702,8 +5702,8 @@
     ],
     "author": "ECO Platform AISBL (Brussels)",
     "license": {
-      "type": "free",
-      "name": "Free public access",
+      "type": "freemium",
+      "name": "Free portal access; paid API license for commercial integration",
       "url": "https://www.eco-platform.org/epd-data.html"
     },
     "lastUpdated": "2024-01-01",
@@ -5773,8 +5773,8 @@
     "author": "Building Transparency",
     "license": {
       "type": "free",
-      "name": "Free Revit plugin",
-      "url": "https://www.buildingtransparency.org/tallycat/"
+      "name": "Free Revit plugin (by Building Transparency)",
+      "url": "https://www.buildingtransparency.org/tally/"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (BIM plugin)",
@@ -5843,7 +5843,7 @@
     "license": {
       "type": "free",
       "name": "Free specification (implemented by licensed software partners)",
-      "url": "https://www.bregroup.com/impact/"
+      "url": "https://bregroup.com/products/impact/"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (LCA specification)",
@@ -5915,8 +5915,8 @@
     "author": "Mesh Energy",
     "license": {
       "type": "free",
-      "name": "Free web tool",
-      "url": "https://www.meshenergy.com"
+      "name": "Free embodied carbon calculator (registration for Meshwork community required)",
+      "url": "https://www.mesh-energy.com/resources/embodied-carbon-calculator-v2"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (estimation tool)",
@@ -5983,8 +5983,8 @@
     "author": "First Street Foundation",
     "license": {
       "type": "freemium",
-      "name": "Free property lookup; API and bulk data subscription",
-      "url": "https://riskfactor.com"
+      "name": "Free basic property risk scores; paid for full reports, commercial data, and API",
+      "url": "https://firststreet.org"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "SSP2-4.5, SSP5-8.5 (30-year projections)",
@@ -6053,7 +6053,7 @@
     "author": "NOAA Office for Coastal Management",
     "license": {
       "type": "free",
-      "name": "Free public access (US government data)",
+      "name": "Free public access (US government data, public domain)",
       "url": "https://coast.noaa.gov/slr/"
     },
     "lastUpdated": "2024-01-01",
@@ -6124,7 +6124,7 @@
     "author": "Climate Central (Princeton, NJ)",
     "license": {
       "type": "freemium",
-      "name": "Free basic maps; premium data by subscription",
+      "name": "Free basic maps (non-commercial); commercial licensing for FloodVision and bulk data",
       "url": "https://coastal.climatecentral.org"
     },
     "lastUpdated": "2024-01-01",
@@ -6189,8 +6189,8 @@
     ],
     "author": "GFDRR / World Bank",
     "license": {
-      "type": "free-open-source",
-      "name": "Open source (GNU GPL v3)",
+      "type": "open-source",
+      "name": "GNU GPL v3.0; content CC-BY-SA",
       "url": "https://github.com/GFDRR/thinkhazard"
     },
     "lastUpdated": "2024-01-01",
@@ -6258,7 +6258,7 @@
     "author": "USDA Forest Service",
     "license": {
       "type": "free",
-      "name": "Free public access (US government data)",
+      "name": "Free public access (US government data — USDA Forest Service)",
       "url": "https://wildfirerisk.org"
     },
     "lastUpdated": "2024-01-01",
@@ -6329,8 +6329,8 @@
     "author": "Zurich Insurance Switzerland",
     "license": {
       "type": "free",
-      "name": "Free public tool",
-      "url": "https://www.zurich.ch/en/services/natural-hazards-radar"
+      "name": "Free public tool (Zurich Insurance)",
+      "url": "https://www.zurich.ch/en/services/natural-hazards"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "Current hazard levels",
@@ -6396,7 +6396,7 @@
     "author": "Fathom (Bristol, UK)",
     "license": {
       "type": "commercial",
-      "name": "Commercial license; free map viewer available",
+      "name": "Commercial license; free non-commercial data for 16 vulnerable countries (via World Bank)",
       "url": "https://www.fathom.global"
     },
     "lastUpdated": "2024-01-01",
@@ -6529,8 +6529,8 @@
     "author": "Taskforce on Nature-related Financial Disclosures (TNFD)",
     "license": {
       "type": "free",
-      "name": "Free framework and guidance",
-      "url": "https://tnfd.global/recommendations-of-the-tnfd/"
+      "name": "Free framework and guidance (CC BY 4.0)",
+      "url": "https://tnfd.global/publication/additional-guidance-on-assessment-of-nature-related-issues-the-leap-approach/"
     },
     "lastUpdated": "2023-09-01",
     "scenario": "N/A (disclosure framework)",
@@ -6597,8 +6597,8 @@
     "author": "Defra / Natural England",
     "license": {
       "type": "free",
-      "name": "Free download (UK government)",
-      "url": "https://www.gov.uk/guidance/biodiversity-metric-calculate-the-biodiversity-net-gain-of-a-project-or-development"
+      "name": "Free download (UK government — statutory biodiversity metric Excel tool)",
+      "url": "https://www.gov.uk/government/publications/statutory-biodiversity-metric-tools-and-guides"
     },
     "lastUpdated": "2024-02-01",
     "scenario": "N/A (biodiversity accounting)",
@@ -6667,8 +6667,8 @@
     "author": "UNEP-WCMC / Global Canopy",
     "license": {
       "type": "free",
-      "name": "Free public access",
-      "url": "https://encore.naturalcapital.finance"
+      "name": "Free public access (CC BY-SA 4.0)",
+      "url": "https://www.encorenature.org/en"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (risk screening tool)",
@@ -6734,7 +6734,7 @@
     "author": "BirdLife International / Conservation International / IUCN / UNEP-WCMC",
     "license": {
       "type": "freemium",
-      "name": "Free basic search; subscription for reports and multi-site screening",
+      "name": "Free biodiversity maps; subscription for reports and data downloads",
       "url": "https://www.ibat-alliance.org"
     },
     "lastUpdated": "2024-01-01",
@@ -6801,7 +6801,7 @@
     "author": "WWF (World Wide Fund for Nature)",
     "license": {
       "type": "free",
-      "name": "Free (registration required)",
+      "name": "Free (registration optional; required for Assess module only)",
       "url": "https://riskfilter.org/biodiversity/home"
     },
     "lastUpdated": "2024-01-01",
@@ -6866,7 +6866,7 @@
     "author": "WWF (World Wide Fund for Nature) / DEG",
     "license": {
       "type": "free",
-      "name": "Free (registration required)",
+      "name": "Free (registration optional; required for Assess module only)",
       "url": "https://riskfilter.org/water/home"
     },
     "lastUpdated": "2024-01-01",
@@ -6933,7 +6933,7 @@
     "author": "European Commission",
     "license": {
       "type": "free",
-      "name": "Free public tools",
+      "name": "Free public tools (European Commission)",
       "url": "https://ec.europa.eu/sustainable-finance-taxonomy/"
     },
     "lastUpdated": "2024-01-01",
@@ -7028,7 +7028,7 @@
     "author": "Grantham Research Institute (LSE) / LSEG (formerly FTSE Russell)",
     "license": {
       "type": "free",
-      "name": "Free public access",
+      "name": "Free public access (open-access data and methodology)",
       "url": "https://www.transitionpathwayinitiative.org"
     },
     "lastUpdated": "2024-01-01",
@@ -7095,8 +7095,8 @@
     "author": "GBCI / USGBC",
     "license": {
       "type": "free",
-      "name": "Free (Arc platform registration required)",
-      "url": "https://arcskoru.com"
+      "name": "Free (Arc platform registration required; LEED certification fees separate)",
+      "url": "https://arc.gbci.org"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (alignment mapping tool)",
@@ -7188,8 +7188,8 @@
     ],
     "author": "Evercity",
     "license": {
-      "type": "freemium",
-      "name": "Free basic tier; premium subscription for advanced features",
+      "type": "commercial",
+      "name": "Commercial B2B SaaS platform (quarterly/yearly subscription)",
       "url": "https://evercity.io"
     },
     "lastUpdated": "2024-01-01",
@@ -7279,8 +7279,8 @@
     ],
     "author": "RMI (Rocky Mountain Institute)",
     "license": {
-      "type": "free-open-source",
-      "name": "Open source (R package: MIT License)",
+      "type": "open-source",
+      "name": "MIT License (R packages on GitHub)",
       "url": "https://github.com/RMI-PACTA"
     },
     "lastUpdated": "2024-01-01",
@@ -7347,7 +7347,7 @@
     "author": "WRI (World Resources Institute) / WBCSD",
     "license": {
       "type": "free",
-      "name": "Free download",
+      "name": "Free download (royalty-free license; sign-in required)",
       "url": "https://ghgprotocol.org/calculation-tools-and-guidance"
     },
     "lastUpdated": "2024-01-01",
@@ -7416,8 +7416,8 @@
     "author": "Royal Institution of Chartered Surveyors (RICS)",
     "license": {
       "type": "free",
-      "name": "Free download (RICS website)",
-      "url": "https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/building-surveying-standards/whole-life-carbon-assessment-for-the-built-environment"
+      "name": "Free download (RICS professional standard PDF)",
+      "url": "https://www.rics.org/profession-standards/rics-standards-and-guidance/sector-standards/construction-standards/whole-life-carbon-assessment"
     },
     "lastUpdated": "2023-07-01",
     "scenario": "N/A (assessment standard)",
@@ -7487,7 +7487,7 @@
     "author": "CIBSE / BRE / RIBA / RICS / LETI / UKGBC / IStructE",
     "license": {
       "type": "free",
-      "name": "Free (pilot phase)",
+      "name": "Free (Version 1 published March 2026)",
       "url": "https://www.nzcbuildings.co.uk"
     },
     "lastUpdated": "2024-05-01",
@@ -7575,7 +7575,7 @@
     "author": "UK Green Building Council (UKGBC)",
     "license": {
       "type": "free",
-      "name": "Free download",
+      "name": "Free download (framework definition and guidance)",
       "url": "https://ukgbc.org/resources/net-zero-carbon-buildings-a-framework-definition/"
     },
     "lastUpdated": "2019-04-01",
@@ -7646,7 +7646,7 @@
     "author": "Better Buildings Partnership (BBP)",
     "license": {
       "type": "free",
-      "name": "Free annual report; data submission for members",
+      "name": "Free annual report (openly available benchmarks)",
       "url": "https://www.betterbuildingspartnership.co.uk/our-priorities/measuring-reporting/real-estate-environmental-benchmark"
     },
     "lastUpdated": "2024-01-01",
@@ -7723,8 +7723,8 @@
     "author": "Architecture 2030",
     "license": {
       "type": "free",
-      "name": "Free web tool",
-      "url": "https://caretool.org"
+      "name": "Free web tool (Architecture 2030)",
+      "url": "https://www.caretool.org"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (decision-support tool)",
@@ -7793,7 +7793,7 @@
     "author": "GEAK Association / Conference of Cantonal Energy Directors (EnDK)",
     "license": {
       "type": "restricted",
-      "name": "Restricted to certified GEAK experts",
+      "name": "Restricted to certified GEAK experts (cantonal energy certificate system)",
       "url": "https://www.geak.ch"
     },
     "lastUpdated": "2024-01-01",
@@ -7863,8 +7863,8 @@
     "author": "Swiss Federal Office of Energy (SFOE) / swisstopo",
     "license": {
       "type": "free",
-      "name": "Free public tool",
-      "url": "https://www.sonnenfassade.ch"
+      "name": "Free public tool (Swiss Federal Office of Energy); data open on opendata.swiss",
+      "url": "https://www.uvek-gis.admin.ch/BFE/sonnenfassade/"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (solar potential estimation)",
@@ -7933,7 +7933,7 @@
     "author": "Minergie Association (Switzerland)",
     "license": {
       "type": "free",
-      "name": "Free application tools; certification fee applies",
+      "name": "Free application tools and regulations; certification fee applies",
       "url": "https://www.minergie.ch"
     },
     "lastUpdated": "2024-01-01",
@@ -8003,7 +8003,7 @@
     "author": "Swiss Confederation / Conference of Cantonal Energy Directors (EnDK)",
     "license": {
       "type": "free",
-      "name": "Free public tool",
+      "name": "Free public tool (Swiss cantonal subsidy information portal)",
       "url": "https://www.dasgebaeudeprogramm.ch"
     },
     "lastUpdated": "2024-01-01",
@@ -8072,9 +8072,9 @@
     ],
     "author": "SIA (Swiss Society of Engineers and Architects) / cantonal energy offices",
     "license": {
-      "type": "mixed",
-      "name": "SIA standard (paid); calculator implementations vary (free cantonal tools to commercial software)",
-      "url": "https://www.sia.ch/en/services/sia-norm/geodata-and-climate-data/"
+      "type": "commercial",
+      "name": "SIA standard (paid purchase at shop.sia.ch); calculator implementations vary",
+      "url": "https://www.sia.ch/en/services/sia-norm/"
     },
     "lastUpdated": "2024-01-01",
     "scenario": "N/A (calculation standard)",
