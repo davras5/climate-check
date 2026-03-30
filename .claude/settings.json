@@ -322,7 +322,8 @@
       "Bash(curl -s https://thinkhazard.org/en/report/2832-switzerland-zurich.json)",
       "Bash(curl -s \"https://wfs.geodienste.ch/gefahrenkarten_v1_3_0/deu?service=WFS&version=2.0.0&request=GetFeature&typeName=ms:gefahrengebiet_wasser&count=2&BBOX=47.37,8.54,47.38,8.55,urn:ogc:def:crs:EPSG::4326\")",
       "Bash(curl -s \"https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=8.5417,47.3769&geometryType=esriGeometryPoint&sr=4326&layers=all:ch.bafu.klima-co2_ausstoss_gebaeude&tolerance=50&mapExtent=8.04,46.88,9.04,47.88&imageDisplay=500,500,96&returnGeometry=false\")",
-      "Bash(curl -s -L -o \"assets/img/fathom.jpg\" \"https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop\")"
+      "Bash(curl -s -L -o \"assets/img/fathom.jpg\" \"https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop\")",
+      "Bash(grep -i \"material\\\\|font.*awesome\\\\|bootstrap\\\\|tailwind\\\\|bulma\\\\|primer\\\\|framework\" /c/Users/DavidRasner/Documents/GitHub/climate-check/index.html /c/Users/DavidRasner/Documents/GitHub/climate-check/css/*.css)"
     ],
     "additionalDirectories": [
       "c:\\Users\\DavidRasner\\Documents\\GitHub\\climate-check",

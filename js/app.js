@@ -414,7 +414,7 @@ function showGallery() {
     <div class="search-bar mb-3">
       <div class="gallery-search-wrap">
         <label for="gsearch" class="d-none">Search models</label>
-        <svg class="gallery-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <svg class="gallery-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg>
         <input class="gallery-search" type="search" id="gsearch" placeholder="Search models\u2026" value="${filters.q}" aria-label="Search models">
       </div>
       <div class="search-bar-controls">
@@ -1308,25 +1308,18 @@ async function showModel(id) {
     const inputSummary = model.inputs.filter(i => i.required).map(i => `<code>${i.field}</code>`).join(', ');
     const hasTest = !!model.testData;
     h += `<div class="tryit-layout">
-      <div class="tryit-left">
-        <div class="drop" id="dropZone" role="button" tabindex="0" aria-label="Upload CSV file">
-          <div class="drop-icon">${ICON.upload.replace('width="16" height="16"', 'width="32" height="32"')}</div>
-          <p class="f5 mb-1"><strong>Drop CSV here</strong> or <span class="fgColor-accent">click to browse</span></p>
-          <p class="f6 fgColor-muted">Required columns: ${inputSummary || 'see Schema tab'}</p>
-          <input type="file" id="fileInput" accept=".csv">
-        </div>
-        <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>
+      <div class="drop" id="dropZone" role="button" tabindex="0" aria-label="Upload CSV file">
+        <div class="drop-icon">${ICON.upload.replace('width="16" height="16"', 'width="32" height="32"')}</div>
+        <p class="f5 mb-1"><strong>Drop CSV here</strong> or <span class="fgColor-accent">click to browse</span></p>
+        <p class="f6 fgColor-muted">Required columns: ${inputSummary || 'see Schema tab'}</p>
+        <input type="file" id="fileInput" accept=".csv">
       </div>
-      <div class="tryit-right">
-        <div class="tryit-actions">
-          <button class="btn btn-sm" id="dlTpl">${ICON.download} Download template</button>
-          ${hasTest ? `<button class="btn btn-sm btn-primary" id="ldDemo">${ICON.loadDemo} Load demo data</button>` : ''}
-        </div>
-        <div class="tryit-info mt-3">
-          <p class="f6 fgColor-muted mb-1"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
-          ${hasTest ? `<p class="f6 fgColor-muted">Demo data: <code>${model.testData}</code></p>` : ''}
-        </div>
+      <div class="tryit-links">
+        <a href="#" class="tryit-link" id="dlTpl">${ICON.download} Download template</a>
+        ${hasTest ? `<a href="#" class="tryit-link" id="ldDemo">${ICON.loadDemo} Load demo data</a>` : ''}
+        <p class="f6 fgColor-muted mt-2"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
       </div>
+      <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>
     </div>`;
   } else {
     const sm = STATUS_META[model.status] || STATUS_META['coming-soon'];
@@ -1396,13 +1389,15 @@ function wireEvents() {
   dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
   dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('dragover'); if(e.dataTransfer.files.length) readFile(e.dataTransfer.files[0]); });
   fi.addEventListener('change', () => { if(fi.files.length) readFile(fi.files[0]); });
-  $('#dlTpl').addEventListener('click', () => {
+  $('#dlTpl').addEventListener('click', e => {
+    e.preventDefault();
     const b = new Blob([currentEngine.generateTemplate()],{type:'text/csv'});
     const u = URL.createObjectURL(b);
     Object.assign(document.createElement('a'),{href:u,download:currentModel.id+'-template.csv'}).click();
     URL.revokeObjectURL(u);
   });
-  $('#ldDemo').addEventListener('click', loadDemo);
+  const ldBtn = $('#ldDemo');
+  if (ldBtn) ldBtn.addEventListener('click', e => { e.preventDefault(); loadDemo(); });
 }
 
 async function loadDemo() {

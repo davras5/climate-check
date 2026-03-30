@@ -946,26 +946,26 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
 
 /* ---- Try It layout ---- */
 .tryit-layout {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: var(--space-4);
-  align-items: start;
-}
-@media (max-width: 768px) {
-  .tryit-layout { grid-template-columns: 1fr; }
-}
-.tryit-actions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  max-width: 520px;
 }
-.tryit-actions .btn { justify-content: center; }
-.tryit-info code {
-  font-size: var(--text-xs);
-  background: var(--bg-subtle);
-  padding: 1px 4px;
-  border-radius: 3px;
+.tryit-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
 }
+.tryit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+.tryit-link:hover { color: var(--fgColor-accent); }
+.tryit-link svg { flex-shrink: 0; }
 
 /* ---- Upload drop zone ---- */
 .drop {
