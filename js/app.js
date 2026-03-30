@@ -1264,7 +1264,6 @@ async function showModel(id) {
       <div class="border rounded-2 mt-2 mb-4 overflow-x"><table class="schema-table f6 width-full" aria-label="Reference data">
         <thead><tr class="bgColor-muted">
           <th class="py-2 px-3 text-left label-xs">Constraint</th>
-          <th class="py-2 px-3 text-left label-xs">Code</th>
           <th class="py-2 px-3 text-left label-xs">Value</th>
           <th class="py-2 px-3 text-left label-xs">Description</th>
         </tr></thead><tbody>`;
@@ -1278,7 +1277,6 @@ async function showModel(id) {
         values.forEach((v, i) => {
           h += `<tr class="border-bottom"${i === 0 ? ` id="ref-${key}"` : ''}>
             <td class="py-1 px-3">${nameCell(i)}</td>
-            <td class="py-1 px-3 fgColor-muted">${i}</td>
             <td class="py-1 px-3">${v}</td>
             <td class="py-1 px-3 fgColor-muted">${descCell(i)}</td>
           </tr>`;
@@ -1288,8 +1286,7 @@ async function showModel(id) {
           h += `<tr class="border-bottom"${i === 0 ? ` id="ref-${key}"` : ''}>
             <td class="py-1 px-3">${nameCell(i)}</td>
             <td class="py-1 px-3"><code>${k}</code></td>
-            <td class="py-1 px-3">${v}</td>
-            <td class="py-1 px-3 fgColor-muted">${descCell(i)}</td>
+            <td class="py-1 px-3 fgColor-muted">${v || descCell(i)}</td>
           </tr>`;
         });
       }
