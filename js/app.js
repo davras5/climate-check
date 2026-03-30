@@ -9,15 +9,18 @@ let filters = { q:'', categories:[], lifecycle:[], license:[], region:[], status
 let viewMode = 'gallery'; // gallery | list | map
 let gallerySort = 'name'; // name | status | updated | region
 
+const LI = 'width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';
 const ICON = {
-  grid: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>',
-  list: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="2" width="14" height="2" rx="0.5"/><rect x="1" y="7" width="14" height="2" rx="0.5"/><rect x="1" y="12" width="14" height="2" rx="0.5"/></svg>',
-  map: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.3"/><ellipse cx="8" cy="8" rx="3" ry="6.5" fill="none" stroke="currentColor" stroke-width="1.1"/><line x1="1.5" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.1"/></svg>',
-  back: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"/></svg>',
-  scatter: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="4" cy="5" r="2"/><circle cx="10" cy="3" r="2"/><circle cx="7" cy="10" r="2"/><circle cx="13" cy="8" r="2"/><line x1="1" y1="15" x2="1" y2="1" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="1" y1="15" x2="15" y2="15" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>',
-  upload: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z" transform="rotate(180 8 8)"/></svg>',
-  download: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Zm-1-6.88a.75.75 0 0 1 1.06 0L7 11.31V1.75a.75.75 0 0 1 1.5 0v9.56l4.19-4.19a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"/></svg>',
-  loadDemo: '<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.47.97a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 1 1-1.06 1.06L8.75 3.31V10a.75.75 0 0 1-1.5 0V3.31L4.78 5.78a.75.75 0 0 1-1.06-1.06L7.47.97ZM1 12.25a.75.75 0 0 1 .75-.75h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1-.75-.75Z"/></svg>',
+  grid: `<svg ${LI}><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`,
+  list: `<svg ${LI}><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>`,
+  map: `<svg ${LI}><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>`,
+  back: `<svg ${LI}><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>`,
+  scatter: `<svg ${LI}><circle cx="7.5" cy="7.5" r="1"/><circle cx="18.5" cy="5.5" r="1"/><circle cx="11.5" cy="11.5" r="1"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="17.5" cy="14.5" r="1"/><path d="M3 3v16a2 2 0 0 0 2 2h16"/></svg>`,
+  upload: `<svg ${LI}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>`,
+  download: `<svg ${LI}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>`,
+  loadDemo: `<svg ${LI}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>`,
+  search: `<svg ${LI}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
+  close: `<svg ${LI}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`,
 };
 
 const STATUS_META = {
@@ -414,7 +417,7 @@ function showGallery() {
     <div class="search-bar mb-3">
       <div class="gallery-search-wrap">
         <label for="gsearch" class="d-none">Search models</label>
-        <svg class="gallery-search-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg>
+        ${ICON.search.replace('<svg ', '<svg class="gallery-search-icon" ')}
         <input class="gallery-search" type="search" id="gsearch" placeholder="Search models\u2026" value="${filters.q}" aria-label="Search models">
       </div>
       <div class="search-bar-controls">
@@ -1315,8 +1318,9 @@ async function showModel(id) {
         <input type="file" id="fileInput" accept=".csv">
       </div>
       <div class="tryit-links">
-        <a href="#" class="tryit-link" id="dlTpl">${ICON.download} Download template</a>
         ${hasTest ? `<a href="#" class="tryit-link" id="ldDemo">${ICON.loadDemo} Load demo data</a>` : ''}
+        ${hasTest ? `<span class="f6 fgColor-muted">or</span>` : ''}
+        <a href="#" class="tryit-link" id="dlTpl">${ICON.download} Download template</a>
         <p class="f6 fgColor-muted mt-2"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
       </div>
       <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>
@@ -1511,7 +1515,7 @@ function showDetail(r) {
   let h = `<div class="Box slideup mt-4 p-4">
     <div class="d-flex flex-justify-between flex-items-start pb-3 mb-3 border-bottom">
       <div><h2 class="f3 mb-1">${r.name} ${badge(t)}</h2><p class="f6 fgColor-muted">${r.country} \u00b7 ${r.propertyType} \u00b7 ${r.floorArea.toLocaleString()} m\u00B2 \u00b7 ${r.reportingYear}</p></div>
-      <button class="btn-octicon" id="closeD" aria-label="Close detail"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/></svg></button>
+      <button class="btn-octicon" id="closeD" aria-label="Close detail">${ICON.close}</button>
     </div>
     <div class="ins p-3 mb-4 f5">${insight(r)}</div>
     <div class="gk mb-4">

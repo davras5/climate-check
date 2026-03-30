@@ -9,7 +9,7 @@
 | **Region** | switzerland (CH) |
 | **License** | Source available (R script, available on request from FOEN) |
 | **Source** | [BAFU / FOEN](https://www.bafu.admin.ch/en/calculator-co2-buildings) |
-| **Author** | Swiss Federal Office for the Environment (BAFU/FOEN), developed by WÃ¼est Partner AG |
+| **Author** | Swiss Federal Office for the Environment (BAFU/FOEN), developed by Wüest Partner AG |
 
 ## Files
 

@@ -1,4 +1,4 @@
-# KBOB Ã–kobilanzdaten
+# KBOB Ökobilanzdaten
 
 > Authoritative Swiss LCA database for construction materials, building technology, and energy. Used by Minergie, SNBS, and all Swiss green building labels.
 
@@ -7,7 +7,7 @@
 | **Status** | `live` |
 | **Category** | embodied-carbon, epd-database |
 | **Region** | switzerland (CH) |
-| **License** | Free â€” data download and API via lcadata.ch |
+| **License** | Free — data download and API via lcadata.ch |
 | **Source** | [KBOB](https://www.kbob.admin.ch/de/oekobilanzdaten-im-baubereich) |
 | **Author** | KBOB / ecobau / IPB (based on Ecoinvent) |
 

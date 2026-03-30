@@ -7,9 +7,9 @@
 | **Status** | `live` |
 | **Category** | transition-risk |
 | **Region** | europe (EU) |
-| **License** | Proprietary â€” free for non-commercial use; commercial license required |
+| **License** | Proprietary — free for non-commercial use; commercial license required |
 | **Source** | [CRREM Foundation / IIO](https://www.crrem.eu) |
-| **Author** | CRREM Foundation / IIÃ– Institut fÃ¼r ImmobilienÃ¶konomie |
+| **Author** | CRREM Foundation / IIÖ Institut für Immobilienökonomie |
 
 ## Files
 

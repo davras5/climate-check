@@ -323,7 +323,14 @@
       "Bash(curl -s \"https://wfs.geodienste.ch/gefahrenkarten_v1_3_0/deu?service=WFS&version=2.0.0&request=GetFeature&typeName=ms:gefahrengebiet_wasser&count=2&BBOX=47.37,8.54,47.38,8.55,urn:ogc:def:crs:EPSG::4326\")",
       "Bash(curl -s \"https://api3.geo.admin.ch/rest/services/api/MapServer/identify?geometry=8.5417,47.3769&geometryType=esriGeometryPoint&sr=4326&layers=all:ch.bafu.klima-co2_ausstoss_gebaeude&tolerance=50&mapExtent=8.04,46.88,9.04,47.88&imageDisplay=500,500,96&returnGeometry=false\")",
       "Bash(curl -s -L -o \"assets/img/fathom.jpg\" \"https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&h=300&fit=crop\")",
-      "Bash(grep -i \"material\\\\|font.*awesome\\\\|bootstrap\\\\|tailwind\\\\|bulma\\\\|primer\\\\|framework\" /c/Users/DavidRasner/Documents/GitHub/climate-check/index.html /c/Users/DavidRasner/Documents/GitHub/climate-check/css/*.css)"
+      "Bash(grep -i \"material\\\\|font.*awesome\\\\|bootstrap\\\\|tailwind\\\\|bulma\\\\|primer\\\\|framework\" /c/Users/DavidRasner/Documents/GitHub/climate-check/index.html /c/Users/DavidRasner/Documents/GitHub/climate-check/css/*.css)",
+      "Bash(ls -la c:/Users/DavidRasner/Documents/GitHub/climate-check/*.js c:/Users/DavidRasner/Documents/GitHub/climate-check/*.sh c:/Users/DavidRasner/Documents/GitHub/climate-check/*.py)",
+      "Bash(xargs ls:*)",
+      "Bash(grep -r \"INSERT INTO\\\\|Ökobilanzdaten\\\\|kbob\" c:/Users/DavidRasner/Documents/GitHub/climate-check --include=*.py --include=*.js --include=*.sql)",
+      "Bash(find c:/Users/DavidRasner/Documents/GitHub/climate-check -type f -name *.py -o -name build* -o -name generate* -o -name *.mjs -o -name *.ts)",
+      "Bash(sqlite3 data/models.db \"SELECT id, name FROM models WHERE id LIKE ''%kbob%''\")",
+      "Bash(xargs grep:*)",
+      "Bash(grep -rl \"Ã\\\\|â€\" c:/Users/DavidRasner/Documents/GitHub/climate-check/engines/*/README.md)"
     ],
     "additionalDirectories": [
       "c:\\Users\\DavidRasner\\Documents\\GitHub\\climate-check",

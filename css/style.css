@@ -949,23 +949,24 @@ details[open] > summary .chev::before { transform: rotate(90deg); }
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  max-width: 520px;
 }
 .tryit-links {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  align-items: center;
+  gap: 6px;
 }
 .tryit-link {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 6px;
   font-size: var(--text-sm);
   color: var(--fg-muted);
   text-decoration: none;
 }
 .tryit-link:hover { color: var(--fgColor-accent); }
 .tryit-link svg { flex-shrink: 0; }
+.tryit-links > p { text-align: center; }
 
 /* ---- Upload drop zone ---- */
 .drop {
