@@ -1323,7 +1323,7 @@ async function showModel(id) {
         <a href="#" class="tryit-link" id="dlTpl">${ICON.download} Download template</a>
         <p class="f6 fgColor-muted mt-2"><strong>${inputCount}</strong> input field${inputCount !== 1 ? 's' : ''} · CSV headers must match field names from the Schema tab</p>
       </div>
-      <div id="status" class="mt-3 f6" role="status" aria-live="polite"></div>
+      <div id="console" class="console" role="log" aria-live="polite" aria-label="Processing log"></div>
     </div>`;
   } else {
     const sm = STATUS_META[model.status] || STATUS_META['coming-soon'];
@@ -1395,7 +1395,10 @@ function wireEvents() {
   fi.addEventListener('change', () => { if(fi.files.length) readFile(fi.files[0]); });
   $('#dlTpl').addEventListener('click', e => {
     e.preventDefault();
-    const b = new Blob([currentEngine.generateTemplate()],{type:'text/csv'});
+    const csv = currentEngine.generateTemplate
+      ? currentEngine.generateTemplate()
+      : currentModel.inputs.map(i => i.field).join(',') + '\n';
+    const b = new Blob([csv],{type:'text/csv'});
     const u = URL.createObjectURL(b);
     Object.assign(document.createElement('a'),{href:u,download:currentModel.id+'-template.csv'}).click();
     URL.revokeObjectURL(u);
@@ -1406,31 +1409,104 @@ function wireEvents() {
 
 async function loadDemo() {
   if (!currentModel||!currentEngine) return;
-  const st = $('#status');
-  st.innerHTML = '<span class="fgColor-muted">Loading demo\u2026</span>';
+  logClear();
+  log('info', 'Fetching demo data\u2026');
   try {
     const txt = await fetch(currentModel.testData).then(r=>r.text());
+    log('ok', `Loaded <strong>${currentModel.testData}</strong>`);
     processCSV(txt, 'demo');
-  } catch(e) { st.innerHTML = `<span class="fgColor-danger">${e.message}</span>`; }
+  } catch(e) { log('err', e.message); }
 }
 
 function readFile(f) {
-  if (!f.name.endsWith('.csv')) { $('#status').innerHTML='<span class="fgColor-danger">Need .csv file</span>'; return; }
+  logClear();
+  if (!f.name.endsWith('.csv')) { log('err', 'File must be .csv'); return; }
+  log('info', `Reading <strong>${f.name}</strong> (${(f.size/1024).toFixed(1)} KB)\u2026`);
   const r = new FileReader();
-  r.onload = e => processCSV(e.target.result, f.name);
+  r.onload = e => { log('ok', 'File loaded'); processCSV(e.target.result, f.name); };
   r.readAsText(f);
 }
 
-function processCSV(txt, label) {
+// ---- Processing console ----
+function logClear() {
+  const el = $('#console');
+  if (el) { el.innerHTML = ''; el.classList.add('console-active'); }
+}
+function log(type, msg) {
+  const el = $('#console');
+  if (!el) return;
+  const ts = new Date().toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const cls = type === 'err' ? 'console-err' : type === 'ok' ? 'console-ok' : type === 'warn' ? 'console-warn' : '';
+  el.insertAdjacentHTML('beforeend', `<div class="console-line ${cls}"><span class="console-ts">${ts}</span>${msg}</div>`);
+  el.scrollTop = el.scrollHeight;
+}
+
+async function processCSV(txt, label) {
   const assets = currentEngine.parseCSV(txt);
-  const st = $('#status');
-  if (!assets.length) { st.innerHTML='<span class="fgColor-danger">No valid rows</span>'; return; }
-  const res = assets.map(a => { const e=currentEngine.validate(a); return e.length?{error:e.join(', '),name:a.name}:currentEngine.calculate(a); });
+  if (!assets.length) { log('err', 'No valid rows found in CSV'); return; }
+  log('info', `Parsed <strong>${assets.length}</strong> row${assets.length !== 1 ? 's' : ''}`);
+  log('info', 'Processing\u2026');
+
+  const res = [];
+  for (let i = 0; i < assets.length; i++) {
+    const a = assets[i];
+    const name = a.name || a.asset_name || a.address || `Row ${i + 1}`;
+
+    if (currentEngine.validate) {
+      const e = currentEngine.validate(a);
+      if (e.length) {
+        log('warn', `<strong>${name}</strong> \u2014 skipped: ${e.join(', ')}`);
+        res.push({error: e.join(', '), name});
+        continue;
+      }
+    }
+    const r = await currentEngine.calculate(a);
+    if (r.error) {
+      log('warn', `<strong>${name}</strong> \u2014 ${r.error}`);
+      res.push({...r, name});
+    } else {
+      log('ok', `<strong>${name}</strong> \u2014 done`);
+      res.push(r);
+    }
+  }
+
   const ok = res.filter(r=>!r.error), bad = res.filter(r=>r.error);
-  let msg = `<span class="fgColor-open">${ok.length} asset(s) processed from ${label}.</span>`;
-  if (bad.length) msg += `<br><span class="fgColor-attention">${bad.length} skipped: ${bad.map(r=>r.name).join(', ')}</span>`;
-  st.innerHTML = msg;
-  if (ok.length) { currentResults = ok; renderDashboard(); }
+  if (ok.length) log('ok', `<strong>${ok.length}</strong> of ${res.length} processed successfully`);
+  if (bad.length) log('err', `<strong>${bad.length}</strong> failed`);
+  if (ok.length) {
+    currentResults = ok;
+    logDownload(ok);
+    renderDashboard();
+  }
+}
+
+function logDownload(rows) {
+  const el = $('#console');
+  if (!el || !rows.length) return;
+  // Collect scalar keys across all rows (skip arrays/objects)
+  const keys = [];
+  const seen = new Set();
+  for (const r of rows) {
+    for (const k of Object.keys(r)) {
+      if (seen.has(k)) continue;
+      seen.add(k);
+      const v = r[k];
+      if (v !== null && typeof v === 'object') continue;
+      keys.push(k);
+    }
+  }
+  const csvVal = v => {
+    if (v == null) return '';
+    const s = String(v);
+    return s.includes(',') || s.includes('"') || s.includes('\n') ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  const csv = [keys.join(','), ...rows.map(r => keys.map(k => csvVal(r[k])).join(','))].join('\n');
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const fname = (currentModel ? currentModel.id : 'results') + '-output.csv';
+  el.insertAdjacentHTML('beforeend',
+    `<div class="console-line console-dl">${ICON.download} <a href="${url}" download="${fname}">Download results as CSV</a> (${rows.length} row${rows.length !== 1 ? 's' : ''})</div>`);
+  el.scrollTop = el.scrollHeight;
 }
 
 // ============================================================
